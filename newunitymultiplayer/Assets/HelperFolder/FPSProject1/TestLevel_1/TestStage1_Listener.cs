@@ -27,9 +27,9 @@ namespace RB
             {
                 GameElement p = GameObject.Instantiate(_initializer.RESOURCE_LOADER.etcLoader.GetLoadedObj(etcResourceType.TEST_PLAYER)) as GameElement;
                 Vector3 position = message.vec3s[0];
-                Vector3 rotation = message.vec3s_rot[0];
+                //Vector3 rotation = message.vec3s_rot[0];
                 p.transform.position = position;
-                p.transform.GetChild(0).rotation = Quaternion.Euler(rotation);
+                //p.transform.GetChild(0).rotation = Quaternion.Euler(rotation);
                 p.InitGameElement(_initializer);
 
                 _stage.AddGameElement(p);
@@ -42,9 +42,9 @@ namespace RB
                 if (_initializer.STEAM_CONTROL.IsLobbyMember(steamID))
                 {
                     Vector3 position = message.vec3s[0];
-                    Vector3 rotation = message.vec3s_rot[0];
+                    //Vector3 rotation = message.vec3s_rot[0];
                     _stage.OnPlayerPosition(steamID, position);
-                    _stage.OnPlayerRotation(steamID, rotation);
+                    _stage.OnPlayerRotation(steamID, Vector3.zero);
                 }
             }
         }
