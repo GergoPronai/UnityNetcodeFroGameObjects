@@ -12,11 +12,14 @@ namespace RB.GameElements
 
         public override void OnUpdate()
         {
-            animator.SetFloat("Speed",_targetPos.magnitude);
             this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, 0.2f);
             this.transform.GetChild(0).rotation = Quaternion.Euler(Vector3.Lerp(this.transform.GetChild(0).rotation.eulerAngles, _targetRot, 0.2f));
         }
-
+        public override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            animator.SetFloat("Speed", _targetPos.magnitude);
+        }
 
         public override void SetTargetPosition(Vector3 position)
         {
