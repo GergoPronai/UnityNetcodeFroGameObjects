@@ -73,7 +73,7 @@ namespace RB
             {
                 GameElement p = Instantiate(_initializer.RESOURCE_LOADER.etcLoader.GetLoadedObj(etcResourceType.DUMMY_PLAYER)) as GameElement;
                 p.transform.position = position;
-                p.transform.rotation = Quaternion.Euler(rotation);
+                p.transform.GetChild(0).rotation = Quaternion.Euler(rotation);
                 p.InitGameElement(_initializer);
 
                 string name = _initializer.STEAM_CONTROL.GetMemberName(steamID);

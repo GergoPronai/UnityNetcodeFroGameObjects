@@ -29,7 +29,7 @@ namespace RB
                 Vector3 position = message.vec3s[0];
                 Vector3 rotation = message.vec3s[1];
                 p.transform.position = position;
-                p.transform.rotation = Quaternion.Euler(rotation);
+                p.transform.GetChild(0).rotation = Quaternion.Euler(rotation);
                 p.InitGameElement(_initializer);
 
                 _stage.AddGameElement(p);

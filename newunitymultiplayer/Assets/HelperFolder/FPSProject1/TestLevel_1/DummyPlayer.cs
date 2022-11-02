@@ -14,7 +14,7 @@ namespace RB.GameElements
         {
             animator.SetFloat("Speed",_targetPos.magnitude);
             this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, 0.2f);
-            this.transform.rotation = Quaternion.Euler(Vector3.Lerp(this.transform.rotation.eulerAngles, _targetRot, 0.2f));
+            this.transform.GetChild(0).rotation = Quaternion.Euler(Vector3.Lerp(this.transform.GetChild(0).rotation.eulerAngles, _targetRot, 0.2f));
         }
 
 
