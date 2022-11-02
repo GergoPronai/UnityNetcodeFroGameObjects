@@ -33,6 +33,10 @@ namespace RB.GameElements
         {
 
         }
+        public virtual void SetTargetRotation(Vector3 rotation)
+        {
+
+        }
 
         public virtual Vector3 GetTargetPosition()
         {

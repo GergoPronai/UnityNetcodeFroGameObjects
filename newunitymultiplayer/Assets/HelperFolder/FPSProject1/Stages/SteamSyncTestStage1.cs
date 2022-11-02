@@ -67,12 +67,13 @@ namespace RB
             _standardCanvas.OnLateUpdate();
         }
 
-        public void OnPlayerPosition(SteamId steamID, Vector3 position)
+        public void OnPlayerPosition(SteamId steamID, Vector3 position, Vector3 rotation)
         {
             if (!_dicPositions.ContainsKey(steamID.Value))
             {
                 GameElement p = Instantiate(_initializer.RESOURCE_LOADER.etcLoader.GetLoadedObj(etcResourceType.DUMMY_PLAYER)) as GameElement;
                 p.transform.position = position;
+                p.transform.rotation = Quaternion.Euler(rotation);
                 p.InitGameElement(_initializer);
 
                 string name = _initializer.STEAM_CONTROL.GetMemberName(steamID);
@@ -80,10 +81,12 @@ namespace RB
 
                 AddGameElement(p);
                 _dicPositions.Add(steamID, p);
+
             }
             else
             {
                 _dicPositions[steamID].SetTargetPosition(position);
+                _dicPositions[steamID].SetTargetRotation(rotation);
             }
         }
     }
