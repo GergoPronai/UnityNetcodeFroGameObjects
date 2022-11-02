@@ -11,12 +11,16 @@ namespace RB.GameElements
         public float animSpeed = 0f;
         public Transform PlayerVisuals;
         public Animator animator;
+        public GameObject cam;
 
         public override void InitGameElement(IGameInitializer initializer)
         {
             _initializer = initializer;
         }
-
+        void Start()
+        {
+            cam.gameObject.SetActive(true);
+        }
         public override void OnUpdate()
         {
             DetectedInputDevice input = _initializer.INPUT_DEVICES.GetInputDevice(0);

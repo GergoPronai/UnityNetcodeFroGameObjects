@@ -3198,6 +3198,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 153815336276250178, guid: 40dd302a4ad72184498b94cc6ba67b49, type: 3}
+      propertyPath: _showDebugText
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3532865630562760666, guid: 40dd302a4ad72184498b94cc6ba67b49, type: 3}
       propertyPath: m_Name
       value: GameInitializer
