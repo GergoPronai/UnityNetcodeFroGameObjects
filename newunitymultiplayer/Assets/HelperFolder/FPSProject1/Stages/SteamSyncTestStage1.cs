@@ -10,6 +10,7 @@ namespace RB
     {
         [SerializeField]
         Dictionary<ulong, GameElement> _dicPositions;
+        Dictionary<ulong, GameElement> _dicRotaions;
 
         public override void OnEnter()
         {
@@ -17,6 +18,7 @@ namespace RB
             InitStandardCanvas();
 
             _dicPositions = new Dictionary<ulong, GameElement>();
+            _dicRotaions = new Dictionary<ulong, GameElement>();
             _listener = new TestStage1_Listener(_initializer, this);
         }
 
@@ -67,13 +69,12 @@ namespace RB
             _standardCanvas.OnLateUpdate();
         }
 
-        public void OnPlayerPosition(SteamId steamID, Vector3 position, Vector3 rotation)
+        public void OnPlayerPosition(SteamId steamID, Vector3 position)
         {
             if (!_dicPositions.ContainsKey(steamID.Value))
             {
                 GameElement p = Instantiate(_initializer.RESOURCE_LOADER.etcLoader.GetLoadedObj(etcResourceType.DUMMY_PLAYER)) as GameElement;
                 p.transform.position = position;
-                p.transform.GetChild(0).rotation = Quaternion.Euler(rotation);
                 p.InitGameElement(_initializer);
 
                 string name = _initializer.STEAM_CONTROL.GetMemberName(steamID);
@@ -86,7 +87,23 @@ namespace RB
             else
             {
                 _dicPositions[steamID].SetTargetPosition(position);
-                _dicPositions[steamID].SetTargetRotation(rotation);
+            }
+        }
+        public void OnPlayerRotation(SteamId steamID, Vector3 rotation)
+        {
+            if (!_dicPositions.ContainsKey(steamID.Value))
+            {
+                GameElement p = Instantiate(_initializer.RESOURCE_LOADER.etcLoader.GetLoadedObj(etcResourceType.DUMMY_PLAYER)) as GameElement;
+                p.transform.GetChild(0).rotation = Quaternion.Euler(rotation);
+                p.InitGameElement(_initializer);
+                string name = _initializer.STEAM_CONTROL.GetMemberName(steamID);
+                GeneralDebug.Log(name + " dummy spawn Rotation in eular angles: " + rotation);
+                AddGameElement(p);
+                _dicRotaions.Add(steamID, p);
+            }
+            else
+            {
+                _dicRotaions[steamID].SetTargetRotation(rotation);
             }
         }
     }

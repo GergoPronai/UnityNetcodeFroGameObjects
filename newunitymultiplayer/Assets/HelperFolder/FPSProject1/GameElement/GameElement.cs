@@ -42,5 +42,9 @@ namespace RB.GameElements
         {
             return Vector3.zero;
         }
+        public virtual Vector3 GetTargetRotation()
+        {
+            return Vector3.zero;
+        }
     }
 }

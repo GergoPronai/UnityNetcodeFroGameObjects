@@ -18,6 +18,7 @@ namespace RB
         public List<bool> bools = null;
         public List<uint> uInts = null;
         public List<Vector3> vec3s = null;
+        public List<Vector3> vec3s_rot = null;
         public List<string> strings = null;
         public List<System.Net.Sockets.TcpClient> _tcpClients = null;
         public List<System.Type> types = null;
