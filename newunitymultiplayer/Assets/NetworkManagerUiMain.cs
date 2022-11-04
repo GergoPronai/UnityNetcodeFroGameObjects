@@ -20,7 +20,7 @@ public class NetworkManagerUiMain : MonoBehaviour
 
     [SerializeField] private Button HostButton;
     [SerializeField] private Button ClientButton;
-    private string IPAddress=null;
+    private string IPAddress="127.0.0.1";//set to local network ny default
     private void Awake()
     {
         HostButton.onClick.AddListener(() => {
