@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6213879655610330788}
   - component: {fileID: 6213879655610330787}
-  - component: {fileID: 6213879655610330784}
+  - component: {fileID: 540644601140171290}
   m_Layer: 0
   m_Name: SteamTransport_MyNetworkManager
   m_TagString: Untagged
@@ -49,7 +49,7 @@ MonoBehaviour:
   LogLevel: 0
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 6213879655610330784}
+    NetworkTransport: {fileID: 540644601140171290}
     PlayerPrefab: {fileID: 6375893901098962156, guid: 44225cb02d986724f9b5a1d9f01e88f9, type: 3}
     NetworkPrefabs:
     - Override: 0
@@ -72,7 +72,7 @@ MonoBehaviour:
     LoadSceneTimeOut: 120
     SpawnTimeout: 1
     EnableNetworkLogs: 1
---- !u!114 &6213879655610330784
+--- !u!114 &540644601140171290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/Main.unity
+    guid: 50bd80e4b1cec62428bbe561f5068fcf
   - enabled: 1
-    path: Assets/HelperFolder/FPSProject1/GameScene.unity
-    guid: 80ea63556e44d7e4e867f8e5ebe93e93
+    path: Assets/Scenes/MultiplayerTestScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
