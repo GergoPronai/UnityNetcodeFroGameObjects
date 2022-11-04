@@ -15,7 +15,7 @@ public enum NetworkTransportType
 }
 public class NetworkManagerUiMain : MonoBehaviour
 {
-    [SerializeField] private Canvas LobbyCanvas;
+    [SerializeField] private GameObject LoginPage;
 
 
     [SerializeField] private Button HostButton;
@@ -28,7 +28,7 @@ public class NetworkManagerUiMain : MonoBehaviour
             {
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetComponent<Unity.Netcode.Transports.UNET.UNetTransport>().ConnectAddress = IPAddress;
                 NetworkManager.Singleton.StartHost();
-                LobbyCanvas.gameObject.SetActive(false);
+                LoginPage.SetActive(false);
             }
         });
         ClientButton.onClick.AddListener(() => {
@@ -36,7 +36,7 @@ public class NetworkManagerUiMain : MonoBehaviour
             {
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetComponent<Unity.Netcode.Transports.UNET.UNetTransport>().ConnectAddress = IPAddress;
                 NetworkManager.Singleton.StartClient();
-                LobbyCanvas.gameObject.SetActive(false);
+                LoginPage.SetActive(false);
             }
         });
     }
