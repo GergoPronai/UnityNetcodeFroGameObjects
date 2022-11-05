@@ -1,0 +1,365 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4530061605926122747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4530061605926122745}
+  - component: {fileID: 4530061605926122744}
+  - component: {fileID: 3002374960743641395}
+  m_Layer: 0
+  m_Name: CharacterCustomizationManager
+  m_TagString: CharacterCustomizer
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4530061605926122745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530061605926122747}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 646.14655, y: 233.02643, z: -152.04156}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4530061605926122744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530061605926122747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af2ea5207b839545974e4963c514bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterImages:
+  - {fileID: 21300000, guid: 7bdd188e5e6366244bc47aaadfbfbb56, type: 3}
+  - {fileID: 21300000, guid: 650d9db3ad9aac84bb53a71be871a2af, type: 3}
+  - {fileID: 21300000, guid: 050c876a74da99947afd8bbb8f69ef49, type: 3}
+  - {fileID: 21300000, guid: e4b2f3fe844516c4f8f317c380471269, type: 3}
+  characterImage: {fileID: 0}
+  character: 3
+  NameText: {fileID: 0}
+  PlayerListItemPrefab: {fileID: 0}
+  prefabButton: {fileID: 0}
+  AvailableholderOfButton: {fileID: 0}
+  ChosenholderOfButton: {fileID: 0}
+  BarabarianAttackInfos:
+  - Name: Wicked Smack
+    Description: A big bonk
+    Position: 1
+    weaponType: 3
+    numberOfTargetsIfApplicable: 2
+    Damage: 12
+    Accuracy: 85
+    CritChance: 4
+    AffectedStats: 
+    AffectStatAmountIfApplicable: 0
+    StatRemovedIfApplicable: 
+  - Name: Ferrous Flurry
+    Description: An elegant dance but with a swinging hammer
+    Position: 0
+    weaponType: 0
+    numberOfTargetsIfApplicable: 1
+    Damage: 12
+    Accuracy: 85
+    CritChance: 5
+    AffectedStats: 
+    AffectStatAmountIfApplicable: 0
+    StatRemovedIfApplicable: 
+  - Name: Battler Cry
+    Description: Shoting very loudly
+    Position: 2
+    weaponType: 3
+    numberOfTargetsIfApplicable: 2
+    Damage: 0
+    Accuracy: 95
+    CritChance: 95
+    AffectedStats: 07000000
+    AffectStatAmountIfApplicable: 110
+    StatRemovedIfApplicable: 
+  - Name: It Shall Bleed
+    Description: Hot so hard the enemies' internals
+    Position: 1
+    weaponType: 3
+    numberOfTargetsIfApplicable: 3
+    Damage: 12
+    Accuracy: 85
+    CritChance: 0
+    AffectedStats: 03000000
+    AffectStatAmountIfApplicable: 2
+    StatRemovedIfApplicable: 
+  - Name: '''Mjolner'' Away!'
+    Description: Throw the hammer at the target but get pulled up one position in
+      the turn order
+    Position: 3
+    weaponType: 3
+    numberOfTargetsIfApplicable: 3
+    Damage: 6
+    Accuracy: 85
+    CritChance: 0
+    AffectedStats: 04000000
+    AffectStatAmountIfApplicable: 1
+    StatRemovedIfApplicable: 
+  - Name: Drink Mead
+    Description: Select a target to drink mead with you, heal that target and remove
+      poison and bleed effects
+    Position: 2
+    weaponType: 6
+    numberOfTargetsIfApplicable: 1
+    Damage: 0
+    Accuracy: 100
+    CritChance: 0
+    AffectedStats: 
+    AffectStatAmountIfApplicable: 0
+    StatRemovedIfApplicable: 0300000002000000
+  - Name: Primal Sacrifice
+    Description: Offer 20% health in exchange for 20$ more damage and cause you to
+      bleed
+    Position: 3
+    weaponType: 7
+    numberOfTargetsIfApplicable: 1
+    Damage: 20
+    Accuracy: 0
+    CritChance: 0
+    AffectedStats: 03000000
+    AffectStatAmountIfApplicable: 2
+    StatRemovedIfApplicable: 
+  KnightAttackInfos:
+  - Name: Smite
+    Description: Put the fear of God in them and gain 15% damage increase
+    Position: 2
+    weaponType: 3
+    numberOfTargetsIfApplicable: 2
+    Damage: 12
+    Accuracy: 85
+    CritChance: 4
+    AffectedStats: 07000000
+    AffectStatAmountIfApplicable: 15
+    StatRemovedIfApplicable: 
+  - Name: Bible Reading
+    Description: Shhh! Im reading!! Revise the sciptures can heal help heal a single
+      target
+    Position: 3
+    weaponType: 6
+    numberOfTargetsIfApplicable: 1
+    Damage: 50
+    Accuracy: 100
+    CritChance: 0
+    AffectedStats: 
+    AffectStatAmountIfApplicable: 0
+    StatRemovedIfApplicable: 
+  - Name: Swift Blow
+    Description: A quick blow to the back of their heads and cause Stun
+    Position: 2
+    weaponType: 3
+    numberOfTargetsIfApplicable: 2
+    Damage: 0
+    Accuracy: 85
+    CritChance: 4
+    AffectedStats: 01000000
+    AffectStatAmountIfApplicable: 100
+    StatRemovedIfApplicable: 
+  - Name: Up To The Fates
+    Description: Gain Stun this turn but remove all other debuffs
+    Position: 0
+    weaponType: 7
+    numberOfTargetsIfApplicable: 0
+    Damage: 0
+    Accuracy: 100
+    CritChance: 0
+    AffectedStats: 01000000
+    AffectStatAmountIfApplicable: 100
+    StatRemovedIfApplicable: 020000000300000004000000090000000a000000
+  - Name: Rations
+    Description: Share your rations with your friends and heal them a small percentage
+    Position: 4
+    weaponType: 8
+    numberOfTargetsIfApplicable: 3
+    Damage: 10
+    Accuracy: 100
+    CritChance: 0
+    AffectedStats: 
+    AffectStatAmountIfApplicable: 0
+    StatRemovedIfApplicable: 
+  - Name: Holy Slash
+    Description: Proplel yourself forwards with an astonishing blow
+    Position: 3
+    weaponType: 3
+    numberOfTargetsIfApplicable: 3
+    Damage: 12
+    Accuracy: 85
+    CritChance: 6
+    AffectedStats: 04000000
+    AffectStatAmountIfApplicable: 1
+    StatRemovedIfApplicable: 
+  MageAttackInfos:
+  - Name: Blood Donation
+    Description: Take damage in exchange for 15% more damage
+    Position: 2
+    weaponType: 7
+    numberOfTargetsIfApplicable: 0
+    Damage: 5
+    Accuracy: 100
+    CritChance: 0
+    AffectedStats: 07000000
+    AffectStatAmountIfApplicable: 15
+    StatRemovedIfApplicable: 
+  - Name: Ward Of The Coven
+    Description: Everyone gains 20% damage increase and everyone bleeds
+    Position: 3
+    weaponType: 5
+    numberOfTargetsIfApplicable: 3
+    Damage: 0
+    Accuracy: 85
+    CritChance: 0
+    AffectedStats: 0700000003000000
+    AffectStatAmountIfApplicable: 0
+    StatRemovedIfApplicable: 
+  - Name: Curse Of Misfortune
+    Description: Reduces the attack accuracy of multiple enemies
+    Position: 4
+    weaponType: 5
+    numberOfTargetsIfApplicable: 4
+    Damage: 0
+    Accuracy: 100
+    CritChance: 0
+    AffectedStats: 090000000a000000
+    AffectStatAmountIfApplicable: 15
+    StatRemovedIfApplicable: 
+  - Name: Paralysis Bomb
+    Description: Throw a potion of paralysis at the enemy target Stunning them
+    Position: 1
+    weaponType: 2
+    numberOfTargetsIfApplicable: 1
+    Damage: 0
+    Accuracy: 85
+    CritChance: 4
+    AffectedStats: 01000000
+    AffectStatAmountIfApplicable: 0
+    StatRemovedIfApplicable: 
+  - Name: Ice Beam
+    Description: Unleash an ice beam dealing damage to the enemy Stunning them
+    Position: 0
+    weaponType: 2
+    numberOfTargetsIfApplicable: 1
+    Damage: 12
+    Accuracy: 85
+    CritChance: 4
+    AffectedStats: 01000000
+    AffectStatAmountIfApplicable: 100
+    StatRemovedIfApplicable: 
+  - Name: Razor Wind
+    Description: High pressure wind that can cut enemies dealing little damage but
+      major bleed
+    Position: 1
+    weaponType: 3
+    numberOfTargetsIfApplicable: 2
+    Damage: 5
+    Accuracy: 85
+    CritChance: 4
+    AffectedStats: 03000000
+    AffectStatAmountIfApplicable: 15
+    StatRemovedIfApplicable: 
+  RogueAttackInfos:
+  - Name: Get Shanked!
+    Description: Lunge forward at the enemy target moving you up one in the turn
+      order
+    Position: 4
+    weaponType: 0
+    numberOfTargetsIfApplicable: 0
+    Damage: 12
+    Accuracy: 85
+    CritChance: 4
+    AffectedStats: 04000000
+    AffectStatAmountIfApplicable: 1
+    StatRemovedIfApplicable: 
+  - Name: Reap
+    Description: Blood collection serveice you collect their blood
+    Position: 1
+    weaponType: 3
+    numberOfTargetsIfApplicable: 2
+    Damage: 0
+    Accuracy: 90
+    CritChance: 0
+    AffectedStats: 
+    AffectStatAmountIfApplicable: 2
+    StatRemovedIfApplicable: 
+  - Name: Finesse
+    Description: Deal devastating damage for your final act retreat three places
+      in the turn order afterwards
+    Position: 0
+    weaponType: 0
+    numberOfTargetsIfApplicable: 1
+    Damage: 18
+    Accuracy: 140
+    CritChance: 5
+    AffectedStats: 04000000
+    AffectStatAmountIfApplicable: -3
+    StatRemovedIfApplicable: 
+  - Name: A Bard's Tale
+    Description: A song to boost the spirits of fellow party members removing Poison
+      and Accuracy reductions whilst increasing damage by 10%
+    Position: 2
+    weaponType: 8
+    numberOfTargetsIfApplicable: 3
+    Damage: 0
+    Accuracy: 85
+    CritChance: 0
+    AffectedStats: 07000000
+    AffectStatAmountIfApplicable: 10
+    StatRemovedIfApplicable: 0a00000002000000
+  - Name: Inspire
+    Description: Be inspirational! Inducing a wrath-like state increasing both damage
+      and accuracy
+    Position: 4
+    weaponType: 8
+    numberOfTargetsIfApplicable: 3
+    Damage: 0
+    Accuracy: 100
+    CritChance: 0
+    AffectedStats: 070000000b000000
+    AffectStatAmountIfApplicable: 10
+    StatRemovedIfApplicable: 0a000000
+  - Name: Knife Throw
+    Description: Throw knives at enemies inflicting Poison
+    Position: 3
+    weaponType: 1
+    numberOfTargetsIfApplicable: 1
+    Damage: 12
+    Accuracy: 85
+    CritChance: 4
+    AffectedStats: 02000000
+    AffectStatAmountIfApplicable: 2
+    StatRemovedIfApplicable: 
+  healthTxt: {fileID: 0}
+  playerHealth: 100
+--- !u!114 &3002374960743641395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530061605926122747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
