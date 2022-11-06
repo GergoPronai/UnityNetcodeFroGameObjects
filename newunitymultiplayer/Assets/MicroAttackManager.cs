@@ -18,7 +18,7 @@ public class MicroAttackManager : NetworkBehaviour
     private GameObject InstantiatedObj;
     private MicroAttackManager microAttackManager;
     // Start is called before the first frame update
-    void Start()
+    public override void OnNetworkSpawn()
     {
         ChosenHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().ChosenholderOfButton;
         AvailableHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().AvailableholderOfButton;
@@ -31,12 +31,12 @@ public class MicroAttackManager : NetworkBehaviour
         switchVar = !switchVar;
         if (switchVar && ChosenHolder.childCount < 3)
         {
-            this.transform.SetParent(ChosenHolder);
+            transform.SetParent(ChosenHolder);
             for (int i = 0; i < ParentForExtraInfo.childCount; i++)
             {
                 Destroy(ParentForExtraInfo.GetChild(i).gameObject);
             }
-            InstantiatedObj = Instantiate(PrefabbedExtraInfo, ParentForExtraInfo);
+            InstantiatedObj = Instantiate(PrefabbedExtraInfo, ParentForExtraInfo.position, Quaternion.identity);
             InstantiatedObj.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Name;
             InstantiatedObj.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Description;
             InstantiatedObj.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = "Position attack can be used: "+AttacksInfo.Position.ToString();
@@ -117,13 +117,13 @@ public class MicroAttackManager : NetworkBehaviour
         }
         else
         {
-            this.transform.SetParent(AvailableHolder);
+            transform.SetParent(AvailableHolder);
             for (int i = 0; i < ParentForExtraInfo.childCount; i++)
             {
                 Destroy(ParentForExtraInfo.GetChild(i).gameObject);
             }
         }
-        //NetworkClient.localPlayer.gameObject.GetComponent<GamePlayer>().checkChosenAttacks(ChosenHolder, microAttackManager);
+        NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().checkChosenAttacks(ChosenHolder, microAttackManager);
         
     }
 }

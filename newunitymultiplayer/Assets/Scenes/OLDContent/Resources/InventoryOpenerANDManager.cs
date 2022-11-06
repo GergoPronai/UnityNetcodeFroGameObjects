@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InventoryOpenerANDManager : NetworkBehaviour
 {
@@ -10,8 +9,6 @@ public class InventoryOpenerANDManager : NetworkBehaviour
     [SerializeField] KeyCode CursorToggleKey = KeyCode.T;
     [SerializeField] KeyCode InventoryToggle = KeyCode.Tab;
 
-    [Header("healthBar Stuff")]
-    public Slider HealthBar;
     [Header("InventoryBar Stuff")]
     [SerializeField] GameObject Inventorybar;
     [SerializeField] Transform pos1;
@@ -20,22 +17,9 @@ public class InventoryOpenerANDManager : NetworkBehaviour
     
     private bool IsLocked = false;
 
-    public void disable()
-    {
-        HealthBar.gameObject.SetActive(true);
-        OnToggleCursor();
-    }
-    public void enable()
-    {
-        HealthBar.gameObject.SetActive(false);
-        Inventorybar.transform.position = pos2.position;
-
-    }
     private void Start()
     {
-        //Cursor.lockState=CursorLockMode.Locked;
-        //NewStuff
-        enable();
+        Inventorybar.transform.position = pos2.position;
     }
 
     private void Update()

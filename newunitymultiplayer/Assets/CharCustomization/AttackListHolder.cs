@@ -29,7 +29,7 @@ public class AttackListHolder : NetworkBehaviour
     public List<AttackInfo> MageAttackInfos;
     public List<AttackInfo> RogueAttackInfos;
     private GameObject prefabInstantiated=null;
-    public TMPro.TextMeshProUGUI healthTxt;
+    public TMPro.TextMeshProUGUI healthTxt=null;
     public float playerHealth = 100f;
 
     private void Start()
@@ -90,7 +90,7 @@ public class AttackListHolder : NetworkBehaviour
                     Destroy(child.gameObject);
                 }
                 foreach (AttackInfo item in BarabarianAttackInfos)
-                {                    
+                {
                     prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo= item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
@@ -141,7 +141,7 @@ public class AttackListHolder : NetworkBehaviour
                 }
                 foreach (AttackInfo item in RogueAttackInfos)
                 {
-                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
+                    prefabInstantiated = Instantiate(prefabButton,AvailableholderOfButton);
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo= item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
 

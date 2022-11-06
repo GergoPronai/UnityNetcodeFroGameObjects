@@ -9,6 +9,10 @@ TagManager:
   - Barbarian
   - Mage
   - Knight
+  - CharacterCustomizer
+  - Roof
+  - ExtraInfoPanel
+  - ReadyUpButton
   layers:
   - Default
   - TransparentFX
