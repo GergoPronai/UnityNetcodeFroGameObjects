@@ -8338,7 +8338,9 @@ MonoBehaviour:
   - {fileID: 5511766338474819577}
   attackInfos: []
   votes_Cast: 0
-  LocalClientid: 0
+  PlayerName: 
+  playerHealth: 0
+  _Charchosen: 0
 --- !u!114 &3136992098025367456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8354,7 +8356,35 @@ MonoBehaviour:
   _serverAuth: 0
   _cheapInterpolationTime: 0.1
   cam: {fileID: 1504322654906340249}
+  barbarian:
+  - {fileID: 4523550199464001701}
+  - {fileID: 7247273832161550976}
+  - {fileID: 7758324511387167832}
+  - {fileID: 4623597810557549855}
+  - {fileID: 7814945640994520175}
+  knight:
+  - {fileID: 7112411171158877312}
+  - {fileID: 3032558875885768337}
+  - {fileID: 8348317851729437235}
+  - {fileID: 1808784914526046185}
+  - {fileID: 7215284979382946599}
+  - {fileID: 1111534943745887381}
+  mage:
+  - {fileID: 6953896159615582723}
+  - {fileID: 646483529943086443}
+  - {fileID: 780812244554142237}
+  - {fileID: 7735666187203755833}
+  - {fileID: 4813129917227009874}
+  - {fileID: 4056825277430606061}
+  rogue:
+  - {fileID: 3092159046362785182}
+  - {fileID: 2179232331096550606}
+  - {fileID: 8945022690478536237}
+  - {fileID: 1773892105687590725}
+  - {fileID: 5511766338474819577}
   animSpeed:
+    m_InternalValue: 0
+  _Charchosen:
     m_InternalValue: 0
 --- !u!114 &627198902272228425
 MonoBehaviour:

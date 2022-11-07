@@ -10,9 +10,14 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] private bool _serverAuth;
     [SerializeField] private float _cheapInterpolationTime = 0.1f;
     [SerializeField] private Camera cam;
+    [SerializeField] private GameObject[] barbarian;
+    [SerializeField] private GameObject[] knight;
+    [SerializeField] private GameObject[] mage;
+    [SerializeField] private GameObject[] rogue;
 
     private NetworkVariable<PlayerNetworkState> _playerState;
     public NetworkVariable<float> animSpeed;
+    public NetworkVariable<int> _Charchosen;
     private Rigidbody _rb;
 
     private void Awake()
@@ -22,6 +27,85 @@ public class PlayerNetwork : NetworkBehaviour
         var permission = _serverAuth ? NetworkVariableWritePermission.Server : NetworkVariableWritePermission.Owner;
         _playerState = new NetworkVariable<PlayerNetworkState>(writePerm: permission);
         animSpeed = new NetworkVariable<float>(writePerm: permission);
+        _Charchosen = new NetworkVariable<int>(writePerm: permission);
+    }
+    public void SetUpChar()
+    {
+        switch (_Charchosen.Value)
+        {
+            case 0:
+                foreach (GameObject item in barbarian)
+                {
+                    item.SetActive(true);
+                }
+                foreach (GameObject item in knight)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in mage)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in rogue)
+                {
+                    item.SetActive(false);
+                }
+                break;
+            case 1:
+                foreach (GameObject item in barbarian)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in knight)
+                {
+                    item.SetActive(true);
+                }
+                foreach (GameObject item in mage)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in rogue)
+                {
+                    item.SetActive(false);
+                }
+                break;
+            case 2:
+                foreach (GameObject item in barbarian)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in knight)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in mage)
+                {
+                    item.SetActive(true);
+                }
+                foreach (GameObject item in rogue)
+                {
+                    item.SetActive(false);
+                }
+                break;
+            case 3:
+                foreach (GameObject item in barbarian)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in knight)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in mage)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in rogue)
+                {
+                    item.SetActive(true);
+                }
+                break;
+        }
     }
     public override void OnNetworkSpawn()
     {
@@ -50,6 +134,8 @@ public class PlayerNetwork : NetworkBehaviour
         {
             _playerState.Value = state;
             animSpeed.Value = transform.GetComponent<PlayerMovement>().animSpeed;
+            _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
+            SetUpChar();
         }
         else
             TransmitStateServerRpc(state);
@@ -60,6 +146,8 @@ public class PlayerNetwork : NetworkBehaviour
     {
         _playerState.Value = state;
         animSpeed.Value = transform.GetComponent<PlayerMovement>().animSpeed;
+        _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
+        SetUpChar();
     }
 
     #endregion
@@ -78,6 +166,9 @@ public class PlayerNetwork : NetworkBehaviour
             0, Mathf.SmoothDampAngle(transform.GetChild(0).rotation.eulerAngles.y, _playerState.Value.Rotation.y, ref _rotVelY, _cheapInterpolationTime), 0);
 
         transform.GetComponent<PlayerMovement>().animSpeed = animSpeed.Value;
+        transform.GetComponent<PlayergameObjScript>()._Charchosen = _Charchosen.Value;
+        SetUpChar();
+
     }
 
     #endregion

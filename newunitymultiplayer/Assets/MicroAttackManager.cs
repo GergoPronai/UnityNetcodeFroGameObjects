@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using Steamworks;
 
-public class MicroAttackManager : NetworkBehaviour
+public class MicroAttackManager : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI AttackName;
     public GameObject PrefabbedExtraInfo;
@@ -17,14 +16,19 @@ public class MicroAttackManager : NetworkBehaviour
     private Transform ParentForExtraInfo;
     private GameObject InstantiatedObj;
     private MicroAttackManager microAttackManager;
+    public AttackListHolder characterCustomizer = null;
+    [Header("Player Manager")]
+    public Unity.Netcode.NetworkManager NetManager;
     // Start is called before the first frame update
-    public override void OnNetworkSpawn()
+    public void enable()
     {
-        ChosenHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().ChosenholderOfButton;
-        AvailableHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().AvailableholderOfButton;
+        NetManager = GameObject.FindGameObjectWithTag("NetManager").GetComponent<NetworkManager>();
+        characterCustomizer = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();
+        ChosenHolder = characterCustomizer.ChosenholderOfButton;
+        AvailableHolder = characterCustomizer.AvailableholderOfButton;
         ReadyUpButton = GameObject.FindGameObjectWithTag("ReadyUpButton").GetComponent<UnityEngine.UI.Button>();
         ParentForExtraInfo = GameObject.FindGameObjectWithTag("ExtraInfoPanel").transform;
-        microAttackManager = this.gameObject.GetComponent<MicroAttackManager>();
+        microAttackManager = gameObject.GetComponent<MicroAttackManager>();
     }
     public void FlipFlopChosenOrAvailable()
     {
@@ -36,7 +40,7 @@ public class MicroAttackManager : NetworkBehaviour
             {
                 Destroy(ParentForExtraInfo.GetChild(i).gameObject);
             }
-            InstantiatedObj = Instantiate(PrefabbedExtraInfo, ParentForExtraInfo.position, Quaternion.identity);
+            InstantiatedObj = Instantiate(PrefabbedExtraInfo, ParentForExtraInfo);
             InstantiatedObj.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Name;
             InstantiatedObj.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Description;
             InstantiatedObj.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = "Position attack can be used: "+AttacksInfo.Position.ToString();
@@ -113,7 +117,7 @@ public class MicroAttackManager : NetworkBehaviour
                         break;
                 }
             }
-
+            checkChosenAttacks();
         }
         else
         {
@@ -122,8 +126,21 @@ public class MicroAttackManager : NetworkBehaviour
             {
                 Destroy(ParentForExtraInfo.GetChild(i).gameObject);
             }
+        }        
+    }
+    public void checkChosenAttacks()
+    {
+        if (ChosenHolder.childCount == 3)
+        {
+            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos.Add(ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttacksInfo);
+            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos.Add(ChosenHolder.transform.GetChild(1).GetComponent<MicroAttackManager>().AttacksInfo);
+            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos.Add(ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttacksInfo);
+            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().SetUpCharacterFromLobby(characterCustomizer.character);
+            ReadyUpButton.interactable = true;
         }
-        NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().checkChosenAttacks(ChosenHolder, microAttackManager);
-        
+        else
+        {
+            ReadyUpButton.interactable = false;
+        }
     }
 }

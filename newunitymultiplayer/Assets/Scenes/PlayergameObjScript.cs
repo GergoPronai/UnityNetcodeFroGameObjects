@@ -9,7 +9,6 @@ public class PlayergameObjScript : NetworkBehaviour
     [Header("healthBar Stuff")]
     public Slider HealthBar;
     [Header("CharInfo Stuff")]
-    public CharacterChoices characterChoice;
     public GameObject[] barbarian;
     public GameObject[] knight;
     public GameObject[] mage;
@@ -17,7 +16,9 @@ public class PlayergameObjScript : NetworkBehaviour
     public List<AttackInfo> attackInfos = new List<AttackInfo>();
     public int votes_Cast = 0;
     [Header("Local Player Stuff")]
-    public ulong LocalClientid;
+    public string PlayerName;
+    public float playerHealth;
+    public int _Charchosen;
 
     public void disable()
     {
@@ -27,28 +28,92 @@ public class PlayergameObjScript : NetworkBehaviour
     {
         HealthBar.gameObject.SetActive(false);
     }
-    private void Start()
+    public void Start()
     {
-        LocalClientid = NetworkManager.LocalClient.PlayerObject.OwnerClientId;
         enable();
+        PlayerName = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().PlayerName;
+        playerHealth = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().playerHealth;
     }
-    public void checkChosenAttacks(Transform ChosenHolder, MicroAttackManager microAttackManager)
+    public void SetUpCharacterFromLobby(CharacterChoices charChoice)
     {
-        if (ChosenHolder.childCount == 3)
+        switch (charChoice)
         {
-            NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().attackInfos.Add(ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttacksInfo);
-            NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().attackInfos.Add(ChosenHolder.transform.GetChild(1).GetComponent<MicroAttackManager>().AttacksInfo);
-            NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().attackInfos.Add(ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttacksInfo);
-            microAttackManager.ReadyUpButton.interactable = true;
+            case CharacterChoices.Barbarian:
+                foreach (GameObject item in barbarian)
+                {
+                    item.SetActive(true);
+                }
+                foreach (GameObject item in knight)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in mage)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in rogue)
+                {
+                    item.SetActive(false);
+                }
+                _Charchosen = 0;
+                break;
+            case CharacterChoices.Knight:
+                foreach (GameObject item in barbarian)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in knight)
+                {
+                    item.SetActive(true);
+                }
+                foreach (GameObject item in mage)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in rogue)
+                {
+                    item.SetActive(false);
+                }
+                _Charchosen = 1;
+                break;
+            case CharacterChoices.Mage:
+                foreach (GameObject item in barbarian)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in knight)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in mage)
+                {
+                    item.SetActive(true);
+                }
+                foreach (GameObject item in rogue)
+                {
+                    item.SetActive(false);
+                }
+                _Charchosen = 2;
+                break;
+            case CharacterChoices.Rogue:
+                foreach (GameObject item in barbarian)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in knight)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in mage)
+                {
+                    item.SetActive(false);
+                }
+                foreach (GameObject item in rogue)
+                {
+                    item.SetActive(true);
+                }
+                _Charchosen = 3;
+                break;
         }
-        else
-        {
-            microAttackManager.ReadyUpButton.interactable = false;
-        }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

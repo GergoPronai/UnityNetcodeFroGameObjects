@@ -13,6 +13,7 @@ TagManager:
   - Roof
   - ExtraInfoPanel
   - ReadyUpButton
+  - NetManager
   layers:
   - Default
   - TransparentFX

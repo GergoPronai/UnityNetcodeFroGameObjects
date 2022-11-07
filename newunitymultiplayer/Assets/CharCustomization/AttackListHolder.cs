@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 public enum CharacterChoices
 {
     Barbarian,
@@ -10,7 +9,7 @@ public enum CharacterChoices
     Rogue,
     None
 }
-public class AttackListHolder : NetworkBehaviour
+public class AttackListHolder : MonoBehaviour
 {
     
     public Sprite[] characterImages;
@@ -31,7 +30,12 @@ public class AttackListHolder : NetworkBehaviour
     private GameObject prefabInstantiated=null;
     public TMPro.TextMeshProUGUI healthTxt=null;
     public float playerHealth = 100f;
+    public string PlayerName="";
 
+    public void SetPlayerName(TMPro.TMP_InputField textField)
+    {
+        PlayerName = textField.text;
+    }
     private void Start()
     {
         ChangeAttacks(character);
@@ -92,8 +96,9 @@ public class AttackListHolder : NetworkBehaviour
                 foreach (AttackInfo item in BarabarianAttackInfos)
                 {
                     prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
-                    prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo= item;
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
+                    prefabInstantiated.GetComponent<MicroAttackManager>().enable();
 
                 }
                 break;
@@ -108,9 +113,9 @@ public class AttackListHolder : NetworkBehaviour
                 }
                 foreach (AttackInfo item in KnightAttackInfos)
                 {
-                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
-                    prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo= item;
+                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
+                    prefabInstantiated.GetComponent<MicroAttackManager>().enable();
                 }
                 break;
             case CharacterChoices.Mage:
@@ -124,9 +129,9 @@ public class AttackListHolder : NetworkBehaviour
                 }
                 foreach (AttackInfo item in MageAttackInfos)
                 {
-                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
-                    prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo= item;
+                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo= item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
+                    prefabInstantiated.GetComponent<MicroAttackManager>().enable();
 
                 }
                 break;
@@ -141,9 +146,10 @@ public class AttackListHolder : NetworkBehaviour
                 }
                 foreach (AttackInfo item in RogueAttackInfos)
                 {
-                    prefabInstantiated = Instantiate(prefabButton,AvailableholderOfButton);
-                    prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo= item;
+                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
+                    prefabInstantiated.GetComponent<MicroAttackManager>().enable();
 
                 }
                 break;

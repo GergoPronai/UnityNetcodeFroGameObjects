@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 697864810185266225}
   - component: {fileID: 697864810185266224}
   - component: {fileID: 4331385845963297903}
-  - component: {fileID: 8948711284851106737}
+  - component: {fileID: 3657000639093595934}
   m_Layer: 5
   m_Name: AttackPrefab_UseAttack
   m_TagString: Untagged
@@ -296,7 +296,7 @@ MonoBehaviour:
     AffectedStats: 
     AffectStatAmountIfApplicable: 0
     StatRemovedIfApplicable: 
---- !u!114 &8948711284851106737
+--- !u!114 &3657000639093595934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
