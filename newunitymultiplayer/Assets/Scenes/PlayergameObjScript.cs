@@ -19,6 +19,7 @@ public class PlayergameObjScript : NetworkBehaviour
     public string PlayerName;
     public float playerHealth;
     public int _Charchosen;
+    public CharacterChoices CharChosen;
 
     public void disable()
     {
@@ -36,6 +37,7 @@ public class PlayergameObjScript : NetworkBehaviour
     }
     public void SetUpCharacterFromLobby(CharacterChoices charChoice)
     {
+        CharChosen = charChoice;
         switch (charChoice)
         {
             case CharacterChoices.Barbarian:

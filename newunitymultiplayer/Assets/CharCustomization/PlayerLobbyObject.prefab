@@ -418,6 +418,7 @@ GameObject:
   - component: {fileID: 9009855562187562543}
   - component: {fileID: 9009855562187562537}
   - component: {fileID: 9009855562187562536}
+  - component: {fileID: 9091036108096853557}
   m_Layer: 0
   m_Name: PlayerLobbyObject
   m_TagString: Untagged
@@ -488,6 +489,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9091036108096853557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009855562187562542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc9aa7ae2a251148baa2a581b7ec780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackInfos: []
+  prefabAttackToInstantiateHOLDER: {fileID: 9009855561186602409}
+  prefabAttackToInstantiate: {fileID: 9211711290224467521, guid: 74f3d343d31c2b54b8f12e63b2ff5acf, type: 3}
+  PlayerNameText: {fileID: 9009855561076943445}
+  PlayerCharacterImage: {fileID: 9009855561184579421}
+  PlayerCharacterName: {fileID: 5893008289397969459}
+  PlayerhealthText: {fileID: 8108714457860907668}
+  CharacterImages: []
 --- !u!1 &9034329865537439557
 GameObject:
   m_ObjectHideFlags: 0
