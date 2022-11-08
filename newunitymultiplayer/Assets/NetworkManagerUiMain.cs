@@ -20,6 +20,7 @@ public class NetworkManagerUiMain : MonoBehaviour
 
     [SerializeField] private Button HostButton;
     [SerializeField] private Button ClientButton;
+    [SerializeField] public ulong hostClientId;
     private string IPAddress="127.0.0.1";//set to local network ny default
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class NetworkManagerUiMain : MonoBehaviour
             {
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetComponent<Unity.Netcode.Transports.UNET.UNetTransport>().ConnectAddress = IPAddress;
                 NetworkManager.Singleton.StartHost();
+                hostClientId = NetworkManager.Singleton.LocalClientId;
                 LoginPage.SetActive(false);
             }
         });
