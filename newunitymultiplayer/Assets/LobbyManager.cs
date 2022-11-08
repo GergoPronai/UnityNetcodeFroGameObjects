@@ -6,6 +6,7 @@ using Unity.Netcode;
 public class LobbyManager : NetworkBehaviour
 {
     public TMPro.TextMeshProUGUI LobbyTitle;
+    public GameObject lobbyCardPrefab;
     // Start is called before the first frame update
     void Start()
     {
