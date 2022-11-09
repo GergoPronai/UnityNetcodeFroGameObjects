@@ -563,6 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LobbyTitle: {fileID: 712742510}
   lobbyCardPrefab: {fileID: 9009855562187562542, guid: bba5aca5490dcb5498c4be7ebea553e5, type: 3}
+  lobbyCardHolder: {fileID: 1502314160}
 --- !u!114 &389045781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1616,8 +1617,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -94.46}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: -40.8}
+  m_SizeDelta: {x: 374.8, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &712742510
 MonoBehaviour:
@@ -5473,7 +5474,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7bdd188e5e6366244bc47aaadfbfbb56, type: 3}
   characterImage: {fileID: 237234805985204761}
   character: 0
-  NameText: {fileID: 1353993671}
+  NameText: {fileID: 237234807267130745}
   PlayerListItemPrefab: {fileID: 5003315977983348174, guid: d5836dfbce8b83c419e47cbb6b25a924, type: 3}
   prefabButton: {fileID: 5879521146012023815, guid: 40fda67632ec5a9408afba447ad63ca1, type: 3}
   AvailableholderOfButton: {fileID: 1473081782}

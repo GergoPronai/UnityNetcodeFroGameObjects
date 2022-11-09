@@ -10,9 +10,9 @@ public class PlayerLobbyScript : MonoBehaviour
     public GameObject prefabAttackToInstantiate;
     [Header("UI Stuff")]
     [SerializeField] TMPro.TextMeshProUGUI PlayerNameText;
-    [SerializeField] UnityEngine.UI.Image PlayerCharacterImage;
-    [SerializeField] TMPro.TextMeshProUGUI PlayerCharacterName;
-    [SerializeField] TMPro.TextMeshProUGUI PlayerhealthText;
+    public UnityEngine.UI.Image PlayerCharacterImage;
+    public TMPro.TextMeshProUGUI PlayerCharacterName;
+    public TMPro.TextMeshProUGUI PlayerhealthText;
     [SerializeField] Sprite[] CharacterImages;
 
     // Start is called before the first frame update
@@ -22,6 +22,7 @@ public class PlayerLobbyScript : MonoBehaviour
         PlayerhealthText.text = GameObject.FindGameObjectWithTag("NetManager").GetComponent<Unity.Netcode.NetworkManager>().LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().playerHealth.ToString();
         attackInfos = GameObject.FindGameObjectWithTag("NetManager").GetComponent<Unity.Netcode.NetworkManager>().LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos;
         getCharImage(GameObject.FindGameObjectWithTag("NetManager").GetComponent<Unity.Netcode.NetworkManager>().LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().CharChosen);
+        instantiateAttackInfos(attackInfos);
     }
     void getCharImage(CharacterChoices CharChosen)
     {
@@ -47,6 +48,11 @@ public class PlayerLobbyScript : MonoBehaviour
     }
     public void instantiateAttackInfos(List<AttackInfo> attackInfos)
     {
-
+        foreach (AttackInfo item in attackInfos)
+        {
+            GameObject InstantiateObj = Instantiate(prefabAttackToInstantiate, prefabAttackToInstantiateHOLDER.transform);
+            InstantiateObj.GetComponent<AttackLobbyScript>().attacksInfo = item;
+            InstantiateObj.GetComponent<AttackLobbyScript>().AttackNameText.text = item.Name;
+        }
     }
 }

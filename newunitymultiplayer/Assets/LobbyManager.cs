@@ -7,14 +7,11 @@ public class LobbyManager : NetworkBehaviour
 {
     public TMPro.TextMeshProUGUI LobbyTitle;
     public GameObject lobbyCardPrefab;
+    public Transform lobbyCardHolder;
     // Start is called before the first frame update
     void Start()
     {
         LobbyTitle.text = "Welcome to the lobby";
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Instantiate(lobbyCardPrefab, lobbyCardHolder);
     }
 }

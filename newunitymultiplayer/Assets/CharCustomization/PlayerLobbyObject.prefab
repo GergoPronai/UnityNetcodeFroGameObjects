@@ -508,7 +508,11 @@ MonoBehaviour:
   PlayerCharacterImage: {fileID: 9009855561184579421}
   PlayerCharacterName: {fileID: 5893008289397969459}
   PlayerhealthText: {fileID: 8108714457860907668}
-  CharacterImages: []
+  CharacterImages:
+  - {fileID: 21300000, guid: 650d9db3ad9aac84bb53a71be871a2af, type: 3}
+  - {fileID: 21300000, guid: 050c876a74da99947afd8bbb8f69ef49, type: 3}
+  - {fileID: 21300000, guid: e4b2f3fe844516c4f8f317c380471269, type: 3}
+  - {fileID: 21300000, guid: 7bdd188e5e6366244bc47aaadfbfbb56, type: 3}
 --- !u!1 &9034329865537439557
 GameObject:
   m_ObjectHideFlags: 0
