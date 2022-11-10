@@ -180,7 +180,7 @@ public class PlayerNetwork : NetworkBehaviour
 
         internal Vector3 Position
         {
-            get => new(_posX, 0, _posZ);
+            get => new Vector3(_posX, 0, _posZ);
             set
             {
                 _posX = value.x;
@@ -190,7 +190,7 @@ public class PlayerNetwork : NetworkBehaviour
 
         internal Vector3 Rotation
         {
-            get => new(0, _rotY, 0);
+            get => new Vector3 (0, _rotY, 0);
             set => _rotY = (short)value.y;
         }
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter

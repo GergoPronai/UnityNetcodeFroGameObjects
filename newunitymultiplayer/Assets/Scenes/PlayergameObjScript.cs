@@ -20,6 +20,8 @@ public class PlayergameObjScript : NetworkBehaviour
     public float playerHealth;
     public int _Charchosen;
     public CharacterChoices CharChosen;
+    [Header("Lobby Stuff")]
+    public bool isReady = false;
 
     public void disable()
     {
