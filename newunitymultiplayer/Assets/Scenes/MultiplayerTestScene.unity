@@ -561,7 +561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cf5ba4d36c5b749bb5dda022f603a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LobbyTitle: {fileID: 712742510}
   lobbyCardPrefab: {fileID: 9009855562187562542, guid: bba5aca5490dcb5498c4be7ebea553e5, type: 3}
   lobbyCardHolder: {fileID: 1502314160}
 --- !u!114 &389045781
@@ -1640,7 +1639,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '''s Lobby'
+  m_text: Welcome to the lobby
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

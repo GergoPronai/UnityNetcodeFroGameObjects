@@ -9,7 +9,7 @@ public class PlayerLobbyScript : MonoBehaviour
     public GameObject prefabAttackToInstantiateHOLDER;
     public GameObject prefabAttackToInstantiate;
     [Header("UI Stuff")]
-    [SerializeField] TMPro.TextMeshProUGUI PlayerNameText;
+    public TMPro.TextMeshProUGUI PlayerNameText;
     public UnityEngine.UI.Image PlayerCharacterImage;
     public TMPro.TextMeshProUGUI PlayerCharacterName;
     public TMPro.TextMeshProUGUI PlayerhealthText;
@@ -18,13 +18,9 @@ public class PlayerLobbyScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerNameText.text = GameObject.FindGameObjectWithTag("NetManager").GetComponent<Unity.Netcode.NetworkManager>().LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().PlayerName;
-        PlayerhealthText.text = GameObject.FindGameObjectWithTag("NetManager").GetComponent<Unity.Netcode.NetworkManager>().LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().playerHealth.ToString();
-        attackInfos = GameObject.FindGameObjectWithTag("NetManager").GetComponent<Unity.Netcode.NetworkManager>().LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos;
-        getCharImage(GameObject.FindGameObjectWithTag("NetManager").GetComponent<Unity.Netcode.NetworkManager>().LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().CharChosen);
         instantiateAttackInfos(attackInfos);
     }
-    void getCharImage(CharacterChoices CharChosen)
+    public void getCharImage(CharacterChoices CharChosen)
     {
         switch (CharChosen)
         {
