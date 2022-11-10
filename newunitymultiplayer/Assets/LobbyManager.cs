@@ -9,27 +9,24 @@ public class LobbyManager : NetworkBehaviour
     public GameObject lobbyCardPrefab;
     public Transform lobbyCardHolder;
     private GameObject instantiateObj;
-    int ConnectedPlayers;
-    public int ConnectedPlayersAll
-    {
-        get
-        {
-            return ConnectedPlayers;
-        }
-        set
-        {
-            ConnectedPlayers = value;
-            SetUpChar(NetworkManager.Singleton.ConnectedClientsList);
-        }
-    }
+    private int ConnectedPlayers=0;
+
     private void Update()
     {
-        ConnectedPlayersAll = NetworkManager.Singleton.ConnectedClientsList.Count;
+        if (ConnectedPlayers < NetworkManager.Singleton.ConnectedClientsList.Count)
+        {
+            SetUpChar(NetworkManager.Singleton.ConnectedClientsList);
+            ConnectedPlayers = NetworkManager.Singleton.ConnectedClientsList.Count;
+        }
     }
     // Start is called before the first frame update
 
     public void SetUpChar(IReadOnlyList<NetworkClient> networkClients)
     {
+        for (int i = 0; i < lobbyCardHolder.transform.childCount; i++)
+        {
+            Destroy(lobbyCardHolder.transform.GetChild(i));
+        }
         foreach (var item in networkClients)
         {
             instantiateObj = Instantiate(lobbyCardPrefab, lobbyCardHolder);
