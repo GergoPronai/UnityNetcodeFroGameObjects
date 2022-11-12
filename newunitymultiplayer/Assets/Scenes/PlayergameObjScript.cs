@@ -13,7 +13,7 @@ public class PlayergameObjScript : NetworkBehaviour
     public GameObject[] knight;
     public GameObject[] mage;
     public GameObject[] rogue;
-    public List<AttackInfo> attackInfos = new List<AttackInfo>();
+    public AttackInfo[] attackInfos = new AttackInfo[3];
     public int votes_Cast = 0;
     [Header("Local Player Stuff")]
     public string PlayerName;

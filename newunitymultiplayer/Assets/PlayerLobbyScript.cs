@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerLobbyScript : MonoBehaviour
 {
     [Header("Player Stuff")]
-    public List<AttackInfo> attackInfos = new List<AttackInfo>();
+    public AttackInfo[] attackInfos = new AttackInfo[3];
     public GameObject prefabAttackToInstantiateHOLDER;
     public GameObject prefabAttackToInstantiate;
     [Header("UI Stuff")]
@@ -42,13 +42,13 @@ public class PlayerLobbyScript : MonoBehaviour
                 break;
         }
     }
-    public void instantiateAttackInfos(List<AttackInfo> attackInfos)
+    public void instantiateAttackInfos(AttackInfo[] attackInfos)
     {
         foreach (AttackInfo item in attackInfos)
         {
             GameObject InstantiateObj = Instantiate(prefabAttackToInstantiate, prefabAttackToInstantiateHOLDER.transform);
             InstantiateObj.GetComponent<AttackLobbyScript>().attacksInfo = item;
-            InstantiateObj.GetComponent<AttackLobbyScript>().AttackNameText.text = item.Name;
+            InstantiateObj.GetComponent<AttackLobbyScript>().AttackNameText.text = item.Name.Value.ToString();
         }
     }
 }

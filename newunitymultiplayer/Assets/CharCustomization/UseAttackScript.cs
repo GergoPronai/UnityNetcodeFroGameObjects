@@ -17,7 +17,7 @@ public class UseAttackScript : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AttackName.text = storedAttackInfo.Name;
+        AttackName.text = storedAttackInfo.Name.Value.ToString();
     }
 
     public void WhatDo()

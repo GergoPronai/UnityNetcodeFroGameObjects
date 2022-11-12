@@ -1,14 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Unity.Collections;
+using Unity.Netcode;
+
 public enum PositionItCanBeUsedIn
 {
     First,
     Second,
     Third,
     Fourth,
-    All
+    All,
+    None
 }
 public enum WeaponType
 {
@@ -20,7 +22,8 @@ public enum WeaponType
     Magic_MultiTarget,
     Heal_SingleTarget,
     Attack_Self,
-    Heal_MultiTarget
+    Heal_MultiTarget,
+    None
 }
 public enum StatInflicted
 {
@@ -39,18 +42,32 @@ public enum StatInflicted
 }
 
 [Serializable]
-public class AttackInfo
+public struct AttackInfo
 {
-    public string Name;
-    public string Description;
+    public FixedString32Bytes Name;
+    public FixedString32Bytes Description;
     public PositionItCanBeUsedIn Position;
     public WeaponType weaponType;
     public int numberOfTargetsIfApplicable;
     public int Damage;
-    public float Accuracy;
-    public float CritChance;
+    public int Accuracy;
+    public int CritChance;
     public StatInflicted[] AffectedStats;
     public int AffectStatAmountIfApplicable;
     public StatInflicted[] StatRemovedIfApplicable;
-    //public ParticleSystem WeaponParticleSystem;
+
+    public AttackInfo(FixedString32Bytes name, FixedString32Bytes description, PositionItCanBeUsedIn position, WeaponType weaponType, int numberOfTargetsIfApplicable, int damage, int accuracy, int critChance, StatInflicted[] affectedStats, int affectStatAmountIfApplicable, StatInflicted[] statRemovedIfApplicable)
+    {
+        Name = name;
+        Description = description;
+        Position = position;
+        this.weaponType = weaponType;
+        this.numberOfTargetsIfApplicable = numberOfTargetsIfApplicable;
+        Damage = damage;
+        Accuracy = accuracy;
+        CritChance = critChance;
+        AffectedStats = affectedStats;
+        AffectStatAmountIfApplicable = affectStatAmountIfApplicable;
+        StatRemovedIfApplicable = statRemovedIfApplicable;
+    }
 }
