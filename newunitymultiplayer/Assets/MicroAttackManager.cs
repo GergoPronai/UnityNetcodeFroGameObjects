@@ -26,8 +26,6 @@ public class MicroAttackManager : MonoBehaviour
         AvailableHolder = characterCustomizer.AvailableholderOfButton;
         ReadyUpButton = GameObject.FindGameObjectWithTag("ReadyUpButton").GetComponent<UnityEngine.UI.Button>();
         ParentForExtraInfo = GameObject.FindGameObjectWithTag("ExtraInfoPanel").transform;
-        //AttackName.text = AttacksInfo.Name.ToString();
-
     }
     public void FlipFlopChosenOrAvailable()
     {
@@ -40,8 +38,8 @@ public class MicroAttackManager : MonoBehaviour
                 Destroy(ParentForExtraInfo.GetChild(i).gameObject);
             }
             InstantiatedObj = Instantiate(PrefabbedExtraInfo, ParentForExtraInfo);
-            InstantiatedObj.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Name.Value.ToString();
-            InstantiatedObj.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Description.Value.ToString();
+            InstantiatedObj.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Name;
+            InstantiatedObj.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Description;
             InstantiatedObj.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = "Position attack can be used: "+AttacksInfo.Position.ToString();
             switch (AttacksInfo.weaponType)
             {
@@ -132,8 +130,8 @@ public class MicroAttackManager : MonoBehaviour
         if (ChosenHolder.childCount == 3)
         {
             NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[0] = ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttacksInfo;
-            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[1] = ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttacksInfo;
-            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[2] = ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttacksInfo;
+            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[1] = ChosenHolder.transform.GetChild(1).GetComponent<MicroAttackManager>().AttacksInfo;
+            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[2] = ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttacksInfo;
             NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().SetUpCharacterFromLobby(characterCustomizer.character);
             ReadyUpButton.interactable = true;
         }

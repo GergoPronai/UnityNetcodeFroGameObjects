@@ -13,15 +13,14 @@ public class PlayergameObjScript : NetworkBehaviour
     public GameObject[] knight;
     public GameObject[] mage;
     public GameObject[] rogue;
-    public AttackInfo[] attackInfos = new AttackInfo[3];
+    public List<AttackInfo> attackInfos = new List<AttackInfo>();
     public int votes_Cast = 0;
     [Header("Local Player Stuff")]
     public string PlayerName;
-    public float playerHealth;
+    public int playerHealth;
     public int _Charchosen;
     public CharacterChoices CharChosen;
-    [Header("Lobby Stuff")]
-    public bool isReady = false;
+    public bool isReady=false;
 
     public void disable()
     {

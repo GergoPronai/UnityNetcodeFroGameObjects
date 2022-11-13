@@ -5,15 +5,18 @@ using Unity.Netcode;
 
 public enum PositionItCanBeUsedIn
 {
+
+    None,
     First,
     Second,
     Third,
     Fourth,
-    All,
-    None
+    All
 }
 public enum WeaponType
 {
+
+    None,
     Melee_SingleTarget,
     Projectile_SingleTarget,
     Magic_SingleTarget,
@@ -22,8 +25,7 @@ public enum WeaponType
     Magic_MultiTarget,
     Heal_SingleTarget,
     Attack_Self,
-    Heal_MultiTarget,
-    None
+    Heal_MultiTarget
 }
 public enum StatInflicted
 {
@@ -38,14 +40,14 @@ public enum StatInflicted
     Remove_all,
     Dmg_down,
     Acc_down,
-    Acc_up,
+    Acc_up
 }
 
 [Serializable]
-public struct AttackInfo
+public class AttackInfo
 {
-    public FixedString32Bytes Name;
-    public FixedString32Bytes Description;
+    public string Name;
+    public string Description;
     public PositionItCanBeUsedIn Position;
     public WeaponType weaponType;
     public int numberOfTargetsIfApplicable;
@@ -56,18 +58,4 @@ public struct AttackInfo
     public int AffectStatAmountIfApplicable;
     public StatInflicted[] StatRemovedIfApplicable;
 
-    public AttackInfo(FixedString32Bytes name, FixedString32Bytes description, PositionItCanBeUsedIn position, WeaponType weaponType, int numberOfTargetsIfApplicable, int damage, int accuracy, int critChance, StatInflicted[] affectedStats, int affectStatAmountIfApplicable, StatInflicted[] statRemovedIfApplicable)
-    {
-        Name = name;
-        Description = description;
-        Position = position;
-        this.weaponType = weaponType;
-        this.numberOfTargetsIfApplicable = numberOfTargetsIfApplicable;
-        Damage = damage;
-        Accuracy = accuracy;
-        CritChance = critChance;
-        AffectedStats = affectedStats;
-        AffectStatAmountIfApplicable = affectStatAmountIfApplicable;
-        StatRemovedIfApplicable = statRemovedIfApplicable;
-    }
 }

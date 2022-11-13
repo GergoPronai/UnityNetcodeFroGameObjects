@@ -29,7 +29,7 @@ public class AttackListHolder : MonoBehaviour
     public List<AttackInfo> RogueAttackInfos;
     private GameObject prefabInstantiated=null;
     public TMPro.TextMeshProUGUI healthTxt=null;
-    public float playerHealth = 100f;
+    public int playerHealth = 100;
     public string PlayerName="";
 
     public void SetPlayerName(TMPro.TMP_InputField textField)
@@ -97,7 +97,8 @@ public class AttackListHolder : MonoBehaviour
                 {
                     prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
-                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name.Value.ToString();
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
+
                     prefabInstantiated.GetComponent<MicroAttackManager>().enable();
 
                 }
@@ -115,7 +116,8 @@ public class AttackListHolder : MonoBehaviour
                 {
                     prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
-                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name.Value.ToString();
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
+ 
                     prefabInstantiated.GetComponent<MicroAttackManager>().enable();
                 }
                 break;
@@ -132,7 +134,8 @@ public class AttackListHolder : MonoBehaviour
                 {
                     prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
-                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name.Value.ToString();
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
+
                     prefabInstantiated.GetComponent<MicroAttackManager>().enable();
 
                 }
@@ -150,7 +153,8 @@ public class AttackListHolder : MonoBehaviour
                 {
                     prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
-                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name.Value.ToString();
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
+
                     prefabInstantiated.GetComponent<MicroAttackManager>().enable();
 
                 }

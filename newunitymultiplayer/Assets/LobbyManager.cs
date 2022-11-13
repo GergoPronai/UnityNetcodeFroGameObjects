@@ -11,38 +11,34 @@ public class LobbyManager : NetworkBehaviour
     public Transform lobbyCardHolder;
     private GameObject instantiateObj;
     private GameObject[] Players;
+    private bool[] Players_ready = { false, false, false };
     private int playerlistSize=0;
 
-    private void Start()
-    {
-        Players = GameObject.FindGameObjectsWithTag("Player");
-    }
     private void Update()
     {
-        if (playerlistSize!= Players.Length)
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < Players.Length; i++)
         {
-            Players = GameObject.FindGameObjectsWithTag("Player");
+            if (Players[i].GetComponent<PlayergameObjScript>().isReady)
+            {
+                Players_ready[i] = Players[i].GetComponent<PlayergameObjScript>().isReady;
+            }
+        }
+        if (playerlistSize!= Players_ready.Length)
+        {
             foreach (GameObject item in Players)
             {
                 if (item.GetComponent<PlayergameObjScript>().isReady)
                 {
-                    SetUpChar(item);
+                    SetUpChar(item);                    
                 }
             }
-            playerlistSize = Players.Length;
+            playerlistSize = Players_ready.Length;
         }
     }
-    public void SetReadyForPlayer()
+    public void SetReady()
     {
-        GameObject[] plyrs = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject item in plyrs)
-        {
-            if (item.GetComponent<NetworkClient>().PlayerObject.IsLocalPlayer)
-            {
-                item.GetComponent<PlayergameObjScript>().isReady = true;
-                break;
-            }
-        }
+        NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().isReady = true;
     }
     public void SetUpChar(GameObject networkClient)
     {
@@ -52,8 +48,7 @@ public class LobbyManager : NetworkBehaviour
         }
         instantiateObj = Instantiate(lobbyCardPrefab, lobbyCardHolder);
         instantiateObj.GetComponent<PlayerLobbyScript>().PlayerNameText.text = networkClient.GetComponent<PlayergameObjScript>().PlayerName;
-        instantiateObj.GetComponent<PlayerLobbyScript>().PlayerhealthText.text = networkClient.GetComponent<PlayergameObjScript>().playerHealth.ToString();
-        instantiateObj.GetComponent<PlayerLobbyScript>().attackInfos = networkClient.GetComponent<PlayergameObjScript>().attackInfos;
+        instantiateObj.GetComponent<PlayerLobbyScript>().PlayerhealthText.text = "Health: " + networkClient.GetComponent<PlayergameObjScript>().playerHealth.ToString();
         instantiateObj.GetComponent<PlayerLobbyScript>().getCharImage(networkClient.GetComponent<PlayergameObjScript>().CharChosen);
     }
 

@@ -18,8 +18,8 @@ public class AttackLobbyScript : MonoBehaviour, IPointerEnterHandler,IPointerExi
             Destroy(InstantiatedObj);
         }
         InstantiatedObj = Instantiate(PrefabbedExtraInfo, transform.parent.transform.parent);
-        InstantiatedObj.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Name.Value.ToString();
-        InstantiatedObj.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Description.Value.ToString();
+        InstantiatedObj.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Name;
+        InstantiatedObj.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = AttacksInfo.Description;
         InstantiatedObj.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = "Position attack can be used: " + AttacksInfo.Position.ToString();
         switch (AttacksInfo.weaponType)
         {
