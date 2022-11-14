@@ -16,7 +16,6 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] private GameObject[] knight;
     [SerializeField] private GameObject[] mage;
     [SerializeField] private GameObject[] rogue;
-    [SerializeField] private Sprite CharImage;
 
     private NetworkVariable<PlayerNetworkState> _playerState;
     public NetworkVariable<float> animSpeed;
@@ -130,6 +129,7 @@ public class PlayerNetwork : NetworkBehaviour
         {
             cam.gameObject.SetActive(true);
         }
+        _isReady.Value = false;
     }
     private void Update()
     {
@@ -152,7 +152,6 @@ public class PlayerNetwork : NetworkBehaviour
             animSpeed.Value = transform.GetComponent<PlayerMovement>().animSpeed;
             _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
             _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
-            _isReady.Value = transform.GetComponent<PlayergameObjScript>().isReady;
 
             _charWeaponType1.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType;
             _charWeaponType2.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType;
@@ -170,8 +169,6 @@ public class PlayerNetwork : NetworkBehaviour
         animSpeed.Value = transform.GetComponent<PlayerMovement>().animSpeed;
         _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
         _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
-        _isReady.Value = transform.GetComponent<PlayergameObjScript>().isReady;
-
 
         _charWeaponType1.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType;
         _charWeaponType2.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType;
@@ -198,8 +195,6 @@ public class PlayerNetwork : NetworkBehaviour
         transform.GetComponent<PlayergameObjScript>()._Charchosen = _Charchosen.Value;
         transform.GetComponent<PlayergameObjScript>().PlayerName = _CharName.Value.ToString();
         transform.GetComponent<PlayergameObjScript>().playerHealth = _CharHealth.Value;
-        transform.GetComponent<PlayergameObjScript>().isReady = _isReady.Value;
-
 
         transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType = _charWeaponType1.Value;
         transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType = _charWeaponType2.Value;

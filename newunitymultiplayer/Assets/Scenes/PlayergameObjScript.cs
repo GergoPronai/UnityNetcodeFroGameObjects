@@ -20,7 +20,6 @@ public class PlayergameObjScript : NetworkBehaviour
     public int playerHealth;
     public int _Charchosen;
     public CharacterChoices CharChosen;
-    public bool isReady=false;
 
     public void disable()
     {
