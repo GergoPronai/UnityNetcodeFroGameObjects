@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayergameObjScript : NetworkBehaviour
 {
-    [Header("healthBar Stuff")]
+    [Header("UI Stuff")]
     public Slider HealthBar;
     [Header("CharInfo Stuff")]
     public GameObject[] barbarian;
@@ -20,7 +20,6 @@ public class PlayergameObjScript : NetworkBehaviour
     public int playerHealth;
     public int _Charchosen;
     public CharacterChoices CharChosen;
-
     public void disable()
     {
         HealthBar.gameObject.SetActive(true);

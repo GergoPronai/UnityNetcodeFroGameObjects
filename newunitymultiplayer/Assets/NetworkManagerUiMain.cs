@@ -28,8 +28,8 @@ public class NetworkManagerUiMain : MonoBehaviour
             if (IPAddress != null)
             {
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetComponent<Unity.Netcode.Transports.UNET.UNetTransport>().ConnectAddress = IPAddress;
+                //NetworkManager.Singleton.StartServer();
                 NetworkManager.Singleton.StartHost();
-                hostClientId = NetworkManager.Singleton.LocalClientId;
                 LoginPage.SetActive(false);
             }
         });
@@ -46,4 +46,5 @@ public class NetworkManagerUiMain : MonoBehaviour
     {
         IPAddress = textfield.text;
     }
+    
 }

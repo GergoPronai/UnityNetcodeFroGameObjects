@@ -25,13 +25,11 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<WeaponType> _charWeaponType2;
     public NetworkVariable<WeaponType> _charWeaponType3;
     public NetworkVariable<int> _CharHealth;
-    public NetworkVariable<bool> _isReady;
     private Rigidbody _rb;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-
         var permission = _serverAuth ? NetworkVariableWritePermission.Server : NetworkVariableWritePermission.Owner;
         _playerState = new NetworkVariable<PlayerNetworkState>(writePerm: permission);
         animSpeed = new NetworkVariable<float>(writePerm: permission);
@@ -41,7 +39,6 @@ public class PlayerNetwork : NetworkBehaviour
         _charWeaponType1 = new NetworkVariable<WeaponType>(writePerm: permission);
         _charWeaponType2 = new NetworkVariable<WeaponType>(writePerm: permission);
         _charWeaponType3 = new NetworkVariable<WeaponType>(writePerm: permission);
-        _isReady = new NetworkVariable<bool>(writePerm: permission);
 
     }
     public void SetUpChar()
@@ -128,8 +125,9 @@ public class PlayerNetwork : NetworkBehaviour
         if (IsClient && IsOwner)
         {
             cam.gameObject.SetActive(true);
+
         }
-        _isReady.Value = false;
+
     }
     private void Update()
     {
@@ -152,7 +150,6 @@ public class PlayerNetwork : NetworkBehaviour
             animSpeed.Value = transform.GetComponent<PlayerMovement>().animSpeed;
             _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
             _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
-
             _charWeaponType1.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType;
             _charWeaponType2.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType;
             _charWeaponType3.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[2].weaponType;
@@ -169,7 +166,6 @@ public class PlayerNetwork : NetworkBehaviour
         animSpeed.Value = transform.GetComponent<PlayerMovement>().animSpeed;
         _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
         _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
-
         _charWeaponType1.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType;
         _charWeaponType2.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType;
         _charWeaponType3.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[2].weaponType;
