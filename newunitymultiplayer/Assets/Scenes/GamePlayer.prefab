@@ -8520,6 +8520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8fbf54fe88d524d9e163ed08cfe21f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instanObj: {fileID: 5731595884754387603, guid: 22096b0d77925824aa3e44673043798c, type: 3}
 --- !u!1 &6465354050808123909
 GameObject:
   m_ObjectHideFlags: 0

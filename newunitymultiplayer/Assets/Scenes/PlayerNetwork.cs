@@ -20,6 +20,7 @@ public class PlayerNetwork : NetworkBehaviour
     private NetworkVariable<PlayerNetworkState> _playerState;
     public NetworkVariable<float> animSpeed;
     public NetworkVariable<int> _Charchosen;
+    
     public NetworkVariable<FixedString128Bytes> _CharName;
     public NetworkVariable<WeaponType> _charWeaponType1;
     public NetworkVariable<WeaponType> _charWeaponType2;
@@ -27,6 +28,7 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<int> _CharHealth;
     private Rigidbody _rb;
 
+    
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -39,7 +41,6 @@ public class PlayerNetwork : NetworkBehaviour
         _charWeaponType1 = new NetworkVariable<WeaponType>(writePerm: permission);
         _charWeaponType2 = new NetworkVariable<WeaponType>(writePerm: permission);
         _charWeaponType3 = new NetworkVariable<WeaponType>(writePerm: permission);
-
     }
     public void SetUpChar()
     {
@@ -125,7 +126,6 @@ public class PlayerNetwork : NetworkBehaviour
         if (IsClient && IsOwner)
         {
             cam.gameObject.SetActive(true);
-
         }
 
     }
@@ -204,6 +204,7 @@ public class PlayerNetwork : NetworkBehaviour
     {
         private float _posX, _posZ;
         private short _rotY;
+
         internal Vector3 Position
         {
             get => new Vector3(_posX, 0, _posZ);

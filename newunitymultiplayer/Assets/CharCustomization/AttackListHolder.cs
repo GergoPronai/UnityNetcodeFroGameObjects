@@ -30,12 +30,7 @@ public class AttackListHolder : MonoBehaviour
     private GameObject prefabInstantiated=null;
     public TMPro.TextMeshProUGUI healthTxt=null;
     public int playerHealth = 100;
-    public string PlayerName="";
 
-    public void SetPlayerName(TMPro.TMP_InputField textField)
-    {
-        PlayerName = textField.text;
-    }
     private void Start()
     {
         ChangeAttacks(character);

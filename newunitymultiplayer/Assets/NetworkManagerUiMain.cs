@@ -17,18 +17,23 @@ public class NetworkManagerUiMain : MonoBehaviour
 {
     [SerializeField] private GameObject LoginPage;
 
-
+    public static NetworkManagerUiMain instance;
     [SerializeField] private Button HostButton;
     [SerializeField] private Button ClientButton;
-    [SerializeField] public ulong hostClientId;
+    [SerializeField] public GameObject instanObjHolder;
     private string IPAddress="127.0.0.1";//set to local network ny default
+    public string PlayerName;
+
     private void Awake()
     {
+        if (instance==null)
+        {
+            instance = this;
+        }
         HostButton.onClick.AddListener(() => {
             if (IPAddress != null)
             {
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetComponent<Unity.Netcode.Transports.UNET.UNetTransport>().ConnectAddress = IPAddress;
-                //NetworkManager.Singleton.StartServer();
                 NetworkManager.Singleton.StartHost();
                 LoginPage.SetActive(false);
             }
@@ -46,5 +51,8 @@ public class NetworkManagerUiMain : MonoBehaviour
     {
         IPAddress = textfield.text;
     }
-    
+    public void SetPlayerName(TMPro.TMP_InputField textField)
+    {
+        PlayerName = textField.text;
+    }
 }

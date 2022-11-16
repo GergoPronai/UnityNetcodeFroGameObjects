@@ -20,6 +20,17 @@ public class PlayergameObjScript : NetworkBehaviour
     public int playerHealth;
     public int _Charchosen;
     public CharacterChoices CharChosen;
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+
+        PlayerName = NetworkManagerUiMain.instance.PlayerName; ;
+    }
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+        Destroy(this.gameObject);
+    }
     public void disable()
     {
         HealthBar.gameObject.SetActive(true);
@@ -31,8 +42,12 @@ public class PlayergameObjScript : NetworkBehaviour
     public void Start()
     {
         enable();
-        PlayerName = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().PlayerName;
         playerHealth = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().playerHealth;
+    }
+
+    public void SetPlayerName(TMPro.TMP_InputField textField)
+    {
+        PlayerName = textField.text;
     }
     public void SetUpCharacterFromLobby(CharacterChoices charChoice)
     {

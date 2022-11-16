@@ -13,30 +13,40 @@ public class UnnamedStringMessageHandler : CustomUnnamedMessageHandler<string>
     /// We override this method to define the unique message type
     /// identifier for this child derived class
     /// </summary>
+    
+    public GameObject instanObj;
+    private GameObject instantiatedOBJ;
+    public static UnnamedStringMessageHandler instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     protected override byte MessageType()
     {
         // As an example, we could define message type of 1 for string messages
         return 1;
     }
-
     public override void OnNetworkSpawn()
     {
         // For this example, we always want to invoke the base
         base.OnNetworkSpawn();
-
         if (IsServer)
         {
             // Server broadcasts to all clients when a new client connects
             // (just for example purposes)
             NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
+            instantiatedOBJ = Instantiate(instanObj, NetworkManagerUiMain.instance.instanObjHolder.transform);
+            instantiatedOBJ.GetComponent<TMPro.TextMeshProUGUI>().text = " A new adventurer has entered the dungeon.";
         }
         else
         {
             // Clients send a greeting string message to the server
             SendUnnamedMessage("I am a client connecting!");
+            instantiatedOBJ = Instantiate(instanObj, NetworkManagerUiMain.instance.instanObjHolder.transform);
+            instantiatedOBJ.GetComponent<TMPro.TextMeshProUGUI>().text = " A new adventurer has entered the dungeon.";
         }
-    }
 
+    }
     public override void OnNetworkDespawn()
     {
         // For this example, we always want to invoke the base
@@ -50,6 +60,7 @@ public class UnnamedStringMessageHandler : CustomUnnamedMessageHandler<string>
     {
         // Server broadcasts a welcome string message to all clients that
         // a new client has joined.
+
         SendUnnamedMessage($"Everyone welcome the newly joined client ({clientId})!");
     }
 
@@ -73,6 +84,7 @@ public class UnnamedStringMessageHandler : CustomUnnamedMessageHandler<string>
         {
             Debug.Log(stringMessage);
         }
+
     }
 
     /// <summary>
@@ -107,6 +119,7 @@ public class UnnamedStringMessageHandler : CustomUnnamedMessageHandler<string>
             {
                 // This method can be used by a client or server (client to server or server to client)
                 customMessagingManager.SendUnnamedMessage(NetworkManager.ServerClientId, writer);
+
             }
         }
     }
