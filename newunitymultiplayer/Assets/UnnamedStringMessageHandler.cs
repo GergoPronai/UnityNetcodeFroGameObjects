@@ -14,8 +14,6 @@ public class UnnamedStringMessageHandler : CustomUnnamedMessageHandler<string>
     /// identifier for this child derived class
     /// </summary>
     
-    public GameObject instanObj;
-    private GameObject instantiatedOBJ;
     public static UnnamedStringMessageHandler instance;
     private void Awake()
     {
@@ -35,15 +33,11 @@ public class UnnamedStringMessageHandler : CustomUnnamedMessageHandler<string>
             // Server broadcasts to all clients when a new client connects
             // (just for example purposes)
             NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
-            instantiatedOBJ = Instantiate(instanObj, NetworkManagerUiMain.instance.instanObjHolder.transform);
-            instantiatedOBJ.GetComponent<TMPro.TextMeshProUGUI>().text = " A new adventurer has entered the dungeon.";
         }
         else
         {
             // Clients send a greeting string message to the server
             SendUnnamedMessage("I am a client connecting!");
-            instantiatedOBJ = Instantiate(instanObj, NetworkManagerUiMain.instance.instanObjHolder.transform);
-            instantiatedOBJ.GetComponent<TMPro.TextMeshProUGUI>().text = " A new adventurer has entered the dungeon.";
         }
 
     }

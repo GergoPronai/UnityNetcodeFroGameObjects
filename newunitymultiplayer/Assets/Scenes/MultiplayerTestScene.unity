@@ -1657,7 +1657,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6562476431597618575}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: EnterLobby
+        m_MethodName: ShowPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5724,6 +5724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cf5ba4d36c5b749bb5dda022f603a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instanObj: {fileID: 5731595884754387603, guid: 22096b0d77925824aa3e44673043798c, type: 3}
 --- !u!114 &6562476431597618576
 MonoBehaviour:
   m_ObjectHideFlags: 0

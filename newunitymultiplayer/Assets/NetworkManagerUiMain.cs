@@ -23,6 +23,7 @@ public class NetworkManagerUiMain : MonoBehaviour
     [SerializeField] public GameObject instanObjHolder;
     private string IPAddress="127.0.0.1";//set to local network ny default
     public string PlayerName;
+    public ulong PlayerID;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class NetworkManagerUiMain : MonoBehaviour
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetComponent<Unity.Netcode.Transports.UNET.UNetTransport>().ConnectAddress = IPAddress;
                 NetworkManager.Singleton.StartHost();
                 LoginPage.SetActive(false);
+                PlayerID = NetworkManager.Singleton.LocalClientId;
             }
         });
         ClientButton.onClick.AddListener(() => {
@@ -43,6 +45,7 @@ public class NetworkManagerUiMain : MonoBehaviour
             {
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetComponent<Unity.Netcode.Transports.UNET.UNetTransport>().ConnectAddress = IPAddress;
                 NetworkManager.Singleton.StartClient();
+                PlayerID = NetworkManager.Singleton.LocalClientId;
                 LoginPage.SetActive(false);
             }
         });

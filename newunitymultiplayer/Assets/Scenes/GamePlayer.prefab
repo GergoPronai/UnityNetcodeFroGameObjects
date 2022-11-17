@@ -7508,7 +7508,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6637628589238294648}
-  - component: {fileID: 3168382551391943347}
   m_Layer: 3
   m_Name: Visuals&Collider
   m_TagString: Untagged
@@ -7532,20 +7531,6 @@ Transform:
   m_Father: {fileID: 6375893901098962163}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &3168382551391943347
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5520115219281344858}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.57
-  m_Height: 2.125303
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.062651515, z: 0}
 --- !u!1 &5531156387078090362
 GameObject:
   m_ObjectHideFlags: 0
@@ -8103,6 +8088,7 @@ GameObject:
   - component: {fileID: 627198902272228425}
   - component: {fileID: 4280666169799609420}
   - component: {fileID: 561444399298939072}
+  - component: {fileID: 4692326156251461771}
   m_Layer: 3
   m_Name: GamePlayer
   m_TagString: Player
@@ -8286,6 +8272,7 @@ MonoBehaviour:
   playerHealth: 0
   _Charchosen: 0
   CharChosen: 0
+  showChar: 0
 --- !u!114 &3136992098025367456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8476,6 +8463,9 @@ MonoBehaviour:
     m_InternalValue: 0
   _CharHealth:
     m_InternalValue: 0
+  _CharVis:
+    m_InternalValue: 0
+  instanObj: {fileID: 5731595884754387603, guid: 22096b0d77925824aa3e44673043798c, type: 3}
 --- !u!114 &627198902272228425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8520,7 +8510,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8fbf54fe88d524d9e163ed08cfe21f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instanObj: {fileID: 5731595884754387603, guid: 22096b0d77925824aa3e44673043798c, type: 3}
+--- !u!136 &4692326156251461771
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375893901098962156}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.57
+  m_Height: 2.125303
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.0626515, z: 0}
 --- !u!1 &6465354050808123909
 GameObject:
   m_ObjectHideFlags: 0

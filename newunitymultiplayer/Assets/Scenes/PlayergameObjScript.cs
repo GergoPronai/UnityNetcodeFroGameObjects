@@ -24,7 +24,7 @@ public class PlayergameObjScript : NetworkBehaviour
     {
         base.OnNetworkSpawn();
 
-        PlayerName = NetworkManagerUiMain.instance.PlayerName; ;
+        PlayerName = NetworkManagerUiMain.instance.PlayerName;
     }
     public override void OnNetworkDespawn()
     {

@@ -26,11 +26,19 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<WeaponType> _charWeaponType2;
     public NetworkVariable<WeaponType> _charWeaponType3;
     public NetworkVariable<int> _CharHealth;
+    public NetworkVariable<ulong> _clientID;
     private Rigidbody _rb;
 
-    
+    public GameObject instanObj;
+    private GameObject instantiatedOBJ;
+    public static PlayerNetwork instance;
+
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         _rb = GetComponent<Rigidbody>();
         var permission = _serverAuth ? NetworkVariableWritePermission.Server : NetworkVariableWritePermission.Owner;
         _playerState = new NetworkVariable<PlayerNetworkState>(writePerm: permission);
@@ -41,6 +49,7 @@ public class PlayerNetwork : NetworkBehaviour
         _charWeaponType1 = new NetworkVariable<WeaponType>(writePerm: permission);
         _charWeaponType2 = new NetworkVariable<WeaponType>(writePerm: permission);
         _charWeaponType3 = new NetworkVariable<WeaponType>(writePerm: permission);
+        _clientID = new NetworkVariable<ulong>(writePerm: permission);
     }
     public void SetUpChar()
     {
@@ -150,14 +159,17 @@ public class PlayerNetwork : NetworkBehaviour
             animSpeed.Value = transform.GetComponent<PlayerMovement>().animSpeed;
             _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
             _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
+            _CharHealth.Value = transform.GetComponent<PlayergameObjScript>().playerHealth;
             _charWeaponType1.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType;
             _charWeaponType2.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType;
             _charWeaponType3.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[2].weaponType;
+            _clientID.Value = NetworkManagerUiMain.instance.PlayerID;
             SetUpChar();
         }
         else
             TransmitStateServerRpc(state);
     }
+
 
     [ServerRpc]
     private void TransmitStateServerRpc(PlayerNetworkState state)
@@ -166,10 +178,12 @@ public class PlayerNetwork : NetworkBehaviour
         animSpeed.Value = transform.GetComponent<PlayerMovement>().animSpeed;
         _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
         _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
+        _CharHealth.Value = transform.GetComponent<PlayergameObjScript>().playerHealth;
         _charWeaponType1.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType;
         _charWeaponType2.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType;
         _charWeaponType3.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[2].weaponType;
         SetUpChar();
+        _clientID.Value = NetworkManagerUiMain.instance.PlayerID;
     }
 
     #endregion
@@ -191,11 +205,13 @@ public class PlayerNetwork : NetworkBehaviour
         transform.GetComponent<PlayergameObjScript>()._Charchosen = _Charchosen.Value;
         transform.GetComponent<PlayergameObjScript>().PlayerName = _CharName.Value.ToString();
         transform.GetComponent<PlayergameObjScript>().playerHealth = _CharHealth.Value;
-
         transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType = _charWeaponType1.Value;
         transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType = _charWeaponType2.Value;
         transform.GetComponent<PlayergameObjScript>().attackInfos[2].weaponType = _charWeaponType3.Value;
         SetUpChar();
+
+        _clientID.Value = NetworkManagerUiMain.instance.PlayerID;
+
     }
 
     #endregion
