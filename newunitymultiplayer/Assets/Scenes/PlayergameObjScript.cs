@@ -20,11 +20,13 @@ public class PlayergameObjScript : NetworkBehaviour
     public int playerHealth;
     public int _Charchosen;
     public CharacterChoices CharChosen;
+    public ulong clientID;
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
 
         PlayerName = NetworkManagerUiMain.instance.PlayerName;
+
     }
     public override void OnNetworkDespawn()
     {

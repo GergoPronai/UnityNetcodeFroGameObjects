@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Unity.Collections;
 using Unity.Netcode;
 using System;
@@ -22,9 +23,6 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<int> _Charchosen;
     
     public NetworkVariable<FixedString128Bytes> _CharName;
-    public NetworkVariable<WeaponType> _charWeaponType1;
-    public NetworkVariable<WeaponType> _charWeaponType2;
-    public NetworkVariable<WeaponType> _charWeaponType3;
     public NetworkVariable<int> _CharHealth;
     public NetworkVariable<ulong> _clientID;
     private Rigidbody _rb;
@@ -33,6 +31,10 @@ public class PlayerNetwork : NetworkBehaviour
     private GameObject instantiatedOBJ;
     public static PlayerNetwork instance;
 
+    public void setUpLobby()
+    {
+        OnJoinServerRpc();
+    }
     private void Awake()
     {
         if (instance == null)
@@ -46,13 +48,12 @@ public class PlayerNetwork : NetworkBehaviour
         _Charchosen = new NetworkVariable<int>(writePerm: permission);
         _CharName = new NetworkVariable<FixedString128Bytes>(writePerm: permission);
         _CharHealth = new NetworkVariable<int>(writePerm: permission);
-        _charWeaponType1 = new NetworkVariable<WeaponType>(writePerm: permission);
-        _charWeaponType2 = new NetworkVariable<WeaponType>(writePerm: permission);
-        _charWeaponType3 = new NetworkVariable<WeaponType>(writePerm: permission);
         _clientID = new NetworkVariable<ulong>(writePerm: permission);
+
     }
     public void SetUpChar()
     {
+
         switch (_Charchosen.Value)
         {
             case 0:
@@ -136,7 +137,7 @@ public class PlayerNetwork : NetworkBehaviour
         {
             cam.gameObject.SetActive(true);
         }
-
+        
     }
     private void Update()
     {
@@ -160,18 +161,33 @@ public class PlayerNetwork : NetworkBehaviour
             _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
             _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
             _CharHealth.Value = transform.GetComponent<PlayergameObjScript>().playerHealth;
-            _charWeaponType1.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType;
-            _charWeaponType2.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType;
-            _charWeaponType3.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[2].weaponType;
-            _clientID.Value = NetworkManagerUiMain.instance.PlayerID;
+            _clientID.Value = transform.GetComponent<PlayergameObjScript>().clientID;
             SetUpChar();
         }
         else
             TransmitStateServerRpc(state);
     }
 
+   
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership =false)]
+    private void OnJoinServerRpc()
+    {
+        for (int i = 0; i < NetworkManagerUiMain.instance.instanObjHolder.transform.childCount; i++)
+        {
+            Destroy(NetworkManagerUiMain.instance.instanObjHolder.transform.GetChild(i));
+        }
+        foreach (var client in NetworkManager.ConnectedClientsList)
+        {
+            if (client.PlayerObject != NetworkManager.Singleton.LocalClient.PlayerObject)
+            {
+                instantiatedOBJ = Instantiate(instanObj, NetworkManagerUiMain.instance.instanObjHolder.transform);
+                instantiatedOBJ.GetComponent<TMPro.TextMeshProUGUI>().text = $"{client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName} > Has Joined";
+                Destroy(instantiatedOBJ, 60);
+            }
+        }
+    }
+    [ServerRpc] 
     private void TransmitStateServerRpc(PlayerNetworkState state)
     {
         _playerState.Value = state;
@@ -179,11 +195,7 @@ public class PlayerNetwork : NetworkBehaviour
         _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
         _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
         _CharHealth.Value = transform.GetComponent<PlayergameObjScript>().playerHealth;
-        _charWeaponType1.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType;
-        _charWeaponType2.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType;
-        _charWeaponType3.Value = transform.GetComponent<PlayergameObjScript>().attackInfos[2].weaponType;
         SetUpChar();
-        _clientID.Value = NetworkManagerUiMain.instance.PlayerID;
     }
 
     #endregion
@@ -205,13 +217,7 @@ public class PlayerNetwork : NetworkBehaviour
         transform.GetComponent<PlayergameObjScript>()._Charchosen = _Charchosen.Value;
         transform.GetComponent<PlayergameObjScript>().PlayerName = _CharName.Value.ToString();
         transform.GetComponent<PlayergameObjScript>().playerHealth = _CharHealth.Value;
-        transform.GetComponent<PlayergameObjScript>().attackInfos[0].weaponType = _charWeaponType1.Value;
-        transform.GetComponent<PlayergameObjScript>().attackInfos[1].weaponType = _charWeaponType2.Value;
-        transform.GetComponent<PlayergameObjScript>().attackInfos[2].weaponType = _charWeaponType3.Value;
         SetUpChar();
-
-        _clientID.Value = NetworkManagerUiMain.instance.PlayerID;
-
     }
 
     #endregion

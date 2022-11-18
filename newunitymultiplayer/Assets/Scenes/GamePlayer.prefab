@@ -8272,7 +8272,7 @@ MonoBehaviour:
   playerHealth: 0
   _Charchosen: 0
   CharChosen: 0
-  showChar: 0
+  clientID: 0
 --- !u!114 &3136992098025367456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8455,17 +8455,11 @@ MonoBehaviour:
         byte0123: 0
         byte0124: 0
         byte0125: 0
-  _charWeaponType1:
-    m_InternalValue: 0
-  _charWeaponType2:
-    m_InternalValue: 0
-  _charWeaponType3:
-    m_InternalValue: 0
   _CharHealth:
     m_InternalValue: 0
-  _CharVis:
+  _clientID:
     m_InternalValue: 0
-  instanObj: {fileID: 5731595884754387603, guid: 22096b0d77925824aa3e44673043798c, type: 3}
+  instanObj: {fileID: 7252976195220070877, guid: 982bc7a78c791a349ba1fc3e7aeb8e77, type: 3}
 --- !u!114 &627198902272228425
 MonoBehaviour:
   m_ObjectHideFlags: 0
