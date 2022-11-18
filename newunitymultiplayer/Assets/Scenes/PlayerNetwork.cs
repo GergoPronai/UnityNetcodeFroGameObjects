@@ -185,6 +185,7 @@ public class PlayerNetwork : NetworkBehaviour
                 instantiatedOBJ.GetComponent<TMPro.TextMeshProUGUI>().text = $"{client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName} > Has Joined";
                 Destroy(instantiatedOBJ, 60);
             }
+
         }
     }
     [ServerRpc] 
@@ -217,6 +218,8 @@ public class PlayerNetwork : NetworkBehaviour
         transform.GetComponent<PlayergameObjScript>()._Charchosen = _Charchosen.Value;
         transform.GetComponent<PlayergameObjScript>().PlayerName = _CharName.Value.ToString();
         transform.GetComponent<PlayergameObjScript>().playerHealth = _CharHealth.Value;
+
+
         SetUpChar();
     }
 
