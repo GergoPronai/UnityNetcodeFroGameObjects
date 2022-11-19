@@ -19,7 +19,10 @@ public class PlayergameObjScript : NetworkBehaviour
     public string PlayerName;
     public int playerHealth;
     public int _Charchosen;
-    public CharacterChoices CharChosen;
+    public CharacterChoices CharChosen = CharacterChoices.None;
+    public int CharChosen_ChosenAttacks_1=0;
+    public int CharChosen_ChosenAttacks_2=0;
+    public int CharChosen_ChosenAttacks_3=0;
     public ulong clientID;
     public int playersJoined=0;
     public override void OnNetworkSpawn()

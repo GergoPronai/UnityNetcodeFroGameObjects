@@ -7972,7 +7972,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6200266074758506349}
   m_LocalRotation: {x: 0.28857064, y: -0.45000225, z: 0.15635514, w: 0.8305288}
-  m_LocalPosition: {x: 9.13, y: 9.49, z: -6.6915054}
+  m_LocalPosition: {x: 6.54, y: 7.9, z: -5.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8272,7 +8272,12 @@ MonoBehaviour:
   playerHealth: 0
   _Charchosen: 0
   CharChosen: 0
+  CharChosen_ChosenAttacks_1: 0
+  CharChosen_ChosenAttacks_2: 0
+  CharChosen_ChosenAttacks_3: 0
   clientID: 0
+  playersJoined: 0
+  nameText: {fileID: 0}
 --- !u!114 &3136992098025367456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8458,6 +8463,16 @@ MonoBehaviour:
   _CharHealth:
     m_InternalValue: 0
   _clientID:
+    m_InternalValue: 0
+  playersJoined:
+    m_InternalValue: 0
+  charChosen:
+    m_InternalValue: 0
+  attackIDs_1:
+    m_InternalValue: 0
+  attackIDs_2:
+    m_InternalValue: 0
+  attackIDs_3:
     m_InternalValue: 0
   instanObj: {fileID: 7252976195220070877, guid: 982bc7a78c791a349ba1fc3e7aeb8e77, type: 3}
 --- !u!114 &627198902272228425

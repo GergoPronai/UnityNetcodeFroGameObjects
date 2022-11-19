@@ -1655,7 +1655,7 @@ GameObject:
   - component: {fileID: 900369685}
   m_Layer: 0
   m_Name: Border
-  m_TagString: Untagged
+  m_TagString: border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3597,7 +3597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cf5ba4d36c5b749bb5dda022f603a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  border: {fileID: 900369683}
 --- !u!114 &1754062833
 MonoBehaviour:
   m_ObjectHideFlags: 0

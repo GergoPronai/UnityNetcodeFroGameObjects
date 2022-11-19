@@ -17,6 +17,7 @@ public class MicroAttackManager : MonoBehaviour
     public AttackListHolder characterCustomizer = null;
     [Header("Player Manager")]
     public Unity.Netcode.NetworkManager NetManager;
+    public int AttackIDNumber = 0;
     // Start is called before the first frame update
     public void enable()
     {
@@ -130,8 +131,11 @@ public class MicroAttackManager : MonoBehaviour
         if (ChosenHolder.childCount == 3)
         {
             NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[0] = ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttacksInfo;
+            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1 = ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttackIDNumber;
             NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[1] = ChosenHolder.transform.GetChild(1).GetComponent<MicroAttackManager>().AttacksInfo;
+            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2 = ChosenHolder.transform.GetChild(1).GetComponent<MicroAttackManager>().AttackIDNumber;
             NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[2] = ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttacksInfo;
+            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3 = ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttackIDNumber;
             NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().SetUpCharacterFromLobby(characterCustomizer.character);
             ReadyUpButton.interactable = true;
         }

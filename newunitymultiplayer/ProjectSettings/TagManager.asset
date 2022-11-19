@@ -15,6 +15,7 @@ TagManager:
   - ReadyUpButton
   - NetManager
   - Msg_Manager
+  - border
   layers:
   - Default
   - TransparentFX

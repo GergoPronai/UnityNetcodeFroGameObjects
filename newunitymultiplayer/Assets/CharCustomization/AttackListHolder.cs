@@ -77,9 +77,11 @@ public class AttackListHolder : MonoBehaviour
     }
     public void ChangeAttacks(CharacterChoices characterChosen)
     {
+        int idnum = 0;
         switch (characterChosen)
         {
             case CharacterChoices.Barbarian:
+                idnum = 0;
                 foreach (Transform child in AvailableholderOfButton)
                 {
                     Destroy(child.gameObject);
@@ -95,10 +97,13 @@ public class AttackListHolder : MonoBehaviour
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
 
                     prefabInstantiated.GetComponent<MicroAttackManager>().enable();
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackIDNumber = idnum;
+                    idnum++;
 
                 }
                 break;
             case CharacterChoices.Knight:
+                idnum = 0;
                 foreach (Transform child in AvailableholderOfButton)
                 {
                     Destroy(child.gameObject);
@@ -114,9 +119,12 @@ public class AttackListHolder : MonoBehaviour
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
  
                     prefabInstantiated.GetComponent<MicroAttackManager>().enable();
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackIDNumber = idnum;
+                    idnum++;
                 }
                 break;
             case CharacterChoices.Mage:
+                idnum = 0;
                 foreach (Transform child in AvailableholderOfButton)
                 {
                     Destroy(child.gameObject);
@@ -132,10 +140,12 @@ public class AttackListHolder : MonoBehaviour
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
 
                     prefabInstantiated.GetComponent<MicroAttackManager>().enable();
-
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackIDNumber = idnum;
+                    idnum++;
                 }
                 break;
             case CharacterChoices.Rogue:
+                idnum = 0;
                 foreach (Transform child in AvailableholderOfButton)
                 {
                     Destroy(child.gameObject);
@@ -145,13 +155,14 @@ public class AttackListHolder : MonoBehaviour
                     Destroy(child.gameObject);
                 }
                 foreach (AttackInfo item in RogueAttackInfos)
-                {
+                {                    
                     prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
 
                     prefabInstantiated.GetComponent<MicroAttackManager>().enable();
-
+                    prefabInstantiated.GetComponent<MicroAttackManager>().AttackIDNumber=idnum;
+                    idnum++;
                 }
                 break;
             default:
