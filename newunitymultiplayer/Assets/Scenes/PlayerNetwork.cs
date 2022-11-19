@@ -25,16 +25,17 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<FixedString128Bytes> _CharName;
     public NetworkVariable<int> _CharHealth;
     public NetworkVariable<ulong> _clientID;
+    public NetworkVariable<int> playersJoined;
     private Rigidbody _rb;
 
     public GameObject instanObj;
     private GameObject instantiatedOBJ;
     public static PlayerNetwork instance;
-
     public void setUpLobby()
     {
         OnJoinServerRpc();
     }
+
     private void Awake()
     {
         if (instance == null)
@@ -49,6 +50,7 @@ public class PlayerNetwork : NetworkBehaviour
         _CharName = new NetworkVariable<FixedString128Bytes>(writePerm: permission);
         _CharHealth = new NetworkVariable<int>(writePerm: permission);
         _clientID = new NetworkVariable<ulong>(writePerm: permission);
+        playersJoined = new NetworkVariable<int>(writePerm: permission);
 
     }
     public void SetUpChar()
@@ -162,6 +164,7 @@ public class PlayerNetwork : NetworkBehaviour
             _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
             _CharHealth.Value = transform.GetComponent<PlayergameObjScript>().playerHealth;
             _clientID.Value = transform.GetComponent<PlayergameObjScript>().clientID;
+            playersJoined.Value = transform.GetComponent<PlayergameObjScript>().playersJoined;
             SetUpChar();
         }
         else
@@ -170,7 +173,7 @@ public class PlayerNetwork : NetworkBehaviour
 
    
 
-    [ServerRpc(RequireOwnership =false)]
+    [ServerRpc(RequireOwnership = false)]
     private void OnJoinServerRpc()
     {
         for (int i = 0; i < NetworkManagerUiMain.instance.instanObjHolder.transform.childCount; i++)
@@ -183,10 +186,12 @@ public class PlayerNetwork : NetworkBehaviour
             {
                 instantiatedOBJ = Instantiate(instanObj, NetworkManagerUiMain.instance.instanObjHolder.transform);
                 instantiatedOBJ.GetComponent<TMPro.TextMeshProUGUI>().text = $"{client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName} > Has Joined";
-                Destroy(instantiatedOBJ, 60);
+                Destroy(instantiatedOBJ.gameObject, 60);
             }
 
         }
+
+        LobbyManager.instance.border.SetActive(false);
     }
     [ServerRpc] 
     private void TransmitStateServerRpc(PlayerNetworkState state)
@@ -196,6 +201,8 @@ public class PlayerNetwork : NetworkBehaviour
         _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
         _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
         _CharHealth.Value = transform.GetComponent<PlayergameObjScript>().playerHealth;
+        playersJoined.Value = transform.GetComponent<PlayergameObjScript>().playersJoined;
+
         SetUpChar();
     }
 
@@ -218,7 +225,7 @@ public class PlayerNetwork : NetworkBehaviour
         transform.GetComponent<PlayergameObjScript>()._Charchosen = _Charchosen.Value;
         transform.GetComponent<PlayergameObjScript>().PlayerName = _CharName.Value.ToString();
         transform.GetComponent<PlayergameObjScript>().playerHealth = _CharHealth.Value;
-
+        transform.GetComponent<PlayergameObjScript>().playersJoined = playersJoined.Value;
 
         SetUpChar();
     }

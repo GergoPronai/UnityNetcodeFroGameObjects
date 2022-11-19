@@ -21,12 +21,12 @@ public class PlayergameObjScript : NetworkBehaviour
     public int _Charchosen;
     public CharacterChoices CharChosen;
     public ulong clientID;
+    public int playersJoined=0;
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
 
         PlayerName = NetworkManagerUiMain.instance.PlayerName;
-       
     }
     public override void OnNetworkDespawn()
     {
