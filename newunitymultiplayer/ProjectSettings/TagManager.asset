@@ -16,6 +16,10 @@ TagManager:
   - NetManager
   - Msg_Manager
   - border
+  - Wall
+  - Rooms
+  - SpawnPoint
+  - Door
   layers:
   - Default
   - TransparentFX
