@@ -38,8 +38,6 @@ public class PlayerNetwork : NetworkBehaviour
     public void setUpLobby()
     {
         OnJoinServerRpc();
-        GameObject border = GameObject.FindGameObjectWithTag("border");
-        border.SetActive(false);
 
     }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : NetworkBehaviour
 {
     public Vector3 moveDirection;
-    private float moveSpeed =5f;
+    public float moveSpeed =2f;
     public float animSpeed = 0f;
     public Transform PlayerVisuals;
     public Animator animator;

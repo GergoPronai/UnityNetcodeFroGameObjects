@@ -23,7 +23,9 @@ public class NetworkManagerUiMain : MonoBehaviour
     [SerializeField] public GameObject instanObjHolder;
     private string IPAddress="127.0.0.1";//set to local network ny default
     public string PlayerName;
+    public GameObject DungeonGeneratorObj;
     public ulong PlayerID;
+    public string Seed;
 
     private void Awake()
     {
@@ -38,6 +40,8 @@ public class NetworkManagerUiMain : MonoBehaviour
                 NetworkManager.Singleton.StartHost();
                 LoginPage.SetActive(false);
                 PlayerID = NetworkManager.Singleton.LocalClientId;
+                DungeonGeneratorObj.GetComponent<Dungeon>().enableDungeonGeneration();
+                Seed = DungeonGeneratorObj.GetComponent<Seed>().GameSeed;
             }
         });
         ClientButton.onClick.AddListener(() => {
@@ -47,6 +51,7 @@ public class NetworkManagerUiMain : MonoBehaviour
                 NetworkManager.Singleton.StartClient();
                 PlayerID = NetworkManager.Singleton.LocalClientId;
                 LoginPage.SetActive(false);
+                DungeonGeneratorObj.GetComponent<Dungeon>().enableDungeonGeneration();
             }
         });
     }
