@@ -533,8 +533,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DUNGEON_SIZE_X: 5
   DUNGEON_SIZE_Y: 5
-  ROOM_SIZE_X: 8
-  ROOM_SIZE_Z: 8
+  ROOM_SIZE_X: 6.89
+  ROOM_SIZE_Z: 6.89
   RoomBasicPrefab: {fileID: 100000, guid: e63d12c498bb3ee46a438e8f2aadaefe, type: 3}
 --- !u!4 &505768690
 Transform:

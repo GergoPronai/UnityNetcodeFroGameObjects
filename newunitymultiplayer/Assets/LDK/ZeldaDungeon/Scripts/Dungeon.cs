@@ -8,8 +8,8 @@ public class Dungeon : MonoSingleton<Dungeon>
 	public int DUNGEON_SIZE_Y = 20;
 	
 	// Size of 3D Model Prefab in World Space
-	public int ROOM_SIZE_X = 14; 
-	public int ROOM_SIZE_Z = 9;
+	public float ROOM_SIZE_X = 14; 
+	public float ROOM_SIZE_Z = 9;
 	
 	// Demo Room Prefab
 	public GameObject RoomBasicPrefab; 
