@@ -5,13 +5,15 @@ public class GameRoom : MonoBehaviour {
 	
 	public GameObject doorWest, doorEast, doorNorth, doorSouth, Fog;
 	public Room room;
+	public bool StartBool=false;
 	
 	void Start () 
 	{
         // Remove walls if connected
-        if (room.IsFirstNode())
+        if (room.parent==null)
         {
-			Fog.GetComponent<ParticleSystem>().Clear();
+			Fog.SetActive(false);
+			StartBool = true;
 		}
 		if (room.IsConnectedTo(room.GetLeft()))
 		{

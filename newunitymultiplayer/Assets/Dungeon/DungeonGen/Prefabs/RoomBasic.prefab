@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 11400000}
   m_Layer: 0
   m_Name: RoomBasic
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,6 +56,7 @@ MonoBehaviour:
   doorNorth: {fileID: 100074}
   doorSouth: {fileID: 2808772349970002876}
   Fog: {fileID: 8354317429474468193}
+  StartBool: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -3479,6 +3480,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
+      propertyPath: FogParticleSystem
+      value: 
+      objectReference: {fileID: 8354317429474468193}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
 --- !u!4 &2045280784709181472 stripped
@@ -3937,6 +3942,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
+      propertyPath: FogParticleSystem
+      value: 
+      objectReference: {fileID: 8354317429474468193}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
 --- !u!4 &940920160456955556 stripped
@@ -4326,6 +4335,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
+      propertyPath: FogParticleSystem
+      value: 
+      objectReference: {fileID: 8354317429474468193}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
 --- !u!4 &8475158824779790526 stripped
@@ -4715,6 +4728,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
+      propertyPath: FogParticleSystem
+      value: 
+      objectReference: {fileID: 8354317429474468193}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
 --- !u!4 &6751732070919184799 stripped
@@ -4751,7 +4768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486581541133293863, guid: 636888f817e65264ab06699f24a6dc6b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.057
+      value: 1.471
       objectReference: {fileID: 0}
     - target: {fileID: 8486581541133293863, guid: 636888f817e65264ab06699f24a6dc6b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4759,7 +4776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486581541133293863, guid: 636888f817e65264ab06699f24a6dc6b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.34
+      value: 3.248
       objectReference: {fileID: 0}
     - target: {fileID: 8486581541133293863, guid: 636888f817e65264ab06699f24a6dc6b, type: 3}
       propertyPath: m_LocalRotation.w

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Dungeon : MonoSingleton<Dungeon> 
 {
@@ -41,7 +42,9 @@ public class Dungeon : MonoSingleton<Dungeon>
 	void GenerateGameRooms()
 	{
 		// For each room in our matrix generate a 3D Model from Prefab
-		
+		List<GameObject> roomList = new List<GameObject>();
+
+
 		foreach (Room room in rooms)
 		{
 			float worldX = 0;
@@ -60,7 +63,6 @@ public class Dungeon : MonoSingleton<Dungeon>
             {
 				g = GameObject.Instantiate(RoomBasicPrefab, new Vector3(worldX, 0, worldZ), Quaternion.identity) as GameObject;
 			}
-			g.transform.SetParent(transform);
 			// Add the room info to the GameObject main script (Demo)
 			GameRoom gameRoom = g.GetComponent<GameRoom>();
 			gameRoom.room = room;
@@ -71,7 +73,12 @@ public class Dungeon : MonoSingleton<Dungeon>
 				g.name = "Boss Room";
 			}
 			else g.name = "Room " + room.x + " " + room.y;
+			roomList.Add(g);
 		}
+        foreach (GameObject item in roomList)
+        {
+			item.transform.SetParent(transform);
+        }
 	}
 	
 	// Helper Methods

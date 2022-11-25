@@ -20,6 +20,7 @@ TagManager:
   - Rooms
   - SpawnPoint
   - Door
+  - Room
   layers:
   - Default
   - TransparentFX
