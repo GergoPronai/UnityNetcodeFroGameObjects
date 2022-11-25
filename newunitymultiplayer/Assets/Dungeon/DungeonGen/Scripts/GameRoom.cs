@@ -5,6 +5,7 @@ public class GameRoom : MonoBehaviour {
 	
 	public GameObject doorWest, doorEast, doorNorth, doorSouth, Fog;
 	public Room room;
+	public RoomType roomType;
 	public bool StartBool=false;
 	
 	void Start () 
@@ -65,5 +66,4 @@ public class GameRoom : MonoBehaviour {
 		}
 
 	}
-	
 }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
 public class Dungeon : MonoSingleton<Dungeon> 
 {
 	// Dungeon Rooms
@@ -20,6 +19,7 @@ public class Dungeon : MonoSingleton<Dungeon>
 	
 	// Pointer to Boss Room "Demo" GameObject
 	private GameObject bossRoom;
+
 	
 	public void enableDungeonGeneration()
     {
@@ -44,7 +44,6 @@ public class Dungeon : MonoSingleton<Dungeon>
 		// For each room in our matrix generate a 3D Model from Prefab
 		List<GameObject> roomList = new List<GameObject>();
 
-
 		foreach (Room room in rooms)
 		{
 			float worldX = 0;
@@ -66,11 +65,13 @@ public class Dungeon : MonoSingleton<Dungeon>
 			// Add the room info to the GameObject main script (Demo)
 			GameRoom gameRoom = g.GetComponent<GameRoom>();
 			gameRoom.room = room;
-			
+			gameRoom.roomType = (RoomType)Random.Range(1, System.Enum.GetValues(typeof(RoomType)).Length-1);
+
 			if (room.IsFirstNode()) 
 			{
 				bossRoom = g;
 				g.name = "Boss Room";
+				g.GetComponent<GameRoom>().roomType = RoomType.None;
 			}
 			else g.name = "Room " + room.x + " " + room.y;
 			roomList.Add(g);

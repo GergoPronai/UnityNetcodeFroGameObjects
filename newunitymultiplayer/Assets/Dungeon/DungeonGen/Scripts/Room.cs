@@ -1,11 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+public enum RoomType
+{
+	None,
+	BattleRoom,
+	TreasureRoom,
+	TrapRoom,
+	LockedRoom,
+	BossRoom,
+}
 public class Room
 {
 	public int x;
 	public int y;
-	public Room parent;
+	public RoomType roomType;
+	public Room parent;	
 	public Room child1, child2;
 	private Dungeon dungeon;
 	
