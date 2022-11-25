@@ -26,13 +26,10 @@ public class DoorsScript : MonoBehaviour
             }
         }
         animator.SetBool("Open", true);
-        //battleSystemScript.setUpBattle(DecideRoomScript, fightBoxScript);
-        //battleSystemScript.CheckOnRoomType();
-        //battleSystemScript.EnteredRoom = true;
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
-    }
-    private void Update()
-    {
-        //battleSystemScript.runCameraSwitchForDoorTransition();
+        if (this.transform.GetComponent<GameRoom>().Fog.gameObject.activeSelf)
+        {
+            this.transform.GetComponent<GameRoom>().Fog.gameObject.SetActive(false);
+        }
     }
 }

@@ -3,12 +3,16 @@ using System.Collections;
 
 public class GameRoom : MonoBehaviour {
 	
-	public GameObject doorWest, doorEast, doorNorth, doorSouth;
+	public GameObject doorWest, doorEast, doorNorth, doorSouth, Fog;
 	public Room room;
 	
 	void Start () 
 	{
-		// Remove walls if connected
+        // Remove walls if connected
+        if (room.IsFirstNode())
+        {
+			Fog.gameObject.SetActive(false);
+		}
 		if (room.IsConnectedTo(room.GetLeft()))
 		{
 			doorWest.transform.GetChild(0).gameObject.SetActive(true);
