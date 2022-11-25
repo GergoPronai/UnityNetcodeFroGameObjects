@@ -11,7 +11,7 @@ public class GameRoom : MonoBehaviour {
         // Remove walls if connected
         if (room.IsFirstNode())
         {
-			Fog.gameObject.SetActive(false);
+			Fog.GetComponent<ParticleSystem>().Clear();
 		}
 		if (room.IsConnectedTo(room.GetLeft()))
 		{

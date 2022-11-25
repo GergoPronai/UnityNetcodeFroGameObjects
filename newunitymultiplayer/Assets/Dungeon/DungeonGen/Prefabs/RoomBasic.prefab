@@ -55,6 +55,7 @@ MonoBehaviour:
   doorEast: {fileID: 100088}
   doorNorth: {fileID: 100074}
   doorSouth: {fileID: 2808772349970002876}
+  Fog: {fileID: 8354317429474468193}
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -4797,6 +4798,11 @@ PrefabInstance:
 --- !u!4 &2121244913444156360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8486581541133293863, guid: 636888f817e65264ab06699f24a6dc6b, type: 3}
+  m_PrefabInstance: {fileID: 7545299521649142511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8354317429474468193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1965318212043950990, guid: 636888f817e65264ab06699f24a6dc6b, type: 3}
   m_PrefabInstance: {fileID: 7545299521649142511}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8046573123343591657

@@ -27,9 +27,6 @@ public class DoorsScript : MonoBehaviour
         }
         animator.SetBool("Open", true);
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
-        if (this.transform.GetComponent<GameRoom>().Fog.gameObject.activeSelf)
-        {
-            this.transform.GetComponent<GameRoom>().Fog.gameObject.SetActive(false);
-        }
+        this.transform.GetComponent<GameRoom>().Fog.gameObject.SetActive(false);
     }
 }
