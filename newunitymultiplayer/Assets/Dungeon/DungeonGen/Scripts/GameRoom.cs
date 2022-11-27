@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class GameRoom : MonoBehaviour {
 	
 	public GameObject doorWest, doorEast, doorNorth, doorSouth, Fog;
 	public Room room;
 	public RoomType roomType;
 	public bool StartBool=false;
-	
+	public GameObject battleRoom;
 	void Start () 
 	{
-        // Remove walls if connected
-        if (room.parent==null)
+		battleRoom.SetActive(false);
+		// Remove walls if connected
+		if (room.parent==null)
         {
 			Fog.SetActive(false);
 			StartBool = true;
@@ -64,6 +66,25 @@ public class GameRoom : MonoBehaviour {
 			doorSouth.transform.GetChild(1).gameObject.SetActive(true);
 			doorSouth.transform.GetChild(2).gameObject.SetActive(true);
 		}
-
+		setupRoom();
 	}
+	public void setupRoom()
+    {
+        switch (roomType)
+        {
+            case RoomType.None:
+                break;
+            case RoomType.BattleRoom:
+				battleRoom.SetActive(true);
+				break;
+            case RoomType.TreasureRoom:
+                break;
+            case RoomType.TrapRoom:
+                break;
+            case RoomType.BossRoom:
+                break;
+            default:
+                break;
+        }
+    }
 }

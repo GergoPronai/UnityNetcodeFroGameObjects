@@ -6,7 +6,6 @@ public enum RoomType
 	BattleRoom,
 	TreasureRoom,
 	TrapRoom,
-	LockedRoom,
 	BossRoom,
 }
 public class Room
