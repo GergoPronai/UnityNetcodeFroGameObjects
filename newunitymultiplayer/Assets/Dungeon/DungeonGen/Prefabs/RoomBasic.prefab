@@ -300,6 +300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4977220507957248421}
+  - component: {fileID: 4973470217787951095}
   m_Layer: 0
   m_Name: BattleBox
   m_TagString: Untagged
@@ -324,6 +325,25 @@ Transform:
   m_Father: {fileID: 400000}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4973470217787951095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555534204106199319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936576dab44485f42a5512636662a8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfEnemies: 0
+  Enemies:
+  - {fileID: 7740927939515948258, guid: 515e7c1609ff1e84080c36dd7d6a925a, type: 3}
+  - {fileID: 1291117377338556460, guid: 9fbeadc18874aa846afddc28709ed3fa, type: 3}
+  - {fileID: 6167876151370635288, guid: 8634206fb008c0140ae6355aab0f001f, type: 3}
+  - {fileID: 6222534478744701143, guid: 371b7e7ee1ca4ed4da9ed6bd21f82111, type: 3}
+  SpawnPointHolder: {fileID: 0}
 --- !u!1 &571016024449273685
 GameObject:
   m_ObjectHideFlags: 0
@@ -4859,6 +4879,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
+      propertyPath: battleScript
+      value: 
+      objectReference: {fileID: 4973470217787951095}
+    - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
       propertyPath: roomOrientation
       value: 4
       objectReference: {fileID: 0}
@@ -5325,6 +5349,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
+      propertyPath: battleScript
+      value: 
+      objectReference: {fileID: 4973470217787951095}
+    - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
       propertyPath: roomOrientation
       value: 2
       objectReference: {fileID: 0}
@@ -5722,6 +5750,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
+      propertyPath: battleScript
+      value: 
+      objectReference: {fileID: 4973470217787951095}
+    - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
       propertyPath: roomOrientation
       value: 3
       objectReference: {fileID: 0}
@@ -6118,6 +6150,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
+      propertyPath: battleScript
+      value: 
+      objectReference: {fileID: 4973470217787951095}
     - target: {fileID: 7345248711524936117, guid: f1f07b7f16167394aab63961ebf2c6a2, type: 3}
       propertyPath: roomOrientation
       value: 1
