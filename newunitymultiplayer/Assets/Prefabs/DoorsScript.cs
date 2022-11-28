@@ -27,19 +27,7 @@ public class DoorsScript : MonoBehaviour
         {            
             switch (roomOrientation)
             {
-                case RoomOrientation.North:
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(true);
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(false);
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(3).gameObject.SetActive(false);
-
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(1).gameObject.SetActive(false);
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(2).gameObject.SetActive(false);
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(3).gameObject.SetActive(false);
-                    battleScript.SpawnPointHolder = ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(0).gameObject;
-                    break;
-                case RoomOrientation.South:
+                case RoomOrientation.North:                    
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(false);
@@ -51,19 +39,19 @@ public class DoorsScript : MonoBehaviour
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(3).gameObject.SetActive(false);
                     battleScript.SpawnPointHolder = ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(1).gameObject;
                     break;
-                case RoomOrientation.East:
+                case RoomOrientation.South:
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(true);
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(false);
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(3).gameObject.SetActive(true);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(3).gameObject.SetActive(false);
 
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(false);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(1).gameObject.SetActive(false);
-                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(2).gameObject.SetActive(true);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(2).gameObject.SetActive(false);
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(3).gameObject.SetActive(false);
-                    battleScript.SpawnPointHolder = ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(2).gameObject;
+                    battleScript.SpawnPointHolder = ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(0).gameObject;
                     break;
-                case RoomOrientation.West:
+                case RoomOrientation.East:                    
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(true);
@@ -74,6 +62,18 @@ public class DoorsScript : MonoBehaviour
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(2).gameObject.SetActive(false);
                     ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(3).gameObject.SetActive(true);
                     battleScript.SpawnPointHolder = ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(3).gameObject;
+                    break;
+                case RoomOrientation.West:
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(false);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(3).gameObject.SetActive(true);
+
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(false);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(1).gameObject.SetActive(false);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(2).gameObject.SetActive(true);
+                    ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(3).gameObject.SetActive(false);
+                    battleScript.SpawnPointHolder = ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(1).transform.GetChild(2).gameObject;
                     break;
             }
             battleScript.enable();
