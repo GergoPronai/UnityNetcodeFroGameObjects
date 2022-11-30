@@ -35,18 +35,47 @@ public class PlayerNetwork : NetworkBehaviour
     public GameObject instanObj;
     private GameObject instantiatedOBJ;
     public static PlayerNetwork instance;
-    public GameObject playerLobbyCardPrefab;
-    public GameObject playerLobbyCardPrefabHolder;
+    private GameObject playerLobbyCardPrefab;
+    private GameObject playerLobbyCardPrefabHolder;
+    private AttackListHolder listHolder;
+    private List<AttackInfo> newAttackInfos;
     public void setUpLobby(GameObject playerLobbyCardPrefab_passed, GameObject playerLobbyCardPrefabHolder_passed)
     {
         playerLobbyCardPrefab = playerLobbyCardPrefab_passed;
         playerLobbyCardPrefabHolder = playerLobbyCardPrefabHolder_passed;
         OnJoinServerRpc();
-        if (IsClient && !IsHost)
+        if (IsClient)
         {
             instantiatedOBJ = Instantiate(playerLobbyCardPrefab_passed, playerLobbyCardPrefabHolder_passed.transform);
-            instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
-            instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen);
+            instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
+            instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen);
+            listHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();            
+            switch (NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen)
+            {
+                case CharacterChoices.Barbarian:
+                    newAttackInfos.Add(listHolder.BarabarianAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
+                    newAttackInfos.Add(listHolder.BarabarianAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
+                    newAttackInfos.Add(listHolder.BarabarianAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
+                    break;
+                case CharacterChoices.Knight:
+                    newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
+                    newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
+                    newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
+                    break;
+                case CharacterChoices.Mage:
+                    newAttackInfos.Add(listHolder.MageAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
+                    newAttackInfos.Add(listHolder.MageAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
+                    newAttackInfos.Add(listHolder.MageAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
+                    break;
+                case CharacterChoices.Rogue:
+                    newAttackInfos.Add(listHolder.RogueAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
+                    newAttackInfos.Add(listHolder.RogueAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
+                    newAttackInfos.Add(listHolder.RogueAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
+                    break;
+                default:
+                    break;
+            }
+            instantiatedOBJ.GetComponent<PlayerLobbyScript>().InstanAttackInfos(newAttackInfos);
             Destroy(instantiatedOBJ.gameObject, 60);
         }
     }

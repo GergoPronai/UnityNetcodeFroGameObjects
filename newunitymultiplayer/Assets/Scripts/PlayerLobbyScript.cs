@@ -10,6 +10,7 @@ public class PlayerLobbyScript : MonoBehaviour
     [SerializeField] Sprite[] CharacterImages;
     [SerializeField] private UnityEngine.UI.Image CharacterImage;
     public GameObject instantiateObj;
+    public GameObject instantiateHolder;
     
     public void getCharImage(CharacterChoices CharChosen)
     {
@@ -33,7 +34,7 @@ public class PlayerLobbyScript : MonoBehaviour
     {
         foreach (AttackInfo item in attackInfos)
         {
-            GameObject instanOBJ = Instantiate(instantiateObj, transform.GetChild(3).transform);
+            GameObject instanOBJ = Instantiate(instantiateObj, instantiateHolder.transform);
             instanOBJ.GetComponent<UseAttackScript>().storedAttackInfo = item;
             instanOBJ.GetComponent<UseAttackScript>().name = item.Name;
         }

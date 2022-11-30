@@ -13,7 +13,7 @@ public class BattleScript : MonoBehaviour
 
     public void enable()
     {
-        amountOfEnemies = Random.RandomRange(1, Enemies.Length);
+        amountOfEnemies = Random.Range(1, Enemies.Length);
         randomizeEnemies();
     }
 
@@ -22,12 +22,12 @@ public class BattleScript : MonoBehaviour
     {
         for (int i = 0; i < amountOfEnemies; i++)
         {
-            int spawnPoint = Random.RandomRange(0, SpawnPointHolder.transform.childCount);
+            int spawnPoint = Random.Range(0, SpawnPointHolder.transform.childCount);
             while(spawnPoint==prevSpawnPoint)
             {
-                spawnPoint = Random.RandomRange(0, SpawnPointHolder.transform.childCount);
+                spawnPoint = Random.Range(0, SpawnPointHolder.transform.childCount);
             }        
-            GameObject enemy = Instantiate(Enemies[Random.RandomRange(0, Enemies.Length)], SpawnPointHolder.transform.GetChild(spawnPoint).transform);
+            GameObject enemy = Instantiate(Enemies[Random.Range(0, Enemies.Length)], SpawnPointHolder.transform.GetChild(spawnPoint).transform);
         }
     }
 }
