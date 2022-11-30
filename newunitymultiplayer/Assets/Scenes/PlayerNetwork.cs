@@ -35,10 +35,20 @@ public class PlayerNetwork : NetworkBehaviour
     public GameObject instanObj;
     private GameObject instantiatedOBJ;
     public static PlayerNetwork instance;
-    public void setUpLobby()
+    public GameObject playerLobbyCardPrefab;
+    public GameObject playerLobbyCardPrefabHolder;
+    public void setUpLobby(GameObject playerLobbyCardPrefab_passed, GameObject playerLobbyCardPrefabHolder_passed)
     {
+        playerLobbyCardPrefab = playerLobbyCardPrefab_passed;
+        playerLobbyCardPrefabHolder = playerLobbyCardPrefabHolder_passed;
         OnJoinServerRpc();
-
+        if (IsClient && !IsHost)
+        {
+            instantiatedOBJ = Instantiate(playerLobbyCardPrefab_passed, playerLobbyCardPrefabHolder_passed.transform);
+            instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
+            instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(NetworkManager.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen);
+            Destroy(instantiatedOBJ.gameObject, 60);
+        }
     }
 
     private void Awake()
@@ -199,8 +209,9 @@ public class PlayerNetwork : NetworkBehaviour
         {
             if (client.PlayerObject != NetworkManager.Singleton.LocalClient.PlayerObject)
             {
-                instantiatedOBJ = Instantiate(instanObj, NetworkManagerUiMain.instance.instanObjHolder.transform);
-                instantiatedOBJ.GetComponent<TMPro.TextMeshProUGUI>().text = $"{client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName} > Has Joined";
+                instantiatedOBJ = Instantiate(playerLobbyCardPrefab, playerLobbyCardPrefabHolder.transform);
+                instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
+                instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen);
                 Destroy(instantiatedOBJ.gameObject, 60);
             }
 
