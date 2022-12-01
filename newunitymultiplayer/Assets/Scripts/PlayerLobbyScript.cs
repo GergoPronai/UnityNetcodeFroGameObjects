@@ -35,8 +35,8 @@ public class PlayerLobbyScript : MonoBehaviour
         foreach (AttackInfo item in attackInfos)
         {
             GameObject instanOBJ = Instantiate(instantiateObj, instantiateHolder.transform);
-            instanOBJ.GetComponent<UseAttackScript>().storedAttackInfo = item;
-            instanOBJ.GetComponent<UseAttackScript>().name = item.Name;
+            instanOBJ.GetComponent<AttackLobbyScript>().attacksInfo = item;
+            instanOBJ.GetComponent<AttackLobbyScript>().AttackNameText.text = item.Name;
         }
     }
 }

@@ -35,22 +35,20 @@ public class PlayerNetwork : NetworkBehaviour
     public GameObject instanObj;
     private GameObject instantiatedOBJ;
     public static PlayerNetwork instance;
-    private GameObject playerLobbyCardPrefab;
     private GameObject playerLobbyCardPrefabHolder;
     private AttackListHolder listHolder;
-    private List<AttackInfo> newAttackInfos;
-    public void setUpLobby(GameObject playerLobbyCardPrefab_passed, GameObject playerLobbyCardPrefabHolder_passed)
+    private List<AttackInfo> newAttackInfos= new List<AttackInfo>();
+    public void setUpLobby(GameObject playerLobbyCardPrefabHolder_passed)
     {
-        playerLobbyCardPrefab = playerLobbyCardPrefab_passed;
         playerLobbyCardPrefabHolder = playerLobbyCardPrefabHolder_passed;
         OnJoinServerRpc();
         if (IsClient)
         {
-            instantiatedOBJ = Instantiate(playerLobbyCardPrefab_passed, playerLobbyCardPrefabHolder_passed.transform);
-            instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
-            instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen);
+            instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder_passed.transform);
+            instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = transform.GetComponent<PlayergameObjScript>().PlayerName;
+            instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(transform.GetComponent<PlayergameObjScript>().CharChosen);
             listHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();            
-            switch (NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen)
+            switch (transform.GetComponent<PlayergameObjScript>().CharChosen)
             {
                 case CharacterChoices.Barbarian:
                     newAttackInfos.Add(listHolder.BarabarianAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
@@ -238,7 +236,7 @@ public class PlayerNetwork : NetworkBehaviour
         {
             if (client.PlayerObject != NetworkManager.Singleton.LocalClient.PlayerObject)
             {
-                instantiatedOBJ = Instantiate(playerLobbyCardPrefab, playerLobbyCardPrefabHolder.transform);
+                instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder.transform);
                 instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
                 instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen);
                 Destroy(instantiatedOBJ.gameObject, 60);

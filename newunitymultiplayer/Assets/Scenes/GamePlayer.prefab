@@ -8473,7 +8473,7 @@ MonoBehaviour:
     m_InternalValue: 0
   attackIDs_3:
     m_InternalValue: 0
-  instanObj: {fileID: 7252976195220070877, guid: 982bc7a78c791a349ba1fc3e7aeb8e77, type: 3}
+  instanObj: {fileID: 2550815497869535284, guid: c413f5d28ce888649b9cd1af0753c04d, type: 3}
 --- !u!114 &627198902272228425
 MonoBehaviour:
   m_ObjectHideFlags: 0
