@@ -74,7 +74,6 @@ public class PlayerNetwork : NetworkBehaviour
                     break;
             }
             instantiatedOBJ.GetComponent<PlayerLobbyScript>().InstanAttackInfos(newAttackInfos);
-            Destroy(instantiatedOBJ.gameObject, 60);
         }
     }
 
@@ -228,9 +227,9 @@ public class PlayerNetwork : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void OnJoinServerRpc()
     {
-        for (int i = 0; i < NetworkManagerUiMain.instance.instanObjHolder.transform.childCount; i++)
+        for (int i = 0; i < playerLobbyCardPrefabHolder.transform.childCount; i++)
         {
-            Destroy(NetworkManagerUiMain.instance.instanObjHolder.transform.GetChild(i));
+            Destroy(playerLobbyCardPrefabHolder.transform.GetChild(i));
         }
         foreach (var client in NetworkManager.ConnectedClientsList)
         {
@@ -239,7 +238,33 @@ public class PlayerNetwork : NetworkBehaviour
                 instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder.transform);
                 instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
                 instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen);
-                Destroy(instantiatedOBJ.gameObject, 60);
+                listHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();            
+                switch (client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen)
+                {
+                    case CharacterChoices.Barbarian:
+                        newAttackInfos.Add(listHolder.BarabarianAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
+                        newAttackInfos.Add(listHolder.BarabarianAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
+                        newAttackInfos.Add(listHolder.BarabarianAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
+                        break;
+                    case CharacterChoices.Knight:
+                        newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
+                        newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
+                        newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
+                        break;
+                    case CharacterChoices.Mage:
+                        newAttackInfos.Add(listHolder.MageAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
+                        newAttackInfos.Add(listHolder.MageAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
+                        newAttackInfos.Add(listHolder.MageAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
+                        break;
+                    case CharacterChoices.Rogue:
+                        newAttackInfos.Add(listHolder.RogueAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
+                        newAttackInfos.Add(listHolder.RogueAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
+                        newAttackInfos.Add(listHolder.RogueAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
+                        break;
+                    default:
+                        break;
+                }
+                instantiatedOBJ.GetComponent<PlayerLobbyScript>().InstanAttackInfos(newAttackInfos);            
             }
 
         }
