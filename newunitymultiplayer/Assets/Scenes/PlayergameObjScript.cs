@@ -24,7 +24,7 @@ public class PlayergameObjScript : NetworkBehaviour
     public int CharChosen_ChosenAttacks_2=0;
     public int CharChosen_ChosenAttacks_3=0;
     public ulong clientID;
-    public int playersJoined=0;
+    public bool playersJoined=false;
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();

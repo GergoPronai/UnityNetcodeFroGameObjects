@@ -25,7 +25,7 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<FixedString128Bytes> _CharName;
     public NetworkVariable<int> _CharHealth;
     public NetworkVariable<ulong> _clientID;
-    public NetworkVariable<int> playersJoined;
+    public NetworkVariable<bool> playersJoined;
     public NetworkVariable<CharacterChoices> charChosen;
     public NetworkVariable<int> attackIDs_1;
     public NetworkVariable<int> attackIDs_2;
@@ -41,7 +41,6 @@ public class PlayerNetwork : NetworkBehaviour
     public void setUpLobby(GameObject playerLobbyCardPrefabHolder_passed)
     {
         playerLobbyCardPrefabHolder = playerLobbyCardPrefabHolder_passed;
-        OnJoinServerRpc();
         if (IsClient)
         {
             instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder_passed.transform);
@@ -75,6 +74,7 @@ public class PlayerNetwork : NetworkBehaviour
             }
             instantiatedOBJ.GetComponent<PlayerLobbyScript>().InstanAttackInfos(newAttackInfos);
         }
+        OnJoinServerRpc();
     }
 
     private void Awake()
@@ -91,7 +91,7 @@ public class PlayerNetwork : NetworkBehaviour
         _CharName = new NetworkVariable<FixedString128Bytes>(writePerm: permission);
         _CharHealth = new NetworkVariable<int>(writePerm: permission);
         _clientID = new NetworkVariable<ulong>(writePerm: permission);
-        playersJoined = new NetworkVariable<int>(writePerm: permission);
+        playersJoined = new NetworkVariable<bool>(writePerm: permission);
 
         charChosen = new NetworkVariable<CharacterChoices>(writePerm: permission);
         attackIDs_1 = new NetworkVariable<int>(writePerm: permission);
@@ -233,7 +233,7 @@ public class PlayerNetwork : NetworkBehaviour
         }
         foreach (var client in NetworkManager.ConnectedClientsList)
         {
-            if (client.PlayerObject != NetworkManager.Singleton.LocalClient.PlayerObject)
+            if (client.PlayerObject != NetworkManager.Singleton.LocalClient.PlayerObject && client.PlayerObject.GetComponent<PlayergameObjScript>().playersJoined)
             {
                 instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder.transform);
                 instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
