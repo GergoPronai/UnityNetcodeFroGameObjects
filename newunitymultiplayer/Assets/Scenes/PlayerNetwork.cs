@@ -41,8 +41,12 @@ public class PlayerNetwork : NetworkBehaviour
     public void setUpLobby(GameObject playerLobbyCardPrefabHolder_passed)
     {
         playerLobbyCardPrefabHolder = playerLobbyCardPrefabHolder_passed;
-        if (IsClient)
+        if (IsClient && transform.GetComponent<PlayergameObjScript>().playersJoined)
         {
+            for (int i = 0; i < playerLobbyCardPrefabHolder_passed.transform.childCount; i++)
+            {
+                Destroy(playerLobbyCardPrefabHolder.transform.GetChild(i));
+            }
             instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder_passed.transform);
             instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = transform.GetComponent<PlayergameObjScript>().PlayerName;
             instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(transform.GetComponent<PlayergameObjScript>().CharChosen);

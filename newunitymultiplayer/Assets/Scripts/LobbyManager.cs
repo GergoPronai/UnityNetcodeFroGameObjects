@@ -14,5 +14,6 @@ public class LobbyManager : NetworkBehaviour
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().disable();
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().playersJoined=true;
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerNetwork>().setUpLobby(playerLobbyCardPrefabHolder);
+
     }
 }
