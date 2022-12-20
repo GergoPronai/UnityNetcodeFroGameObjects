@@ -25,7 +25,7 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<FixedString128Bytes> _CharName;
     public NetworkVariable<int> _CharHealth;
     public NetworkVariable<ulong> _clientID;
-    public NetworkVariable<bool> playersJoined;
+    public NetworkVariable<int> playersJoined;
     public NetworkVariable<CharacterChoices> charChosen;
     public NetworkVariable<int> attackIDs_1;
     public NetworkVariable<int> attackIDs_2;
@@ -35,19 +35,19 @@ public class PlayerNetwork : NetworkBehaviour
     public GameObject instanObj;
     private GameObject instantiatedOBJ;
     public static PlayerNetwork instance;
-    private GameObject playerLobbyCardPrefabHolder;
+    public GameObject playerLobbyCardPrefabHolder;
     private AttackListHolder listHolder;
     private List<AttackInfo> newAttackInfos= new List<AttackInfo>();
-    public void setUpLobby(GameObject playerLobbyCardPrefabHolder_passed)
+    
+    public void setUpLobby()
     {
-        playerLobbyCardPrefabHolder = playerLobbyCardPrefabHolder_passed;
-        if (IsClient && transform.GetComponent<PlayergameObjScript>().playersJoined)
+        if (IsClient && !IsHost)
         {
-            for (int i = 0; i < playerLobbyCardPrefabHolder_passed.transform.childCount; i++)
+            for (int i = 0; i < playerLobbyCardPrefabHolder.transform.childCount; i++)
             {
                 Destroy(playerLobbyCardPrefabHolder.transform.GetChild(i));
             }
-            instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder_passed.transform);
+            instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder.transform);
             instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = transform.GetComponent<PlayergameObjScript>().PlayerName;
             instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(transform.GetComponent<PlayergameObjScript>().CharChosen);
             listHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();            
@@ -95,7 +95,7 @@ public class PlayerNetwork : NetworkBehaviour
         _CharName = new NetworkVariable<FixedString128Bytes>(writePerm: permission);
         _CharHealth = new NetworkVariable<int>(writePerm: permission);
         _clientID = new NetworkVariable<ulong>(writePerm: permission);
-        playersJoined = new NetworkVariable<bool>(writePerm: permission);
+        playersJoined = new NetworkVariable<int>(writePerm: permission);
 
         charChosen = new NetworkVariable<CharacterChoices>(writePerm: permission);
         attackIDs_1 = new NetworkVariable<int>(writePerm: permission);
@@ -103,6 +103,9 @@ public class PlayerNetwork : NetworkBehaviour
         attackIDs_3 = new NetworkVariable<int>(writePerm: permission);
 
     }
+
+    
+
     public void SetUpChar()
     {
 
@@ -237,7 +240,7 @@ public class PlayerNetwork : NetworkBehaviour
         }
         foreach (var client in NetworkManager.ConnectedClientsList)
         {
-            if (client.PlayerObject != NetworkManager.Singleton.LocalClient.PlayerObject && client.PlayerObject.GetComponent<PlayergameObjScript>().playersJoined)
+            if (client.PlayerObject)
             {
                 instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder.transform);
                 instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
