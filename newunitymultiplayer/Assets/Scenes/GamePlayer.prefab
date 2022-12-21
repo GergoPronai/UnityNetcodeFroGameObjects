@@ -7972,7 +7972,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6200266074758506349}
   m_LocalRotation: {x: 0.28857064, y: -0.45000225, z: 0.15635514, w: 0.8305288}
-  m_LocalPosition: {x: 14.2, y: 14.5, z: -9.8}
+  m_LocalPosition: {x: 15.6, y: 15, z: -9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7994,8 +7994,8 @@ Camera:
   m_GameObject: {fileID: 6200266074758506349}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.05882353, g: 0.09019608, b: 0.12156863, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -8474,6 +8474,7 @@ MonoBehaviour:
   attackIDs_3:
     m_InternalValue: 0
   instanObj: {fileID: 2550815497869535284, guid: c413f5d28ce888649b9cd1af0753c04d, type: 3}
+  playerLobbyCardPrefabHolder: {fileID: 0}
 --- !u!114 &627198902272228425
 MonoBehaviour:
   m_ObjectHideFlags: 0
