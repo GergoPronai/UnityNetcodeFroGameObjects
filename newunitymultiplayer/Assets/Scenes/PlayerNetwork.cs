@@ -192,7 +192,10 @@ public class PlayerNetwork : NetworkBehaviour
         {
             cam.gameObject.SetActive(true);
         }
-        
+        if (!IsOwner)
+        {
+            cam.gameObject.SetActive(false);
+        }
     }
     private void Update()
     {
