@@ -8276,7 +8276,7 @@ MonoBehaviour:
   CharChosen_ChosenAttacks_2: 0
   CharChosen_ChosenAttacks_3: 0
   clientID: 0
-  playersJoined: 0
+  playerPositionInBattle: 0
 --- !u!114 &3136992098025367456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8463,7 +8463,7 @@ MonoBehaviour:
     m_InternalValue: 0
   _clientID:
     m_InternalValue: 0
-  playersJoined:
+  playerPositionInBattle:
     m_InternalValue: 0
   charChosen:
     m_InternalValue: 0

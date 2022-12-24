@@ -25,11 +25,13 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<FixedString128Bytes> _CharName;
     public NetworkVariable<int> _CharHealth;
     public NetworkVariable<ulong> _clientID;
-    public NetworkVariable<int> playersJoined;
+    public NetworkVariable<int> playerPositionInBattle;
     public NetworkVariable<CharacterChoices> charChosen;
     public NetworkVariable<int> attackIDs_1;
     public NetworkVariable<int> attackIDs_2;
     public NetworkVariable<int> attackIDs_3;
+
+
     private Rigidbody _rb;
 
     public GameObject instanObj;
@@ -95,7 +97,7 @@ public class PlayerNetwork : NetworkBehaviour
         _CharName = new NetworkVariable<FixedString128Bytes>(writePerm: permission);
         _CharHealth = new NetworkVariable<int>(writePerm: permission);
         _clientID = new NetworkVariable<ulong>(writePerm: permission);
-        playersJoined = new NetworkVariable<int>(writePerm: permission);
+        playerPositionInBattle = new NetworkVariable<int>(writePerm: permission);
 
         charChosen = new NetworkVariable<CharacterChoices>(writePerm: permission);
         attackIDs_1 = new NetworkVariable<int>(writePerm: permission);
@@ -220,7 +222,7 @@ public class PlayerNetwork : NetworkBehaviour
             _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
             _CharHealth.Value = transform.GetComponent<PlayergameObjScript>().playerHealth;
             _clientID.Value = transform.GetComponent<PlayergameObjScript>().clientID;
-            playersJoined.Value = transform.GetComponent<PlayergameObjScript>().playersJoined;
+            playerPositionInBattle.Value = transform.GetComponent<PlayergameObjScript>().playerPositionInBattle;
             charChosen.Value = transform.GetComponent<PlayergameObjScript>().CharChosen;
 
             attackIDs_1.Value = transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1;
@@ -288,7 +290,7 @@ public class PlayerNetwork : NetworkBehaviour
         _Charchosen.Value = transform.GetComponent<PlayergameObjScript>()._Charchosen;
         _CharName.Value = transform.GetComponent<PlayergameObjScript>().PlayerName;
         _CharHealth.Value = transform.GetComponent<PlayergameObjScript>().playerHealth;
-        playersJoined.Value = transform.GetComponent<PlayergameObjScript>().playersJoined;
+        playerPositionInBattle.Value = transform.GetComponent<PlayergameObjScript>().playerPositionInBattle;
         charChosen.Value = transform.GetComponent<PlayergameObjScript>().CharChosen;
 
         attackIDs_1.Value = transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1;
@@ -317,7 +319,7 @@ public class PlayerNetwork : NetworkBehaviour
         transform.GetComponent<PlayergameObjScript>()._Charchosen = _Charchosen.Value;
         transform.GetComponent<PlayergameObjScript>().PlayerName = _CharName.Value.ToString();
         transform.GetComponent<PlayergameObjScript>().playerHealth = _CharHealth.Value;
-        transform.GetComponent<PlayergameObjScript>().playersJoined = playersJoined.Value;
+        transform.GetComponent<PlayergameObjScript>().playerPositionInBattle = playerPositionInBattle.Value;
 
         transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1 = attackIDs_1.Value;
         transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2 = attackIDs_2.Value;

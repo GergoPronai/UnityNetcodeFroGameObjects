@@ -10,6 +10,9 @@ public class PlayerMovement : NetworkBehaviour
     public float animSpeed = 0f;
     public Transform PlayerVisuals;
     public Animator animator;
+    public Vector3 moveToPoint;
+    public GameObject SpawnPointHolder_Players;
+    public bool moveToPosition=false;
     // Start is called before the first frame update
     // Update is called once per frame
     void Update()
@@ -19,6 +22,17 @@ public class PlayerMovement : NetworkBehaviour
         GatherInput();
         Look();
         Move();
+        if (moveToPosition)
+        {
+            if (transform.position!= SpawnPointHolder_Players.transform.GetChild(transform.GetComponent<PlayerNetwork>().playerPositionInBattle.Value).position)
+            {
+                transform.position = Vector3.Lerp(transform.position, SpawnPointHolder_Players.transform.GetChild(transform.GetComponent<PlayerNetwork>().playerPositionInBattle.Value).position, Time.deltaTime * moveSpeed);
+            }
+            else
+            {
+                moveToPosition=false;
+            }
+        }
     }
     private void GatherInput()
     {
