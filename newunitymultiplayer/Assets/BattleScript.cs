@@ -11,25 +11,34 @@ public class BattleScript : MonoBehaviour
     public GameObject SpawnPointHolder_Enemies;
     private int prevSpawnPoint_Enemies=-1;
     [Header("Players")]
-    public int amountOfPlayers = 0;
+    public GameObject PlayerActivatedBattle;
+    public GameObject battleCamParent;
     public GameObject[] Players;
     public GameObject SpawnPointHolder_Players;
     private int prevSpawnPoint_Players = -1;
 
 
-    public void enable()
+    public void enable(GameObject playerCam)
     {
+        PlayerActivatedBattle = playerCam.transform.parent.gameObject;
         amountOfEnemies = Random.Range(1, Enemies.Length);
         Players = GameObject.FindGameObjectsWithTag("Player");
-        amountOfPlayers = Players.Length;
         randomizeEnemies();
         goPlayerPoints();
+        if (battleCamParent!=null)
+        {
+            battleCamParent.SetActive(true);
+            playerCam.transform.SetParent(battleCamParent.transform);
+            playerCam.transform.position = battleCamParent.transform.position;
+            playerCam.transform.rotation = battleCamParent.transform.rotation;
+            battleCamParent.transform.rotation.SetAxisAngle(Vector3.up, SpawnPointHolder_Enemies.transform.rotation.eulerAngles.y + 180f);
+        }
     }
 
     // Update is called once per frame
     void randomizeEnemies()
     {
-        for (int i = 0; i < amountOfEnemies; i++)
+        for (int i = 0; i < Players.Length; i++)
         {
             int spawnPoint = Random.Range(0, SpawnPointHolder_Enemies.transform.childCount);
             while(spawnPoint==prevSpawnPoint_Enemies)
@@ -41,10 +50,13 @@ public class BattleScript : MonoBehaviour
     }
     public void goPlayerPoints()
     {
-        for (int i = 0; i < amountOfPlayers; i++)
+        for (int i = 0; i < Players.Length; i++)
         {
             Players[i].GetComponent<PlayerMovement>().SpawnPointHolder_Players = SpawnPointHolder_Players;
-            Players[i].GetComponent<PlayerMovement>().moveToPosition=true;
+            Players[i].transform.position = Players[i].GetComponent<PlayerMovement>().SpawnPointHolder_Players.transform.GetChild(Players[i].GetComponent<PlayerNetwork>().playerPositionInBattle.Value).position;
+            Players[i].GetComponent<PlayerMovement>().allowedMove = false;
+            Players[i].GetComponent<PlayerMovement>().animator.SetFloat("Speed", 0f);
+            Players[i].GetComponent<PlayergameObjScript>().battleCamCanvas.SetActive(true);
         }
     }
 }

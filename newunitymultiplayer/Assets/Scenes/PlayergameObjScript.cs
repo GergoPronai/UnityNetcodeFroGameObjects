@@ -25,6 +25,7 @@ public class PlayergameObjScript : NetworkBehaviour
     public int CharChosen_ChosenAttacks_3=0;
     public ulong clientID;
     public int playerPositionInBattle = 0;
+    public GameObject battleCamCanvas;
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -44,6 +45,7 @@ public class PlayergameObjScript : NetworkBehaviour
     public void enable()
     {
         HealthBar.gameObject.SetActive(false);
+        battleCamCanvas.SetActive(false);
     }
     public void Start()
     {
