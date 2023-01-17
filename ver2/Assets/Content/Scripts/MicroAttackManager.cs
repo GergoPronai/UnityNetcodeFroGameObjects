@@ -14,7 +14,8 @@ public class MicroAttackManager : MonoBehaviour
     public UnityEngine.UI.Button ReadyUpButton;
     private Transform ParentForExtraInfo;
     private GameObject InstantiatedObj;
-    public AttackListHolder characterCustomizer = null;
+    public AttackListHolder characterCustomizer_AttackListHolder = null;
+    public PlayerAttackInfosAndChosenAttackNumbers characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers = null;
     [Header("Player Manager")]
     public Unity.Netcode.NetworkManager NetManager;
     public int AttackIDNumber = 0;
@@ -22,9 +23,10 @@ public class MicroAttackManager : MonoBehaviour
     public void enable()
     {
         NetManager = GameObject.FindGameObjectWithTag("NetManager").GetComponent<NetworkManager>();
-        characterCustomizer = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();
-        ChosenHolder = characterCustomizer.ChosenholderOfButton;
-        AvailableHolder = characterCustomizer.AvailableholderOfButton;
+        characterCustomizer_AttackListHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();
+        characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>();
+        ChosenHolder = characterCustomizer_AttackListHolder.ChosenholderOfButton;
+        AvailableHolder = characterCustomizer_AttackListHolder.AvailableholderOfButton;
         ReadyUpButton = GameObject.FindGameObjectWithTag("ReadyUpButton").GetComponent<UnityEngine.UI.Button>();
         ParentForExtraInfo = GameObject.FindGameObjectWithTag("ExtraInfoPanel").transform;
     }
@@ -130,13 +132,13 @@ public class MicroAttackManager : MonoBehaviour
     {
         if (ChosenHolder.childCount == 3)
         {
-            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[0] = ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttacksInfo;
-            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1 = ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttackIDNumber;
-            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[1] = ChosenHolder.transform.GetChild(1).GetComponent<MicroAttackManager>().AttacksInfo;
-            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2 = ChosenHolder.transform.GetChild(1).GetComponent<MicroAttackManager>().AttackIDNumber;
-            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().attackInfos[2] = ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttacksInfo;
-            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3 = ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttackIDNumber;
-            NetManager.LocalClient.PlayerObject.gameObject.GetComponent<PlayergameObjScript>().SetUpCharacterFromLobby(characterCustomizer.character);
+            characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.attackInfos.Add(ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttacksInfo);
+            characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.CharChosen_ChosenAttacks_1 = ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttackIDNumber;
+            characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.attackInfos.Add(ChosenHolder.transform.GetChild(1).GetComponent<MicroAttackManager>().AttacksInfo);
+            characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.CharChosen_ChosenAttacks_2 = ChosenHolder.transform.GetChild(1).GetComponent<MicroAttackManager>().AttackIDNumber;
+            characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.attackInfos.Add(ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttacksInfo);
+            characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.CharChosen_ChosenAttacks_3 = ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttackIDNumber;
+            characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.character = characterCustomizer_AttackListHolder.character;
             ReadyUpButton.interactable = true;
         }
         else

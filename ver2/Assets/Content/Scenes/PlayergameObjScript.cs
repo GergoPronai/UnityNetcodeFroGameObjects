@@ -51,8 +51,13 @@ public class PlayergameObjScript : NetworkBehaviour
     {
         enable();
         playerHealth = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().playerHealth;
+        attackInfos = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().attackInfos;
+        CharChosen_ChosenAttacks_1 = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_1;
+        CharChosen_ChosenAttacks_2 = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_2;
+        CharChosen_ChosenAttacks_3 = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_3;
+        SetUpCharacterFromLobby(GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().character);
     }
-
+    
     public void SetPlayerName(TMPro.TMP_InputField textField)
     {
         PlayerName = textField.text;
