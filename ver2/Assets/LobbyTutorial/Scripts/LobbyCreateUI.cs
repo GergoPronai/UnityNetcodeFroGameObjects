@@ -66,7 +66,7 @@ public class LobbyCreateUI : MonoBehaviour {
             });
         });
 
-        gameModeButton.onClick.AddListener(() => {
+        /*gameModeButton.onClick.AddListener(() => {
             switch (gameMode) {
                 default:
                 case LobbyManager.GameMode.CaptureTheFlag:
@@ -77,7 +77,7 @@ public class LobbyCreateUI : MonoBehaviour {
                     break;
             }
             UpdateText();
-        });
+        });*/
 
         Hide();
     }

@@ -17,8 +17,8 @@ public class EditPlayerName : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI playerNameText;
 
 
-    private string playerName = "Code Monkey";
-
+    private string playerName = "Edit Name Here";
+    private PlayerAttackInfosAndChosenAttackNumbers characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers;
 
     private void Awake() {
         Instance = this;
@@ -42,10 +42,13 @@ public class EditPlayerName : MonoBehaviour {
 
     private void Start() {
         OnNameChanged += EditPlayerName_OnNameChanged;
+        characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>();
+
     }
 
     private void EditPlayerName_OnNameChanged(object sender, EventArgs e) {
         LobbyManager.Instance.UpdatePlayerName(GetPlayerName());
+        characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.PlayerName = GetPlayerName();
     }
 
     public string GetPlayerName() {
