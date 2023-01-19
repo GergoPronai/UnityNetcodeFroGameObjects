@@ -27,7 +27,8 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
     public void UpdatePlayer(Player player) {
         this.player = player;
         playerNameText.text = player.Data[LobbyManager.KEY_PLAYER_NAME].Value;
-        CharacterChoices playerCharacter = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().character;
+        CharacterChoices playerCharacter = 
+            System.Enum.Parse<CharacterChoices>(player.Data[LobbyManager.KEY_PLAYER_CHARACTER].Value);
         characterImage.sprite = LobbyAssets.Instance.GetSprite(playerCharacter);
     }
 

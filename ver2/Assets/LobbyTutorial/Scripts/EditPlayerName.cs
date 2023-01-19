@@ -43,7 +43,7 @@ public class EditPlayerName : MonoBehaviour {
     private void Start() {
         OnNameChanged += EditPlayerName_OnNameChanged;
         characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>();
-
+        LobbyManager.Instance.playerCharacterName = characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.character.ToString();
     }
 
     private void EditPlayerName_OnNameChanged(object sender, EventArgs e) {
