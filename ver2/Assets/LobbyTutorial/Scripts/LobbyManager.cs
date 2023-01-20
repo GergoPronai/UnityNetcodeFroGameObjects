@@ -5,6 +5,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class LobbyManager : MonoBehaviour {
@@ -33,7 +34,7 @@ public class LobbyManager : MonoBehaviour {
         public List<Lobby> lobbyList;
     }
 
-
+    public Player Host = null;
 
     private float heartbeatTimer;
     private float lobbyPollTimer;
@@ -147,7 +148,7 @@ public class LobbyManager : MonoBehaviour {
     
     public async void CreateLobby(string lobbyName, int maxPlayers, bool isPrivate) {
         Player player = GetPlayer();
-
+        Host = player;
         CreateLobbyOptions options = new CreateLobbyOptions {
             Player = player,
             IsPrivate = isPrivate
@@ -190,6 +191,7 @@ public class LobbyManager : MonoBehaviour {
         }
     }
 
+   
     public async void JoinLobbyByCode(string lobbyCode) {
         Player player = GetPlayer();
 
@@ -300,7 +302,20 @@ public class LobbyManager : MonoBehaviour {
             }
         }
     }
-
-   
+    
+    public async void StartGame(string sceneName)
+    {
+        GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().enabled=false;
+        /*
+        if (GetPlayer()==Host)
+        {
+            Unity.Netcode.NetworkManager.Singleton.StartHost();
+        }
+        else
+        {
+            Unity.Netcode.NetworkManager.Singleton.networkAddress = Host.ip;
+            Unity.Netcode.NetworkManager.Singleton.StartClient();
+        }*/
+    }
 
 }

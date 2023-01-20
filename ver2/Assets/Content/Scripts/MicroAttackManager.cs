@@ -139,6 +139,7 @@ public class MicroAttackManager : MonoBehaviour
             characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.attackInfos.Add(ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttacksInfo);
             characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.CharChosen_ChosenAttacks_3 = ChosenHolder.transform.GetChild(2).GetComponent<MicroAttackManager>().AttackIDNumber;
             characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.character = characterCustomizer_AttackListHolder.character;
+            characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.PlayerHealth = characterCustomizer_AttackListHolder.playerHealth;
             ReadyUpButton.interactable = true;
         }
         else

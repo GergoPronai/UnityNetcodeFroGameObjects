@@ -12,7 +12,6 @@ public class LobbyCreateUI : MonoBehaviour {
 
     [SerializeField] private Button createButton;
     [SerializeField] private Button lobbyNameButton;
-    [SerializeField] private Button publicPrivateButton;
     [SerializeField] private Button maxPlayersButton;
     [SerializeField] private TextMeshProUGUI lobbyNameText;
     [SerializeField] private TextMeshProUGUI publicPrivateText;
@@ -20,7 +19,6 @@ public class LobbyCreateUI : MonoBehaviour {
 
 
     private string lobbyName;
-    private bool isPrivate;
     private int maxPlayers;
 
     private void Awake() {
@@ -30,7 +28,7 @@ public class LobbyCreateUI : MonoBehaviour {
             LobbyManager.Instance.CreateLobby(
                 lobbyName,
                 maxPlayers,
-                isPrivate
+                true
             );
             Hide();
         });
@@ -46,10 +44,6 @@ public class LobbyCreateUI : MonoBehaviour {
             });
         });
 
-        publicPrivateButton.onClick.AddListener(() => {
-            isPrivate = !isPrivate;
-            UpdateText();
-        });
 
         maxPlayersButton.onClick.AddListener(() => {
             UI_InputWindow.Show_Static("Max Players", maxPlayers,
@@ -68,7 +62,6 @@ public class LobbyCreateUI : MonoBehaviour {
 
     private void UpdateText() {
         lobbyNameText.text = lobbyName;
-        publicPrivateText.text = isPrivate ? "Private" : "Public";
         maxPlayersText.text = maxPlayers.ToString();
     }
 
@@ -80,7 +73,6 @@ public class LobbyCreateUI : MonoBehaviour {
         gameObject.SetActive(true);
 
         lobbyName = "MyLobby";
-        isPrivate = false;
         maxPlayers = 4;
 
         UpdateText();

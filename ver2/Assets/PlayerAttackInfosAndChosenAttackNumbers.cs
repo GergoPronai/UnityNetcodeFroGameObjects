@@ -12,4 +12,9 @@ public class PlayerAttackInfosAndChosenAttackNumbers : MonoBehaviour
     public int CharChosen_ChosenAttacks_3 = 0;
     public CharacterChoices character;
     public string PlayerName="";
+    public int PlayerHealth=0;
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 }

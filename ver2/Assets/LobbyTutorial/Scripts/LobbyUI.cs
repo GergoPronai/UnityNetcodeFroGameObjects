@@ -15,6 +15,7 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField] private Transform playerSingleTemplate;
     [SerializeField] private Transform container;
     [SerializeField] private TextMeshProUGUI lobbyNameText;
+    [SerializeField] private TextMeshProUGUI lobbyCodeText;
     [SerializeField] private TextMeshProUGUI playerCountText;
     [SerializeField] private Button leaveLobbyButton;
     [SerializeField] private Button changeGameModeButton;
@@ -73,6 +74,7 @@ public class LobbyUI : MonoBehaviour {
 
         lobbyNameText.text = lobby.Name;
         playerCountText.text = lobby.Players.Count + "/" + lobby.MaxPlayers;
+        lobbyCodeText.text = lobby.LobbyCode;
 
         Show();
     }
