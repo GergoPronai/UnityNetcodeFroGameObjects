@@ -5,8 +5,42 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.Services.Relay;
+using Unity.Services.Relay.Models;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using Unity.Netcode;
+
+/// <summary>
+/// RelayHostData represents the necessary informations
+/// for a Host to host a game on a Relay
+/// </summary>
+public struct RelayHostData
+{
+    public string JoinCode;
+    public string IPv4Address;
+    public ushort Port;
+    public Guid AllocationID;
+    public byte[] AllocationIDBytes;
+    public byte[] ConnectionData;
+    public byte[] Key;
+}
+
+/// <summary>
+/// RelayHostData represents the necessary informations
+/// for a Host to host a game on a Relay
+/// </summary>
+public struct RelayJoinData
+{
+    public string JoinCode;
+    public string IPv4Address;
+    public ushort Port;
+    public Guid AllocationID;
+    public byte[] AllocationIDBytes;
+    public byte[] ConnectionData;
+    public byte[] HostConnectionData;
+    public byte[] Key;
+}
 
 public class LobbyManager : MonoBehaviour {
 
@@ -19,6 +53,8 @@ public class LobbyManager : MonoBehaviour {
     public const string KEY_GAME_MODE = "GameMode";
 
 
+    private RelayHostData _hostData;
+    private RelayJoinData _joinData;
 
     public event EventHandler OnLeftLobby;
 
@@ -42,6 +78,7 @@ public class LobbyManager : MonoBehaviour {
     private Lobby joinedLobby;
     private string playerName;
     public string playerCharacterName;
+    public bool isHost = false;
 
     private void Awake() {
         Instance = this;
@@ -160,7 +197,18 @@ public class LobbyManager : MonoBehaviour {
 
         OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
 
+        Allocation allocation = await Relay.Instance.CreateAllocationAsync(maxPlayers);
+        _hostData = new RelayHostData
+        {
+            Key = allocation.Key,
+            Port = (ushort)allocation.RelayServer.Port,
+            AllocationID = allocation.AllocationId,
+            AllocationIDBytes = allocation.AllocationIdBytes,
+            ConnectionData = allocation.ConnectionData,
+            IPv4Address = allocation.RelayServer.IpV4
+        };
         Debug.Log("Created Lobby " + lobby.Name);
+        isHost = true;
     }
 
     public async void RefreshLobbyList() {
@@ -200,7 +248,19 @@ public class LobbyManager : MonoBehaviour {
         });
 
         joinedLobby = lobby;
+        JoinAllocation allocation = await Relay.Instance.JoinAllocationAsync(lobbyCode);
 
+        // Create Object
+        _joinData = new RelayJoinData
+        {
+            Key = allocation.Key,
+            Port = (ushort)allocation.RelayServer.Port,
+            AllocationID = allocation.AllocationId,
+            AllocationIDBytes = allocation.AllocationIdBytes,
+            ConnectionData = allocation.ConnectionData,
+            HostConnectionData = allocation.HostConnectionData,
+            IPv4Address = allocation.RelayServer.IpV4
+        };
         OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
     }
 
@@ -210,7 +270,19 @@ public class LobbyManager : MonoBehaviour {
         joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobby.Id, new JoinLobbyByIdOptions {
             Player = player
         });
+        JoinAllocation allocation = await Relay.Instance.JoinAllocationAsync(lobby.LobbyCode);
 
+        // Create Object
+        _joinData = new RelayJoinData
+        {
+            Key = allocation.Key,
+            Port = (ushort)allocation.RelayServer.Port,
+            AllocationID = allocation.AllocationId,
+            AllocationIDBytes = allocation.AllocationIdBytes,
+            ConnectionData = allocation.ConnectionData,
+            HostConnectionData = allocation.HostConnectionData,
+            IPv4Address = allocation.RelayServer.IpV4
+        };
         OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
     }
 
@@ -285,7 +357,7 @@ public class LobbyManager : MonoBehaviour {
                 await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
 
                 joinedLobby = null;
-
+                isHost = false;
                 OnLeftLobby?.Invoke(this, EventArgs.Empty);
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
@@ -306,16 +378,32 @@ public class LobbyManager : MonoBehaviour {
     public async void StartGame(string sceneName)
     {
         GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().enabled=false;
-        /*
-        if (GetPlayer()==Host)
+
+        if (isHost)
         {
-            Unity.Netcode.NetworkManager.Singleton.StartHost();
+            NetworkManager.Singleton.GetComponent<Unity.Netcode.Transports.UTP.UnityTransport>().SetRelayServerData(
+                _hostData.IPv4Address,
+                _hostData.Port,
+                _hostData.AllocationIDBytes,
+                _hostData.Key,
+                _hostData.ConnectionData);
+
+            // Finally start host
+            NetworkManager.Singleton.StartHost();
         }
         else
         {
-            Unity.Netcode.NetworkManager.Singleton.networkAddress = Host.ip;
-            Unity.Netcode.NetworkManager.Singleton.StartClient();
-        }*/
+            NetworkManager.Singleton.GetComponent<Unity.Netcode.Transports.UTP.UnityTransport>().SetRelayServerData(
+                _joinData.IPv4Address,
+                _joinData.Port,
+                _joinData.AllocationIDBytes,
+                _joinData.Key,
+                _joinData.ConnectionData,
+                _joinData.HostConnectionData);
+
+            // Finally start the client
+            NetworkManager.Singleton.StartClient();
+        }
     }
 
 }
