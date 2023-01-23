@@ -87,11 +87,23 @@ public class LobbyUI : MonoBehaviour {
     }
 
     private void Hide() {
-        gameObject.SetActive(false);
+        if (gameObject!=null)
+        {
+            gameObject.SetActive(false);
+
+        }
     }
 
     private void Show() {
-        gameObject.SetActive(true);
+        if (gameObject != null)
+        {
+            gameObject.SetActive(true);
+
+        }
     }
 
+    public void ToggleActiveUIComponent(GameObject gameObject)
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
+    }
 }
