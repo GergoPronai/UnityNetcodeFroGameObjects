@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 17
+  controlID: 80
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 63
+  controlID: 85
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 64
+  controlID: 86
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -318,22 +318,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/LobbyTutorial/Scripts
+    - Assets/_/InputWindow/HighscoreTable
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/LobbyTutorial/Scripts
+  - Assets/_/InputWindow/HighscoreTable
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\__GitHubRepos\UnityNetcodeFroGameObjectsANDSteamIntergration\ver2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 86}
-    m_SelectedIDs: 98b80000
-    m_LastClickedID: 47256
-    m_ExpandedIDs: 00000000988900009a8900009c8900009e890000a0890000a2890000a4890000a6890000a8890000aa890000ac890000ae890000b0890000b2890000b4890000e489000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: c2db0000
+    m_LastClickedID: 56258
+    m_ExpandedIDs: 00000000988900009a8900009c8900009e890000a0890000a2890000a4890000a6890000a8890000aa890000ac890000ae890000b0890000b2890000b4890000b68d0000ca8d0000d08d0000badb0000bedb0000d4db00000cdc00000edc000010dc000012dc000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -389,7 +389,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000
+    m_ExpandedInstanceIDs: c6230000cadb0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -493,7 +493,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 80d5ffff42d6ffff28d9ffffded9ffff84e8ffff4ae9ffff30ecffffe6ecffff18fbffff8ec100006ec2000034c4000006c50000
+      m_ExpandedIDs: 506efeff146ffeffa672feffca25ffff785bffff4e5cffffb85fffffa260ffff7262ffff4263ffff0a65ffff1a7dffff18fbfffff4ffffffae730000f0730000cc7400005e76000016d80000e0d80000f2d8000022da000056da000086da0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -743,9 +743,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 533.9517, y: 364.51584, z: -2.4311748}
+    m_Target: {x: 545.87366, y: 305.58963, z: 4.2744083}
     speed: 2
-    m_Value: {x: 533.9517, y: 364.51584, z: -2.4311748}
+    m_Value: {x: 545.87366, y: 305.58963, z: 4.2744083}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -796,9 +796,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 399.381
+    m_Target: 367.9547
     speed: 2
-    m_Value: 399.381
+    m_Value: 367.9547
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -816,7 +816,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+  m_LastSceneViewRotation: {x: -0.12740152, y: 0.8404156, z: -0.22474754, w: -0.476402}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 

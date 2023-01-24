@@ -9,9 +9,9 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
 
     [SerializeField] private TextMeshProUGUI playerNameText;
+    [SerializeField] private TextMeshProUGUI isPlayerReady;
     [SerializeField] private Image characterImage;
     [SerializeField] private Button kickPlayerButton;
-
 
     private Player player;
 
@@ -37,6 +37,5 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
             LobbyManager.Instance.KickPlayer(player.Id);
         }
     }
-
 
 }
