@@ -83,6 +83,7 @@ public class LobbyUI : MonoBehaviour {
         foreach (Transform child in container) {
             if (child == playerSingleTemplate) continue;
             Destroy(child.gameObject);
+            //An error will appear here saying to use 'destroy immediate' instead. it causes the lobby template to still exist 
         }
     }
 

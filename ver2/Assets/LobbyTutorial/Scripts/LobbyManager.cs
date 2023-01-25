@@ -85,7 +85,6 @@ public class LobbyManager : MonoBehaviour {
     private string _lobbyId;
     public GameObject showStartButton;
     public UnityAction MatchFound;
-
     IEnumerator HeartbeatLobbyCoroutine(string lobbyId, float waitTimeSeconds)
     {
         var delay = new WaitForSecondsRealtime(waitTimeSeconds);
@@ -309,6 +308,20 @@ public class LobbyManager : MonoBehaviour {
 
    
     public async void JoinLobbyByCode(string lobbyCode) {
+
+        Player player = GetPlayer();
+
+        Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode, new JoinLobbyByCodeOptions
+        {
+            Player = player
+        });
+
+        joinedLobby = lobby;
+
+
+        OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
+
+        /*// Create Object
         showStartButton.SetActive(false);
         Player player = GetPlayer();
 
@@ -318,7 +331,6 @@ public class LobbyManager : MonoBehaviour {
         {
             // Looking for a lobby
 
-            // Add options to the matchmaking (mode, rank, etc..)
             Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode, new JoinLobbyByCodeOptions
             {
                 Player = player
@@ -356,9 +368,6 @@ public class LobbyManager : MonoBehaviour {
                 _joinData.ConnectionData,
                 _joinData.HostConnectionData);
 
-            // Finally start the client
-            NetworkManager.Singleton.StartClient();
-
             // Trigger events
             UpdateState?.Invoke("Match found!");
             MatchFound?.Invoke();
@@ -368,7 +377,7 @@ public class LobbyManager : MonoBehaviour {
         {
             // If we don't find any lobby, let's create a new one
             Debug.Log("Cannot find a lobby: " + e);
-        }
+        }*/
     }
 
     public async void JoinLobby(Lobby lobby) {
@@ -522,20 +531,25 @@ public class LobbyManager : MonoBehaviour {
         }
     }
     
-    public async void StartGame(string sceneName)
+    public async void StartGame(GameObject LobbyUIgameObject)
     {
         GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().enabled=false;
-
-        if (isHost)
+        foreach (Player player in joinedLobby.Players)
         {
-            NetworkManager.Singleton.StartHost();
+            if (isHost)
+            {
+                NetworkManager.Singleton.StartHost();
+            }
+            else
+            {
+                NetworkManager.Singleton.StartClient();
+            }
         }
-        else if(isHost==false)
-        {
-            
-            NetworkManager.Singleton.StartClient();
-        }
-
+        LobbyUIgameObject.SetActive(false);
+    }
+    public void readyUp()
+    {
+        
     }
 
 }

@@ -26,12 +26,12 @@ public class PlayergameObjScript : NetworkBehaviour
     public ulong clientID;
     public int playerPositionInBattle = 0;
     public GameObject battleCamCanvas;
+    private PlayerAttackInfosAndChosenAttackNumbers PlayerAttackInfosAndChosenAttackNumbers_script;
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-
-        PlayerName = NetworkManagerUiMain.instance.PlayerName;
-        
+                
     }
     public override void OnNetworkDespawn()
     {
@@ -56,6 +56,13 @@ public class PlayergameObjScript : NetworkBehaviour
         CharChosen_ChosenAttacks_2 = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_2;
         CharChosen_ChosenAttacks_3 = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_3;
         SetUpCharacterFromLobby(GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().character);
+        PlayerAttackInfosAndChosenAttackNumbers_script = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>();
+        attackInfos = PlayerAttackInfosAndChosenAttackNumbers_script.attackInfos;
+        CharChosen_ChosenAttacks_1 = PlayerAttackInfosAndChosenAttackNumbers_script.CharChosen_ChosenAttacks_1;
+        CharChosen_ChosenAttacks_2 = PlayerAttackInfosAndChosenAttackNumbers_script.CharChosen_ChosenAttacks_2;
+        CharChosen_ChosenAttacks_3 = PlayerAttackInfosAndChosenAttackNumbers_script.CharChosen_ChosenAttacks_3;
+        PlayerName = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerName;
+        playerHealth = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerHealth;
     }
     
     public void SetPlayerName(TMPro.TMP_InputField textField)

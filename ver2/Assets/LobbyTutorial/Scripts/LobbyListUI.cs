@@ -5,7 +5,8 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyListUI : MonoBehaviour {
+public class LobbyListUI : MonoBehaviour
+{
 
 
     public static LobbyListUI Instance { get; private set; }
@@ -17,7 +18,8 @@ public class LobbyListUI : MonoBehaviour {
     [SerializeField] private Button createLobbyButton;
 
 
-    private void Awake() {
+    private void Awake()
+    {
         Instance = this;
 
         lobbySingleTemplate.gameObject.SetActive(false);
@@ -25,33 +27,41 @@ public class LobbyListUI : MonoBehaviour {
         createLobbyButton.onClick.AddListener(CreateLobbyButtonClick);
     }
 
-    private void Start() {
+    private void Start()
+    {
         LobbyManager.Instance.OnJoinedLobby += LobbyManager_OnJoinedLobby;
         LobbyManager.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
         LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnKickedFromLobby;
     }
 
-    private void LobbyManager_OnKickedFromLobby(object sender, LobbyManager.LobbyEventArgs e) {
+    private void LobbyManager_OnKickedFromLobby(object sender, LobbyManager.LobbyEventArgs e)
+    {
         Show();
     }
 
-    private void LobbyManager_OnLeftLobby(object sender, EventArgs e) {
+    private void LobbyManager_OnLeftLobby(object sender, EventArgs e)
+    {
         Show();
     }
 
-    private void LobbyManager_OnJoinedLobby(object sender, LobbyManager.LobbyEventArgs e) {
+    private void LobbyManager_OnJoinedLobby(object sender, LobbyManager.LobbyEventArgs e)
+    {
         Hide();
     }
+    
 
-    private void CreateLobbyButtonClick() {
+    private void CreateLobbyButtonClick()
+    {
         LobbyCreateUI.Instance.Show();
     }
 
-    private void Hide() {
+    private void Hide()
+    {
         gameObject.SetActive(false);
     }
 
-    private void Show() {
+    private void Show()
+    {
         gameObject.SetActive(true);
     }
 

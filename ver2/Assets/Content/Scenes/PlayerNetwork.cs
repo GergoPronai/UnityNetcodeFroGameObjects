@@ -21,7 +21,7 @@ public class PlayerNetwork : NetworkBehaviour
     private NetworkVariable<PlayerNetworkState> _playerState;
     public NetworkVariable<float> animSpeed;
     public NetworkVariable<int> _Charchosen;
-    
+
     public NetworkVariable<FixedString128Bytes> _CharName;
     public NetworkVariable<int> _CharHealth;
     public NetworkVariable<ulong> _clientID;
@@ -34,54 +34,9 @@ public class PlayerNetwork : NetworkBehaviour
 
     private Rigidbody _rb;
 
-    public GameObject instanObj;
-    private GameObject instantiatedOBJ;
     public static PlayerNetwork instance;
-    public GameObject playerLobbyCardPrefabHolder;
     private AttackListHolder listHolder;
-    private List<AttackInfo> newAttackInfos= new List<AttackInfo>();
-    
-    public void setUpLobby()
-    {
-        if (IsClient && !IsHost)
-        {
-            for (int i = 0; i < playerLobbyCardPrefabHolder.transform.childCount; i++)
-            {
-                Destroy(playerLobbyCardPrefabHolder.transform.GetChild(i));
-            }
-            instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder.transform);
-            instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = transform.GetComponent<PlayergameObjScript>().PlayerName;
-            instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(transform.GetComponent<PlayergameObjScript>().CharChosen);
-            listHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();            
-            switch (transform.GetComponent<PlayergameObjScript>().CharChosen)
-            {
-                case CharacterChoices.Barbarian:
-                    newAttackInfos.Add(listHolder.BarabarianAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
-                    newAttackInfos.Add(listHolder.BarabarianAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
-                    newAttackInfos.Add(listHolder.BarabarianAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
-                    break;
-                case CharacterChoices.Knight:
-                    newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
-                    newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
-                    newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
-                    break;
-                case CharacterChoices.Mage:
-                    newAttackInfos.Add(listHolder.MageAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
-                    newAttackInfos.Add(listHolder.MageAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
-                    newAttackInfos.Add(listHolder.MageAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
-                    break;
-                case CharacterChoices.Rogue:
-                    newAttackInfos.Add(listHolder.RogueAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
-                    newAttackInfos.Add(listHolder.RogueAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
-                    newAttackInfos.Add(listHolder.RogueAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
-                    break;
-                default:
-                    break;
-            }
-            instantiatedOBJ.GetComponent<PlayerLobbyScript>().InstanAttackInfos(newAttackInfos);
-        }
-        OnJoinServerRpc();
-    }
+    private List<AttackInfo> newAttackInfos = new List<AttackInfo>();
 
     private void Awake()
     {
@@ -106,11 +61,9 @@ public class PlayerNetwork : NetworkBehaviour
 
     }
 
-    
 
     public void SetUpChar()
     {
-
         switch (_Charchosen.Value)
         {
             case 0:
@@ -198,6 +151,7 @@ public class PlayerNetwork : NetworkBehaviour
         {
             cam.gameObject.SetActive(false);
         }
+        
     }
     private void Update()
     {
@@ -234,54 +188,6 @@ public class PlayerNetwork : NetworkBehaviour
             TransmitStateServerRpc(state);
     }
 
-   
-
-    [ServerRpc(RequireOwnership = false)]
-    private void OnJoinServerRpc()
-    {
-        for (int i = 0; i < playerLobbyCardPrefabHolder.transform.childCount; i++)
-        {
-            Destroy(playerLobbyCardPrefabHolder.transform.GetChild(i));
-        }
-        foreach (var client in NetworkManager.ConnectedClientsList)
-        {
-            if (client.PlayerObject)
-            {
-                instantiatedOBJ = Instantiate(instanObj, playerLobbyCardPrefabHolder.transform);
-                instantiatedOBJ.GetComponent<PlayerLobbyScript>().PlayerNameText.text = client.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName;
-                instantiatedOBJ.GetComponent<PlayerLobbyScript>().getCharImage(client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen);
-                listHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();            
-                switch (client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen)
-                {
-                    case CharacterChoices.Barbarian:
-                        newAttackInfos.Add(listHolder.BarabarianAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
-                        newAttackInfos.Add(listHolder.BarabarianAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
-                        newAttackInfos.Add(listHolder.BarabarianAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
-                        break;
-                    case CharacterChoices.Knight:
-                        newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
-                        newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
-                        newAttackInfos.Add(listHolder.KnightAttackInfos[NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
-                        break;
-                    case CharacterChoices.Mage:
-                        newAttackInfos.Add(listHolder.MageAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
-                        newAttackInfos.Add(listHolder.MageAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
-                        newAttackInfos.Add(listHolder.MageAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
-                        break;
-                    case CharacterChoices.Rogue:
-                        newAttackInfos.Add(listHolder.RogueAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1]);
-                        newAttackInfos.Add(listHolder.RogueAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2]);
-                        newAttackInfos.Add(listHolder.RogueAttackInfos[client.PlayerObject.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3]);
-                        break;
-                    default:
-                        break;
-                }
-                instantiatedOBJ.GetComponent<PlayerLobbyScript>().InstanAttackInfos(newAttackInfos);            
-            }
-
-        }
-
-    }
     [ServerRpc] 
     private void TransmitStateServerRpc(PlayerNetworkState state)
     {
