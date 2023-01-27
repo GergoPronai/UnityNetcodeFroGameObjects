@@ -26,6 +26,7 @@ public class PlayergameObjScript : NetworkBehaviour
     public ulong clientID;
     public int playerPositionInBattle = 0;
     public GameObject battleCamCanvas;
+    public bool ready=false;
     private PlayerAttackInfosAndChosenAttackNumbers PlayerAttackInfosAndChosenAttackNumbers_script;
 
     public override void OnNetworkSpawn()
