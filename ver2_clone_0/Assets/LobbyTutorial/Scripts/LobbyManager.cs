@@ -47,13 +47,12 @@ public class LobbyManager : MonoBehaviour {
 
 
     public static LobbyManager Instance { get; private set; }
-
+    public string KEY_START_GAME = "0";
 
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_CHARACTER = "Character";
 
-    public const string joinkey = "j";
-
+    public TestRelay TestRelayScript;
 
     private RelayHostData _hostData;
     private RelayJoinData _joinData;
@@ -66,6 +65,7 @@ public class LobbyManager : MonoBehaviour {
     public event EventHandler<LobbyEventArgs> OnJoinedLobby;
     public event EventHandler<LobbyEventArgs> OnJoinedLobbyUpdate;
     public event EventHandler<LobbyEventArgs> OnKickedFromLobby;
+
     public class LobbyEventArgs : EventArgs {
         public Lobby lobby;
     }
@@ -85,6 +85,8 @@ public class LobbyManager : MonoBehaviour {
     private string _lobbyId;
     public GameObject showStartButton;
     public UnityAction MatchFound;
+    private int _maxPlayers;
+
     IEnumerator HeartbeatLobbyCoroutine(string lobbyId, float waitTimeSeconds)
     {
         var delay = new WaitForSecondsRealtime(waitTimeSeconds);
@@ -166,6 +168,14 @@ public class LobbyManager : MonoBehaviour {
 
                     joinedLobby = null;
                 }
+                if (joinedLobby.Data[KEY_START_GAME].Value!="0")
+                {
+                    if (!IsLobbyHost())
+                    {
+                        TestRelayScript.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
+                    }
+                    joinedLobby = null;
+                }
             }
         }
     }
@@ -199,72 +209,42 @@ public class LobbyManager : MonoBehaviour {
 
     
     public async void CreateLobby(string lobbyName, int maxPlayers, bool isPrivate) {
-        
+        _maxPlayers = maxPlayers;
         Player player = GetPlayer();
-        Debug.Log("Creating a new lobby...");
 
-        UpdateState?.Invoke("Creating a new match...");
-
-        // External connections
-        int maxConnections = 1;
-
-        try
+        CreateLobbyOptions options = new CreateLobbyOptions
         {
-            // Create RELAY object
-            Allocation allocation = await Relay.Instance.CreateAllocationAsync(maxConnections);
-            NetworkManager.Singleton.GetComponent<Unity.Netcode.Transports.UTP.UnityTransport>().SetHostRelayData(
-               allocation.RelayServer.IpV4,
-               (ushort)allocation.RelayServer.Port,
-               allocation.AllocationIdBytes,
-               allocation.Key,
-               allocation.ConnectionData
-               );
-
-            // Retrieve JoinCode
-            string joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
-
-            CreateLobbyOptions options = new CreateLobbyOptions
+            Player = player,
+            Data = new Dictionary<string, DataObject>
             {
-                Player = player,
-                Data = new Dictionary<string, DataObject>()
-                {
-                    { joinkey, new DataObject(
-                        visibility: DataObject.VisibilityOptions.Member,
-                        value: joinCode) },
-                },
-            };
+                {KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member,"0") }
+            }
+        };
 
-            // Put the JoinCode in the lobby data, visible by every member
-            
+        Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 
-            // Create the lobby
-            Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
+        joinedLobby = lobby;
 
-            joinedLobby = lobby;
+        OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
 
-            // Save Lobby ID for later uses
-            _lobbyId = lobby.Id;
-
-            Debug.Log("Created lobby: " + lobby.Id);
-            OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
-
-            // Heartbeat the lobby every 15 seconds.
-            StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 15));
-
-            // Now that RELAY and LOBBY are set...
-
-            // Set Transports data
-           
-
-        }
-        catch (LobbyServiceException e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
     }
 
-    public async void RefreshLobbyList() {
+
+    //joinCodeWorks
+    public async void JoinLobbyByCode(string lobbyCode) {
+        Player player = GetPlayer();
+
+        Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode, new JoinLobbyByCodeOptions
+        {
+            Player = player
+        });
+
+        joinedLobby = lobby;
+
+        OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
+    }
+
+public async void RefreshLobbyList() {
         try {
             QueryLobbiesOptions options = new QueryLobbiesOptions();
             options.Count = 25;
@@ -291,67 +271,6 @@ public class LobbyManager : MonoBehaviour {
             Debug.Log(e);
         }
     }
-
-   //joinCodeWorks
-    public async void JoinLobbyByCode(string lobbycode) {
-        showStartButton.SetActive(false);
-        Player player = GetPlayer();
-
-
-        try
-        {
-            Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbycode, new JoinLobbyByCodeOptions
-            {
-                Player = player
-            });
-            joinedLobby = lobby;
-            OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
-
-            string joinCode = lobby.Data[joinkey].Value;
-            JoinAllocation allocation = await Relay.Instance.JoinAllocationAsync(joinCode);
-            // Create Object
-            _joinData = new RelayJoinData
-            {
-                Key = allocation.Key,
-                Port = (ushort)allocation.RelayServer.Port,
-                AllocationID = allocation.AllocationId,
-                AllocationIDBytes = allocation.AllocationIdBytes,
-                ConnectionData = allocation.ConnectionData,
-                HostConnectionData = allocation.HostConnectionData,
-                IPv4Address = allocation.RelayServer.IpV4,
-                JoinCode = joinedLobby.LobbyCode,
-            };
-
-            await Lobbies.Instance.UpdatePlayerAsync(lobby.Id, player.Id, new UpdatePlayerOptions()
-            {
-                AllocationId = allocation.AllocationId.ToString(),
-                ConnectionInfo = joinCode
-            });
-
-            NetworkManager.Singleton.GetComponent<Unity.Netcode.Transports.UTP.UnityTransport>().SetClientRelayData(
-                _joinData.IPv4Address,
-                _joinData.Port,
-                _joinData.AllocationIDBytes,
-                _joinData.Key,
-                _joinData.ConnectionData,
-                _joinData.HostConnectionData);
-            
-
-        }
-        catch (LobbyServiceException e)
-        {
-            // If we don't find any lobby, let's create a new one
-            Debug.Log("Cannot find a lobby: " + e);
-        }
-        catch (RelayServiceException e)
-        {
-            Debug.Log("lobby Code must be wrong: " + e);
-
-        }
-    }
-
-    
-
     public async void UpdatePlayerName(string playerName) {
         this.playerName = playerName;
 
@@ -441,25 +360,28 @@ public class LobbyManager : MonoBehaviour {
         }
     }
     
-    public async void StartGame(GameObject LobbyUIgameObject)
+    public async void StartGame()
     {
         GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().enabled=false;
-        foreach (Player player in joinedLobby.Players)
+
+        if (IsLobbyHost())
         {
-            if (IsLobbyHost())
+            try
             {
-                NetworkManager.Singleton.StartHost();
+                var relayCode = await TestRelayScript.CreateRelay(_maxPlayers);
+                Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
+                {
+                    Data = new Dictionary<string, DataObject>
+                    {
+                        {KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member,relayCode) }
+                    }
+                });
             }
-            else
+            catch (LobbyServiceException e)
             {
-                NetworkManager.Singleton.StartClient();
+                Debug.Log(e);
             }
         }
-        LobbyUIgameObject.SetActive(false);
-    }
-    public void readyUp()
-    {
-        //Will add button that impacts the when they can enter the game
     }
 
 }
