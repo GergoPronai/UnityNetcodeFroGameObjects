@@ -4437,18 +4437,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 485736219}
-        m_TargetAssemblyTypeName: Dungeon, Assembly-CSharp
-        m_MethodName: enableDungeonGeneration
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MainGame
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2057570643}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
         m_MethodName: StartGame
@@ -5196,18 +5184,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470224379}
   m_CullTransparentMesh: 1
---- !u!114 &485736219 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5842531895719291698, guid: 5923e1ac520faf4498d466ddfeadfb0f,
-    type: 3}
-  m_PrefabInstance: {fileID: 756318301}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b6408475ba7f854497694f05d5edeef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &586599129
 GameObject:
   m_ObjectHideFlags: 0
@@ -6719,6 +6695,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Generator
+      objectReference: {fileID: 0}
+    - target: {fileID: 5842531895719291699, guid: 5923e1ac520faf4498d466ddfeadfb0f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Generator_Dungeon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5923e1ac520faf4498d466ddfeadfb0f, type: 3}
@@ -13433,7 +13414,7 @@ GameObject:
   - component: {fileID: 1754062831}
   m_Layer: 5
   m_Name: LobbyPage
-  m_TagString: Untagged
+  m_TagString: LobbyPage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

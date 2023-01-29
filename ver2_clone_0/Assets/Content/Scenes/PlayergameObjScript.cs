@@ -28,11 +28,16 @@ public class PlayergameObjScript : NetworkBehaviour
     public GameObject battleCamCanvas;
     public bool ready=false;
     private PlayerAttackInfosAndChosenAttackNumbers PlayerAttackInfosAndChosenAttackNumbers_script;
-
+    private GameObject LobbyUIPage;
+    private GameObject DungeonGeneratorObj;
+    public void StartUp()
+    {
+        LobbyUIPage.SetActive(false);
+        DungeonGeneratorObj.GetComponent<Dungeon>().enableDungeonGeneration();
+    }
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-                
     }
     public override void OnNetworkDespawn()
     {
@@ -64,8 +69,11 @@ public class PlayergameObjScript : NetworkBehaviour
         CharChosen_ChosenAttacks_3 = PlayerAttackInfosAndChosenAttackNumbers_script.CharChosen_ChosenAttacks_3;
         PlayerName = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerName;
         playerHealth = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerHealth;
+        LobbyUIPage = GameObject.FindGameObjectWithTag("LobbyPage");
+        DungeonGeneratorObj = GameObject.FindGameObjectWithTag("Generator_Dungeon");
+        StartUp();
     }
-    
+
     public void SetPlayerName(TMPro.TMP_InputField textField)
     {
         PlayerName = textField.text;

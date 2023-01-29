@@ -175,11 +175,15 @@ public class LobbyManager : MonoBehaviour {
                         TestRelayScript.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
                     }
                     joinedLobby = null;
+                    
                 }
             }
         }
     }
-
+    IEnumerator WaitForCoroutine(int sec)
+    {
+        yield return new WaitForSeconds(sec);
+    }
     public Lobby GetJoinedLobby() {
         return joinedLobby;
     }
@@ -382,6 +386,7 @@ public async void RefreshLobbyList() {
                 Debug.Log(e);
             }
         }
+        
     }
 
 }

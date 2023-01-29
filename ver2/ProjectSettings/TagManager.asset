@@ -16,6 +16,8 @@ TagManager:
   - Barbarian
   - Wall
   - NetworkManagerUI
+  - LobbyPage
+  - Generator_Dungeon
   layers:
   - Default
   - TransparentFX
