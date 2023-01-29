@@ -14,9 +14,13 @@ public class DoorsScript : MonoBehaviour
 {
     public Animator animator;
     public GameObject FogParticleSystem;
-    public BattleScript battleScript;
     public RoomOrientation roomOrientation;
     private GameObject currentPlayerCam;
+    private BattleScript battleScript;
+    private void Start()
+    {
+        battleScript = transform.parent.parent.transform.GetChild(7).GetComponent<BattleScript>();
+    }
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.CompareTag("Player"))

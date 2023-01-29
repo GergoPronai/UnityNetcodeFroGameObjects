@@ -180,10 +180,7 @@ public class LobbyManager : MonoBehaviour {
             }
         }
     }
-    IEnumerator WaitForCoroutine(int sec)
-    {
-        yield return new WaitForSeconds(sec);
-    }
+   
     public Lobby GetJoinedLobby() {
         return joinedLobby;
     }
@@ -236,16 +233,24 @@ public class LobbyManager : MonoBehaviour {
 
     //joinCodeWorks
     public async void JoinLobbyByCode(string lobbyCode) {
-        Player player = GetPlayer();
 
-        Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode, new JoinLobbyByCodeOptions
+        if (lobbyCode!=null)
         {
-            Player = player
-        });
+            Player player = GetPlayer();
 
-        joinedLobby = lobby;
+            Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode, new JoinLobbyByCodeOptions
+            {
+                Player = player
+            });
 
-        OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
+            joinedLobby = lobby;
+
+            OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
+        }
+        else
+        {
+            Debug.Log("Lobby Code does not exist");
+        }
     }
 
 public async void RefreshLobbyList() {

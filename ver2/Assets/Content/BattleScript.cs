@@ -16,23 +16,11 @@ public class BattleScript : MonoBehaviour
     public GameObject[] Players;
     public GameObject SpawnPointHolder_Players;
     private int prevSpawnPoint_Players = -1;
+    private GameObject playerCam;
 
-
-    public void enable(GameObject playerCam)
+    public void enable(GameObject PlayerCam)
     {
-        PlayerActivatedBattle = playerCam.transform.parent.gameObject;
-        amountOfEnemies = Random.Range(1, Enemies.Length);
-        Players = GameObject.FindGameObjectsWithTag("Player");
-        randomizeEnemies();
-        goPlayerPoints();
-        if (battleCamParent!=null)
-        {
-            battleCamParent.SetActive(true);
-            playerCam.transform.SetParent(battleCamParent.transform);
-            playerCam.transform.position = battleCamParent.transform.position;
-            playerCam.transform.rotation = battleCamParent.transform.rotation;
-            battleCamParent.transform.rotation.SetAxisAngle(Vector3.up, SpawnPointHolder_Enemies.transform.rotation.eulerAngles.y + 180f);
-        }
+        playerCam = PlayerCam;
     }
 
     // Update is called once per frame
@@ -57,6 +45,20 @@ public class BattleScript : MonoBehaviour
             Players[i].GetComponent<PlayerMovement>().allowedMove = false;
             Players[i].GetComponent<PlayerMovement>().animator.SetFloat("Speed", 0f);
             Players[i].GetComponent<PlayergameObjScript>().battleCamCanvas.SetActive(true);
+
+            PlayerActivatedBattle = playerCam.transform.parent.gameObject;
+            amountOfEnemies = Random.Range(1, Enemies.Length);
+            Players = GameObject.FindGameObjectsWithTag("Player");
+            randomizeEnemies();
+            goPlayerPoints();
+            if (battleCamParent != null)
+            {
+                battleCamParent.SetActive(true);
+                playerCam.transform.SetParent(battleCamParent.transform);
+                playerCam.transform.position = battleCamParent.transform.position;
+                playerCam.transform.rotation = battleCamParent.transform.rotation;
+                battleCamParent.transform.rotation.SetAxisAngle(Vector3.up, SpawnPointHolder_Enemies.transform.rotation.eulerAngles.y + 180f);
+            }
         }
     }
 }

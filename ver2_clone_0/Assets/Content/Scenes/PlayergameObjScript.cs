@@ -30,11 +30,7 @@ public class PlayergameObjScript : NetworkBehaviour
     private PlayerAttackInfosAndChosenAttackNumbers PlayerAttackInfosAndChosenAttackNumbers_script;
     private GameObject LobbyUIPage;
     private GameObject DungeonGeneratorObj;
-    public void StartUp()
-    {
-        LobbyUIPage.SetActive(false);
-        DungeonGeneratorObj.GetComponent<Dungeon>().enableDungeonGeneration();
-    }
+    
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -71,7 +67,18 @@ public class PlayergameObjScript : NetworkBehaviour
         playerHealth = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerHealth;
         LobbyUIPage = GameObject.FindGameObjectWithTag("LobbyPage");
         DungeonGeneratorObj = GameObject.FindGameObjectWithTag("Generator_Dungeon");
+        DungeonGeneratorObj.GetComponent<Dungeon>().enableDungeonGeneration();
+
+        StartCoroutine(StartGameWaitCycle(2));
+    }
+    IEnumerator StartGameWaitCycle(int sec)
+    {
+        yield return new WaitForSeconds(sec);
         StartUp();
+    }
+    public void StartUp()
+    {
+        LobbyUIPage.SetActive(false);
     }
 
     public void SetPlayerName(TMPro.TMP_InputField textField)
