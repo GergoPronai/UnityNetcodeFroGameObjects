@@ -9,7 +9,8 @@ public class GameRoom : MonoBehaviour {
 	public RoomType roomType;
 	public bool StartBool=false;
 	public GameObject battleRoom;
-	void Start ()
+
+    void Start ()
 	{   GameObject battleRoom = transform.GetChild(7).gameObject;
 
 		battleRoom.SetActive(false);

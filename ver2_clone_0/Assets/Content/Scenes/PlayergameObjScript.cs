@@ -48,6 +48,8 @@ public class PlayergameObjScript : NetworkBehaviour
     {
         HealthBar.gameObject.SetActive(false);
         battleCamCanvas.SetActive(false);
+        DungeonGeneratorObj = GameObject.FindGameObjectWithTag("Generator_Dungeon");
+        DungeonGeneratorObj.GetComponent<Dungeon>().enableDungeonGeneration();
     }
     public void Start()
     {
@@ -66,8 +68,7 @@ public class PlayergameObjScript : NetworkBehaviour
         PlayerName = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerName;
         playerHealth = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerHealth;
         LobbyUIPage = GameObject.FindGameObjectWithTag("LobbyPage");
-        DungeonGeneratorObj = GameObject.FindGameObjectWithTag("Generator_Dungeon");
-        DungeonGeneratorObj.GetComponent<Dungeon>().enableDungeonGeneration();
+        
 
         StartCoroutine(StartGameWaitCycle(2));
     }
