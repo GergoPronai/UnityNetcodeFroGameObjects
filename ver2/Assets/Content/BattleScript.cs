@@ -60,6 +60,10 @@ public class BattleScript : MonoBehaviour
                 playerCam.transform.rotation = battleCamParent.transform.rotation;
                 battleCamParent.transform.rotation.SetAxisAngle(Vector3.up, SpawnPointHolder_Enemies.transform.rotation.eulerAngles.y + 180f);
             }
+            else
+            {
+                Debug.Log("BattleCam is null value");
+            }
         }
     }
 }
