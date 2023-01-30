@@ -24,7 +24,7 @@ public class Room
 		parent = _parent;
 		x = _x;
 		y = _y;
-		dungeon = Dungeon.instance;
+		dungeon = Dungeon.Instance;
 	}
 	
 	public bool IsFirstNode()

@@ -48,8 +48,6 @@ public class PlayergameObjScript : NetworkBehaviour
     {
         HealthBar.gameObject.SetActive(false);
         battleCamCanvas.SetActive(false);
-        DungeonGeneratorObj = GameObject.FindGameObjectWithTag("Generator_Dungeon");
-        DungeonGeneratorObj.GetComponent<Dungeon>().enableDungeonGeneration();
     }
     public void Start()
     {

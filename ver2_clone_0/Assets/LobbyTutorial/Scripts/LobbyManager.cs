@@ -80,12 +80,15 @@ public class LobbyManager : MonoBehaviour {
     private float lobbyPollTimer;
     private float refreshLobbyListTimer = 5f;
     private Lobby joinedLobby;
+    private bool GameStarted=false;
     private string playerName;
     public string playerCharacterName;
     private string _lobbyId;
     public GameObject showStartButton;
     public UnityAction MatchFound;
     private int _maxPlayers;
+    private GameObject DungeonGeneratorObj;
+    public bool collided=false;
 
     IEnumerator HeartbeatLobbyCoroutine(string lobbyId, float waitTimeSeconds)
     {
@@ -105,6 +108,8 @@ public class LobbyManager : MonoBehaviour {
         //HandleRefreshLobbyList(); // Disabled Auto Refresh for testing with multiple builds
         HandleLobbyHeartbeat();
         HandleLobbyPolling();
+        HandleDungeonGenOnStartUp();
+        //DoorScriptFunctionBecauseAsyncReasons();
     }
 
     public async void Authenticate(string playerName) {
@@ -149,6 +154,16 @@ public class LobbyManager : MonoBehaviour {
         }
     }
 
+    private void HandleDungeonGenOnStartUp()
+    {
+        if (GameStarted)
+        {
+            DungeonGeneratorObj = GameObject.FindGameObjectWithTag("Generator_Dungeon");
+            DungeonGeneratorObj.GetComponent<Dungeon>().enableDungeonGeneration();
+            GameStarted = false;
+        }
+        
+    }
     private async void HandleLobbyPolling() {
         if (joinedLobby != null) {
             lobbyPollTimer -= Time.deltaTime;
@@ -175,6 +190,7 @@ public class LobbyManager : MonoBehaviour {
                         TestRelayScript.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
                     }
                     joinedLobby = null;
+                    GameStarted = true;
                     
                 }
             }

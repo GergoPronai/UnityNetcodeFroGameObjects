@@ -90,6 +90,8 @@ public class DoorsScript : MonoBehaviour
                             break;
                     }                    
                     battleScript.enable(currentPlayerCam);
+                    Debug.Log(battleScript.SpawnPointHolder_Enemies.name);
+                    Debug.Log(battleScript.SpawnPointHolder_Players.name);
                 }
             }
         }

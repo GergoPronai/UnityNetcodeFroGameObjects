@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class Dungeon : MonoSingleton<Dungeon> 
+public class Dungeon : Singleton<Dungeon> 
 {
 	// Dungeon Rooms
 	public int DUNGEON_SIZE_X = 20;

@@ -347,11 +347,11 @@ MonoBehaviour:
   - {fileID: 1291117377338556460, guid: 9fbeadc18874aa846afddc28709ed3fa, type: 3}
   - {fileID: 6167876151370635288, guid: 8634206fb008c0140ae6355aab0f001f, type: 3}
   - {fileID: 6222534478744701143, guid: 371b7e7ee1ca4ed4da9ed6bd21f82111, type: 3}
-  SpawnPointHolder_Enemies: {fileID: 4136741286814574499}
+  SpawnPointHolder_Enemies: {fileID: 0}
   PlayerActivatedBattle: {fileID: 0}
   battleCamParent: {fileID: 9092240187636682616}
   Players: []
-  SpawnPointHolder_Players: {fileID: 3391816160267615617}
+  SpawnPointHolder_Players: {fileID: 0}
 --- !u!1 &790290057617455388
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,6 +21,11 @@ public class BattleScript : MonoBehaviour
     public void enable(GameObject PlayerCam)
     {
         playerCam = PlayerCam;
+        PlayerActivatedBattle = playerCam.transform.parent.gameObject;
+        amountOfEnemies = Random.Range(1, Enemies.Length);
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        randomizeEnemies();
+        goPlayerPoints();
     }
 
     // Update is called once per frame
@@ -46,11 +51,7 @@ public class BattleScript : MonoBehaviour
             Players[i].GetComponent<PlayerMovement>().animator.SetFloat("Speed", 0f);
             Players[i].GetComponent<PlayergameObjScript>().battleCamCanvas.SetActive(true);
 
-            PlayerActivatedBattle = playerCam.transform.parent.gameObject;
-            amountOfEnemies = Random.Range(1, Enemies.Length);
-            Players = GameObject.FindGameObjectsWithTag("Player");
-            randomizeEnemies();
-            goPlayerPoints();
+            
             if (battleCamParent != null)
             {
                 battleCamParent.SetActive(true);
