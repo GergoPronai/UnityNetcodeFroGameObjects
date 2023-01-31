@@ -47,10 +47,11 @@ public class LobbyManager : MonoBehaviour {
 
 
     public static LobbyManager Instance { get; private set; }
-    public string KEY_START_GAME = "0";
+    public string KEY_START_GAME = "1";
 
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_CHARACTER = "Character";
+    public const string KEY_PLAYER_Position_Number = "0";
 
     public TestRelay TestRelayScript;
 
@@ -82,7 +83,8 @@ public class LobbyManager : MonoBehaviour {
     private Lobby joinedLobby;
     private bool GameStarted=false;
     private string playerName;
-    public string playerCharacterName;
+    public string playerCharacterName="0";
+    public string playerPosition;
     private string _lobbyId;
     public GameObject showStartButton;
     public UnityAction MatchFound;
@@ -109,7 +111,6 @@ public class LobbyManager : MonoBehaviour {
         HandleLobbyHeartbeat();
         HandleLobbyPolling();
         HandleDungeonGenOnStartUp();
-        //DoorScriptFunctionBecauseAsyncReasons();
     }
 
     public async void Authenticate(string playerName) {
@@ -183,7 +184,7 @@ public class LobbyManager : MonoBehaviour {
 
                     joinedLobby = null;
                 }
-                if (joinedLobby.Data[KEY_START_GAME].Value!="0")
+                if (joinedLobby.Data[KEY_START_GAME].Value!="1")
                 {
                     if (!IsLobbyHost())
                     {
@@ -220,7 +221,8 @@ public class LobbyManager : MonoBehaviour {
     private Player GetPlayer() {
         return new Player(AuthenticationService.Instance.PlayerId, null, new Dictionary<string, PlayerDataObject> {
             { KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerName) },
-            { KEY_PLAYER_CHARACTER, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerCharacterName) }
+            { KEY_PLAYER_CHARACTER, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerCharacterName) },
+            { KEY_PLAYER_Position_Number, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerPosition) }
         });
     }
 
@@ -234,7 +236,7 @@ public class LobbyManager : MonoBehaviour {
             Player = player,
             Data = new Dictionary<string, DataObject>
             {
-                {KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member,"0") }
+                {KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member,"1")}
             }
         };
 
@@ -308,7 +310,9 @@ public async void RefreshLobbyList() {
                         KEY_PLAYER_NAME, new PlayerDataObject(
                             visibility: PlayerDataObject.VisibilityOptions.Public,
                             value: playerName)
+
                     }
+                    
                 };
 
                 string playerId = AuthenticationService.Instance.PlayerId;
@@ -333,6 +337,30 @@ public async void RefreshLobbyList() {
                         KEY_PLAYER_CHARACTER, new PlayerDataObject(
                             visibility: PlayerDataObject.VisibilityOptions.Public,
                             value: playerCharacter.ToString())
+                    }
+                };
+
+                string playerId = AuthenticationService.Instance.PlayerId;
+
+                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+                joinedLobby = lobby;
+
+                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+            } catch (LobbyServiceException e) {
+                Debug.Log(e);
+            }
+        }
+    }
+    public async void UpdatePlayerAttackPosition(int playerPosition) {
+        if (joinedLobby != null) {
+            try {
+                UpdatePlayerOptions options = new UpdatePlayerOptions();
+
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_Position_Number, new PlayerDataObject(
+                            visibility: PlayerDataObject.VisibilityOptions.Public,
+                            value: playerPosition.ToString())
                     }
                 };
 

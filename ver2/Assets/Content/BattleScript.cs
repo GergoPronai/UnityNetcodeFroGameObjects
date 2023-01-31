@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class BattleScript : MonoBehaviour
@@ -18,7 +19,8 @@ public class BattleScript : MonoBehaviour
     private int prevSpawnPoint_Players = -1;
     private GameObject playerCam;
 
-    public void enable(GameObject PlayerCam)
+    [ServerRpc]
+    public void enableServerRpc(GameObject PlayerCam)
     {
         playerCam = PlayerCam;
         PlayerActivatedBattle = playerCam.transform.parent.gameObject;

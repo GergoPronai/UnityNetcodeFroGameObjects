@@ -89,8 +89,7 @@ public class DoorsScript : MonoBehaviour
                             battleScript.SpawnPointHolder_Players = ParentsParent.GetComponent<GameRoom>().battleRoom.transform.GetChild(0).transform.GetChild(3).gameObject;
                             break;
                     }                    
-                    battleScript.enable(currentPlayerCam);
-                    Debug.Log(currentPlayerCam.name);
+                    battleScript.enableServerRpc(currentPlayerCam);
                 }
             }
         }

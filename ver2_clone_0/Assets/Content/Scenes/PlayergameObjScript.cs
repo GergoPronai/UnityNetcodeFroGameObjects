@@ -77,7 +77,10 @@ public class PlayergameObjScript : NetworkBehaviour
     }
     public void StartUp()
     {
-        LobbyUIPage.SetActive(false);
+        if (LobbyUIPage!=null)
+        {
+            LobbyUIPage.SetActive(false);
+        }
     }
 
     public void SetPlayerName(TMPro.TMP_InputField textField)
