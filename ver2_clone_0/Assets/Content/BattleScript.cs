@@ -16,7 +16,6 @@ public class BattleScript : MonoBehaviour
     public GameObject battleCamParent;
     public GameObject[] Players;
     public GameObject SpawnPointHolder_Players;
-    private int prevSpawnPoint_Players = -1;
     private GameObject playerCam;
 
     [ServerRpc]

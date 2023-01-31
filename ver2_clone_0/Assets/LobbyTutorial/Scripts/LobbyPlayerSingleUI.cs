@@ -9,19 +9,16 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
 
     [SerializeField] private TextMeshProUGUI playerNameText;
-    [SerializeField] private TextMeshProUGUI playerPosText;
     [SerializeField] private Image characterImage;
     [SerializeField] private Button kickPlayerButton;
 
-    [SerializeField] private Button DecreasePlayerPosition;
-    [SerializeField] private Button IncreasePlayerPosition;
     private Player player;
 
 
     private void Awake() {
         kickPlayerButton.onClick.AddListener(KickPlayer);
-        IncreasePlayerPosition.onClick.AddListener(IncreasePlayerPositionFunction);
-        DecreasePlayerPosition.onClick.AddListener(DecreasePlayerPositionFunction);
+        //IncreasePlayerPosition.onClick.AddListener(IncreasePlayerPositionFunction);
+        //DecreasePlayerPosition.onClick.AddListener(DecreasePlayerPositionFunction);
     }
 
     public void SetKickPlayerButtonVisible(bool visible) {
@@ -34,7 +31,7 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         CharacterChoices playerCharacter = 
             System.Enum.Parse<CharacterChoices>(player.Data[LobbyManager.KEY_PLAYER_CHARACTER].Value);
         characterImage.sprite = LobbyAssets.Instance.GetSprite(playerCharacter);
-        playerPosText.text = "Attack Position " + player.Data[LobbyManager.KEY_PLAYER_Position_Number].Value;
+        //playerPosText.text = "Attack Position " + player.Data[LobbyManager.KEY_PLAYER_Position_Number].Value;
     }
     private void IncreasePlayerPositionFunction()
     {
