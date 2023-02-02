@@ -192,7 +192,6 @@ public class LobbyManager : MonoBehaviour {
                     }
                     joinedLobby = null;
                     GameStarted = true;
-                    
                 }
             }
         }

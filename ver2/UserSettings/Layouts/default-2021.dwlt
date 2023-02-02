@@ -189,8 +189,8 @@ MonoBehaviour:
     y: 0
     width: 333
     height: 624
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -269,8 +269,8 @@ MonoBehaviour:
     y: 0
     width: 399
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -503,9 +503,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 511.7177, y: 418.47037, z: -206.13086}
+    m_Target: {x: 624.12445, y: 415.04877, z: -184.44727}
     speed: 2
-    m_Value: {x: 511.7177, y: 418.47037, z: -206.13086}
+    m_Value: {x: 624.12445, y: 415.04877, z: -184.44727}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -552,13 +552,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.01827239, y: -0.00068909663, z: -0.00007621684, w: -0.999828}
+    m_Target: {x: -0.019765412, y: 0.021804558, z: -0.0005200163, w: -0.99956185}
     speed: 2
-    m_Value: {x: -0.018272571, y: -0.0021888479, z: -0.000048808415, w: -0.99983066}
+    m_Value: {x: -0.01976551, y: 0.021804664, z: -0.00052001886, w: -0.99956673}
   m_Size:
-    m_Target: 293.64432
+    m_Target: 429.36392
     speed: 2
-    m_Value: 307.48096
+    m_Value: 429.36392
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -617,7 +617,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 1c51feff9cd2feff52dafeff90e1feff80ecfeff6864ffff18fbffffae73000062740000a0750000c275000046760000
+      m_ExpandedIDs: 18fbffffb673000086740000c2750000e4750000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -764,7 +764,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: player
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -778,7 +778,7 @@ MonoBehaviour:
     m_Folders:
     - Assets
     m_Globs: []
-    m_OriginalText: 
+    m_OriginalText: player
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
@@ -940,7 +940,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 316
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
