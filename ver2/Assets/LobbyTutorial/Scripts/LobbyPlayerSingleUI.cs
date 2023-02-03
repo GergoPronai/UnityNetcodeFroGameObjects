@@ -9,20 +9,29 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
 
     [SerializeField] private TextMeshProUGUI playerNameText;
+    [SerializeField] private TextMeshProUGUI playerPosText;
     [SerializeField] private Image characterImage;
     [SerializeField] private Button kickPlayerButton;
+    [SerializeField] private Button IncreasePlayerPosition;
+    [SerializeField] private Button DecreasePlayerPosition;
 
     private Player player;
-
+    private PlayerAttackInfosAndChosenAttackNumbers PlayerInfoStorage;
 
     private void Awake() {
         kickPlayerButton.onClick.AddListener(KickPlayer);
-        //IncreasePlayerPosition.onClick.AddListener(IncreasePlayerPositionFunction);
-        //DecreasePlayerPosition.onClick.AddListener(DecreasePlayerPositionFunction);
+        IncreasePlayerPosition.onClick.AddListener(IncreasePlayerPositionFunction);
+        DecreasePlayerPosition.onClick.AddListener(DecreasePlayerPositionFunction);
+        PlayerInfoStorage = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>();
     }
 
     public void SetKickPlayerButtonVisible(bool visible) {
         kickPlayerButton.gameObject.SetActive(visible);
+    }
+    public void SetIncreaseAndDecreasePlayerButtonVisible(bool visible)
+    {
+        IncreasePlayerPosition.gameObject.SetActive(visible);
+        DecreasePlayerPosition.gameObject.SetActive(visible);
     }
 
     public void UpdatePlayer(Player player) {
@@ -31,12 +40,12 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         CharacterChoices playerCharacter = 
             System.Enum.Parse<CharacterChoices>(player.Data[LobbyManager.KEY_PLAYER_CHARACTER].Value);
         characterImage.sprite = LobbyAssets.Instance.GetSprite(playerCharacter);
-        //playerPosText.text = "Attack Position " + player.Data[LobbyManager.KEY_PLAYER_Position_Number].Value;
+        playerPosText.text = player.Data[LobbyManager.KEY_PLAYER_Position_Number].Value;
     }
     private void IncreasePlayerPositionFunction()
     {
         int temp;
-        int.TryParse(LobbyManager.Instance.playerPosition, out temp);
+        int.TryParse(LobbyManager.Instance.playerPosition, out temp);        
         if (temp>=4)
         {
             temp = 4;
@@ -45,8 +54,10 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         {
             temp++;
         }
+        Debug.Log(temp);
+        LobbyManager.Instance.playerPosition = temp.ToString();
         LobbyManager.Instance.UpdatePlayerAttackPosition(temp);
-
+        VotingManager.Instance.CastVote(PlayerInfoStorage, temp);
     }
     private void DecreasePlayerPositionFunction()
     {
@@ -60,7 +71,9 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         {
             temp--;
         }
+        LobbyManager.Instance.playerPosition = temp.ToString();
         LobbyManager.Instance.UpdatePlayerAttackPosition(temp);
+        VotingManager.Instance.RemoveVote(PlayerInfoStorage, temp);
 
     }
     private void KickPlayer() {

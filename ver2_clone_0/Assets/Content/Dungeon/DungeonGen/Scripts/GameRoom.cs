@@ -9,7 +9,6 @@ public class GameRoom : MonoBehaviour {
 	public RoomType roomType;
 	public bool StartBool=false;
 	public GameObject battleRoom;
-	public GameObject borders;
 
     void Start ()
 	{   GameObject battleRoom = transform.GetChild(7).gameObject;
@@ -21,10 +20,6 @@ public class GameRoom : MonoBehaviour {
 			Fog.SetActive(false);
 			StartBool = true;
         }
-        else
-        {
-			borders.SetActive(false);
-		}
 		if (room.IsConnectedTo(room.GetLeft()))
 		{
 			doorWest.transform.GetChild(0).gameObject.SetActive(true);

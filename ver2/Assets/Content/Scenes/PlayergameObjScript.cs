@@ -30,7 +30,6 @@ public class PlayergameObjScript : NetworkBehaviour
     private PlayerAttackInfosAndChosenAttackNumbers PlayerAttackInfosAndChosenAttackNumbers_script;
     private GameObject LobbyUIPage;
     private GameObject DungeonGeneratorObj;
-    public List<int> playerpositionVotes = new List<int>() { 0, 0, 0, 0 };
 
     public override void OnNetworkSpawn()
     {

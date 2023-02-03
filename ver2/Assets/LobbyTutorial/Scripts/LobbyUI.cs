@@ -70,6 +70,9 @@ public class LobbyUI : MonoBehaviour {
                 LobbyManager.Instance.IsLobbyHost() &&
                 player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
             );
+            lobbyPlayerSingleUI.SetIncreaseAndDecreasePlayerButtonVisible(
+                player.Id != AuthenticationService.Instance.PlayerId // Don't others to change value
+            );
 
             lobbyPlayerSingleUI.UpdatePlayer(player);
         }
