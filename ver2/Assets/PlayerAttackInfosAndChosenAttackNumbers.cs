@@ -13,7 +13,7 @@ public class PlayerAttackInfosAndChosenAttackNumbers : MonoBehaviour
     public CharacterChoices character;
     public string PlayerName="";
     public int PlayerHealth=0;
-    public List<int> playerpositionVotes = new List<int>() { 0, 0, 0, 0 };
+    public List<int> playerpositionVotes = new List<int>() { 1, 0, 0, 0 };
 
     private void Awake()
     {

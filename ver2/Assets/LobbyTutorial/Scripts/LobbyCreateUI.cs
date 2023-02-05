@@ -14,7 +14,6 @@ public class LobbyCreateUI : MonoBehaviour {
     [SerializeField] private Button lobbyNameButton;
     [SerializeField] private Button maxPlayersButton;
     [SerializeField] private TextMeshProUGUI lobbyNameText;
-    [SerializeField] private TextMeshProUGUI publicPrivateText;
     [SerializeField] private TextMeshProUGUI maxPlayersText;
 
 

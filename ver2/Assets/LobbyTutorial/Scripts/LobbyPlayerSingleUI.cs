@@ -23,6 +23,7 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         IncreasePlayerPosition.onClick.AddListener(IncreasePlayerPositionFunction);
         DecreasePlayerPosition.onClick.AddListener(DecreasePlayerPositionFunction);
         PlayerInfoStorage = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>();
+
     }
 
     public void SetKickPlayerButtonVisible(bool visible) {
@@ -45,13 +46,18 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
     private void IncreasePlayerPositionFunction()
     {
         int temp;
-        int.TryParse(LobbyManager.Instance.playerPosition, out temp);        
+        int.TryParse(LobbyManager.Instance.playerPosition, out temp);
+        if (temp <= 1)
+        {
+            temp = 1;
+        }
         if (temp>=4)
         {
             temp = 4;
         }
         else
         {
+            VotingManager.Instance.RemoveVote(PlayerInfoStorage, temp);
             temp++;
         }
         Debug.Log(temp);
@@ -63,17 +69,20 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
     {
         int temp;
         int.TryParse(LobbyManager.Instance.playerPosition, out temp);
-        if (temp <= 0)
+        if (temp <= 1)
         {
-            temp = 0;
+            temp = 1;
+            VotingManager.Instance.RemoveVote(PlayerInfoStorage, temp);
         }
         else
         {
+            VotingManager.Instance.RemoveVote(PlayerInfoStorage, temp);
             temp--;
         }
+        VotingManager.Instance.CastVote(PlayerInfoStorage, temp);
+
         LobbyManager.Instance.playerPosition = temp.ToString();
         LobbyManager.Instance.UpdatePlayerAttackPosition(temp);
-        VotingManager.Instance.RemoveVote(PlayerInfoStorage, temp);
 
     }
     private void KickPlayer() {

@@ -17,14 +17,14 @@ public class VotingManager : MonoBehaviour
 
     public void CastVote(PlayerAttackInfosAndChosenAttackNumbers player, int actorNumber)
     {
-        player.playerpositionVotes[actorNumber]++;
+        player.playerpositionVotes[actorNumber-1]++;
         PlayernamesWithVotesPerPosition[player.PlayerName] = player.playerpositionVotes;
         Debug.Log(PlayernamesWithVotesPerPosition[player.PlayerName]);
 
     }
     public void RemoveVote(PlayerAttackInfosAndChosenAttackNumbers player, int actorNumber)
     {
-        player.playerpositionVotes[actorNumber]--;
+        player.playerpositionVotes[actorNumber-1]--;
         PlayernamesWithVotesPerPosition[player.PlayerName] = player.playerpositionVotes;
         Debug.Log(PlayernamesWithVotesPerPosition[player.PlayerName]);
     }

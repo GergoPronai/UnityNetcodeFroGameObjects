@@ -5,6 +5,7 @@ using UnityEngine;
 public class checkUIactive : MonoBehaviour
 {
     public GameObject LobbyUI;
+    public GameObject ChatWindow;
     // Update is called once per frame
 
     void Update()
@@ -12,6 +13,7 @@ public class checkUIactive : MonoBehaviour
         if (LobbyUI != null && LobbyUI.activeInHierarchy)
         {
             gameObject.SetActive(false);
+            ChatWindow.SetActive(true);
         }
     }
 }

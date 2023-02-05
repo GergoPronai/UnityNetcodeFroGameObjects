@@ -84,8 +84,7 @@ public class LobbyManager : MonoBehaviour {
     private bool GameStarted=false;
     private string playerName;
     public string playerCharacterName="0";
-    public string playerPosition;
-    private string _lobbyId;
+    public string playerPosition="1";
     public GameObject showStartButton;
     public UnityAction MatchFound;
     private int _maxPlayers;
@@ -244,6 +243,8 @@ public class LobbyManager : MonoBehaviour {
         joinedLobby = lobby;
 
         OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
+        ChatManager.Instance.OnEnter("Hello I Have Entered The Party");
+
 
     }
 
@@ -259,7 +260,7 @@ public class LobbyManager : MonoBehaviour {
             {
                 Player = player
             });
-
+            ChatManager.Instance.OnEnter("Hello I Have Entered The Party");
             joinedLobby = lobby;
 
             OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
@@ -392,11 +393,15 @@ public async void RefreshLobbyList() {
     public async void LeaveLobby() {
         if (joinedLobby != null) {
             try {
+                ChatManager.Instance.OnEnter("Hello I Have Left The Party");
+
                 await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
 
                 joinedLobby = null;
                 OnLeftLobby?.Invoke(this, EventArgs.Empty);
-            } catch (LobbyServiceException e) {
+
+            }
+            catch (LobbyServiceException e) {
                 Debug.Log(e);
             }
         }
