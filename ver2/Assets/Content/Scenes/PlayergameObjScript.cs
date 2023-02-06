@@ -51,6 +51,7 @@ public class PlayergameObjScript : NetworkBehaviour
     }
     public void Start()
     {
+        checkUIactive.Instance.OnSubmit();
         enable();
         playerHealth = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().playerHealth;
         attackInfos = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().attackInfos;
@@ -66,14 +67,14 @@ public class PlayergameObjScript : NetworkBehaviour
         PlayerName = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerName;
         playerHealth = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerHealth;
         LobbyUIPage = GameObject.FindGameObjectWithTag("LobbyPage");
-        
 
-        StartCoroutine(StartGameWaitCycle(2));
+
+        //StartCoroutine(StartGameWaitCycle(2));
     }
     IEnumerator StartGameWaitCycle(int sec)
     {
         yield return new WaitForSeconds(sec);
-        //StartUp();
+        StartUp();
     }
     public void StartUp()
     {

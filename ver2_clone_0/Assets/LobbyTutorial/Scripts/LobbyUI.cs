@@ -72,7 +72,7 @@ public class LobbyUI : MonoBehaviour {
                 player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
             );
             lobbyPlayerSingleUI.SetIncreaseAndDecreasePlayerButtonVisible(
-                ShowPLayerButtonVisibleForVoting && player.Id == AuthenticationService.Instance.PlayerId // Don't let others to change value
+                ShowPLayerButtonVisibleForVoting && player.Id == AuthenticationService.Instance.PlayerId // Don't let others change value
             );
 
             lobbyPlayerSingleUI.UpdatePlayer(player);

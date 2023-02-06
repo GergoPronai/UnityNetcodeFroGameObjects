@@ -26,6 +26,7 @@ public class UI_InputWindow : MonoBehaviour {
     private Button_UI cancelBtn;
     private TextMeshProUGUI titleText;
     private TMP_InputField inputField;
+    public Button AuthenticateButton;
 
     private void Awake() {
         instance = this;
@@ -40,7 +41,11 @@ public class UI_InputWindow : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
-            okBtn.ClickFunc();
+            if (AuthenticateButton != null)
+            {
+                AuthenticateButton.interactable = true;
+            }
+            okBtn.ClickFunc();            
         }
         if (Input.GetKeyDown(KeyCode.Escape)) {
             cancelBtn.ClickFunc();
@@ -64,6 +69,10 @@ public class UI_InputWindow : MonoBehaviour {
         okBtn.ClickFunc = () => {
             Hide();
             onOk(inputField.text);
+            if (AuthenticateButton != null)
+            {
+                AuthenticateButton.interactable = true;
+            }
         };
 
         cancelBtn.ClickFunc = () => {

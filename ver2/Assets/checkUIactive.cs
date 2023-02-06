@@ -22,7 +22,7 @@ public class checkUIactive : MonoBehaviour
     public void OnSubmit()
     {
         ChatWindow.SetActive(true);
-        //LobbyUI.Instance.ShowPLayerButtonVisibleForVoting = true;
-        //LobbyUI.Instance.UpdateLobby(LobbyUI.Instance.LobbyJoined);
+        LobbyUI.Instance.ShowPLayerButtonVisibleForVoting = true;
+        LobbyUI.Instance.UpdateLobby(LobbyUI.Instance.LobbyJoined);
     }
 }
