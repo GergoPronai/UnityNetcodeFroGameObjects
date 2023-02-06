@@ -12,8 +12,9 @@ using Unity.Networking.Transport.Relay;
 
 public class TestRelay : MonoBehaviour
 {
-// Start is called before the first frame update
-// Update is called once per frame
+    // Start is called before the first frame update
+    // Update is called once per frame
+
     public async Task<string> CreateRelay(int maxConnections)
     {
         try

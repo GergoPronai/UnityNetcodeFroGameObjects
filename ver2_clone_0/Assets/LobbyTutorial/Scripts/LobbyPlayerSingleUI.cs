@@ -9,6 +9,7 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
 
     [SerializeField] private TextMeshProUGUI playerNameText;
+    [SerializeField] private TextMeshProUGUI playerPosTextPrefix;
     [SerializeField] private TextMeshProUGUI playerPosText;
     [SerializeField] private Image characterImage;
     [SerializeField] private Button kickPlayerButton;
@@ -32,6 +33,8 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
     public void SetIncreaseAndDecreasePlayerButtonVisible(bool visible)
     {
         IncreasePlayerPosition.gameObject.SetActive(visible);
+        playerPosText.gameObject.SetActive(visible);
+        playerPosTextPrefix.gameObject.SetActive(visible);
         DecreasePlayerPosition.gameObject.SetActive(visible);
     }
 

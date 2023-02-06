@@ -73,7 +73,7 @@ public class PlayergameObjScript : NetworkBehaviour
     IEnumerator StartGameWaitCycle(int sec)
     {
         yield return new WaitForSeconds(sec);
-        StartUp();
+        //StartUp();
     }
     public void StartUp()
     {

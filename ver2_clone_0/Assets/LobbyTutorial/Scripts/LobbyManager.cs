@@ -67,6 +67,8 @@ public class LobbyManager : MonoBehaviour {
     public event EventHandler<LobbyEventArgs> OnJoinedLobbyUpdate;
     public event EventHandler<LobbyEventArgs> OnKickedFromLobby;
 
+
+
     public class LobbyEventArgs : EventArgs {
         public Lobby lobby;
     }
@@ -80,9 +82,9 @@ public class LobbyManager : MonoBehaviour {
     private float heartbeatTimer;
     private float lobbyPollTimer;
     private float refreshLobbyListTimer = 5f;
-    private Lobby joinedLobby;
+    public Lobby joinedLobby;
     private bool GameStarted=false;
-    private string playerName;
+    public string playerName;
     public string playerCharacterName="0";
     public string playerPosition="1";
     public GameObject showStartButton;
@@ -90,6 +92,13 @@ public class LobbyManager : MonoBehaviour {
     private int _maxPlayers;
     private GameObject DungeonGeneratorObj;
     public bool collided=false;
+    private Player _Player;
+
+    private const int MaxNumberOfMessagesInList = 20;
+    private List<ChatMessage> _messages;
+    private PlayerAttackInfosAndChosenAttackNumbers localinfos;
+    private const float MinIntervalBetweenChatMessages = 1f;
+    private float _clientSendTimer;
 
     IEnumerator HeartbeatLobbyCoroutine(string lobbyId, float waitTimeSeconds)
     {
@@ -103,8 +112,9 @@ public class LobbyManager : MonoBehaviour {
     }
     private void Awake() {
         Instance = this;
+        _messages = new List<ChatMessage>();
+        localinfos = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>();
     }
-
     private void Update() {
         //HandleRefreshLobbyList(); // Disabled Auto Refresh for testing with multiple builds
         HandleLobbyHeartbeat();
@@ -191,6 +201,7 @@ public class LobbyManager : MonoBehaviour {
                     }
                     joinedLobby = null;
                     GameStarted = true;
+                    checkUIactive.Instance.OnSubmit();
                 }
             }
         }
@@ -228,7 +239,7 @@ public class LobbyManager : MonoBehaviour {
     public async void CreateLobby(string lobbyName, int maxPlayers, bool isPrivate) {
         _maxPlayers = maxPlayers;
         Player player = GetPlayer();
-
+        _Player = player;
         CreateLobbyOptions options = new CreateLobbyOptions
         {
             Player = player,
@@ -243,9 +254,6 @@ public class LobbyManager : MonoBehaviour {
         joinedLobby = lobby;
 
         OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
-        ChatManager.Instance.OnEnter("Hello I Have Entered The Party");
-
-
     }
 
 
@@ -260,7 +268,6 @@ public class LobbyManager : MonoBehaviour {
             {
                 Player = player
             });
-            ChatManager.Instance.OnEnter("Hello I Have Entered The Party");
             joinedLobby = lobby;
 
             OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
@@ -393,7 +400,6 @@ public async void RefreshLobbyList() {
     public async void LeaveLobby() {
         if (joinedLobby != null) {
             try {
-                ChatManager.Instance.OnEnter("Hello I Have Left The Party");
 
                 await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
 

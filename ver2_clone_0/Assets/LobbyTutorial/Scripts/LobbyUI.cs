@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class LobbyUI : MonoBehaviour {
 
 
-    public static LobbyUI Instance { get; private set; }
-
+    public static LobbyUI Instance;
+    public Lobby LobbyJoined { get; private set; }
 
     [SerializeField] private Transform playerSingleTemplate;
     [SerializeField] private Transform container;
@@ -19,7 +19,7 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI playerCountText;
     [SerializeField] private Button leaveLobbyButton;
     [SerializeField] private Button changeGameModeButton;
-
+    public bool ShowPLayerButtonVisibleForVoting = false;
     private void Awake() {
         Instance = this;
 
@@ -52,11 +52,12 @@ public class LobbyUI : MonoBehaviour {
     }
 
     private void UpdateLobby() {
+        LobbyJoined = LobbyManager.Instance.GetJoinedLobby();
         UpdateLobby(LobbyManager.Instance.GetJoinedLobby());
     }
 
 
-    private void UpdateLobby(Lobby lobby)
+    public void UpdateLobby(Lobby lobby)
     {
         ClearLobby();
 
@@ -71,7 +72,7 @@ public class LobbyUI : MonoBehaviour {
                 player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
             );
             lobbyPlayerSingleUI.SetIncreaseAndDecreasePlayerButtonVisible(
-                player.Id == AuthenticationService.Instance.PlayerId // Don't let others to change value
+                ShowPLayerButtonVisibleForVoting && player.Id == AuthenticationService.Instance.PlayerId // Don't let others to change value
             );
 
             lobbyPlayerSingleUI.UpdatePlayer(player);
