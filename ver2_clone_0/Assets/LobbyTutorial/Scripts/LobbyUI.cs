@@ -19,7 +19,6 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI playerCountText;
     [SerializeField] private Button leaveLobbyButton;
     [SerializeField] private Button changeGameModeButton;
-    public bool ShowPLayerButtonVisibleForVoting = false;
     private void Awake() {
         Instance = this;
 
@@ -72,7 +71,7 @@ public class LobbyUI : MonoBehaviour {
                 player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
             );
             lobbyPlayerSingleUI.SetIncreaseAndDecreasePlayerButtonVisible(
-                ShowPLayerButtonVisibleForVoting && player.Id == AuthenticationService.Instance.PlayerId // Don't let others change value
+                player.Id == AuthenticationService.Instance.PlayerId // Don't let others change value
             );
 
             lobbyPlayerSingleUI.UpdatePlayer(player);

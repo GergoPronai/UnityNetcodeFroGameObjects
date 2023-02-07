@@ -62,11 +62,11 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         {
             VotingManager.Instance.RemoveVote(PlayerInfoStorage, temp);
             temp++;
-        }
-        Debug.Log(temp);
-        LobbyManager.Instance.playerPosition = temp.ToString();
-        LobbyManager.Instance.UpdatePlayerAttackPosition(temp);
+        }     
         VotingManager.Instance.CastVote(PlayerInfoStorage, temp);
+        LobbyManager.Instance.UpdatePlayerpos(temp.ToString());
+        playerPosText.text = this.player.Data[LobbyManager.KEY_PLAYER_Position_Number].Value;
+
     }
     private void DecreasePlayerPositionFunction()
     {
@@ -83,9 +83,8 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
             temp--;
         }
         VotingManager.Instance.CastVote(PlayerInfoStorage, temp);
-
-        LobbyManager.Instance.playerPosition = temp.ToString();
-        LobbyManager.Instance.UpdatePlayerAttackPosition(temp);
+        LobbyManager.Instance.UpdatePlayerpos(temp.ToString());
+        playerPosText.text = this.player.Data[LobbyManager.KEY_PLAYER_Position_Number].Value;
 
     }
     private void KickPlayer() {

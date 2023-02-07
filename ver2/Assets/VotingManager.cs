@@ -7,7 +7,7 @@ using Unity.Services.Lobbies.Models;
 public class VotingManager : MonoBehaviour
 {
     public static VotingManager Instance;
-    private Dictionary<string, List<int>> PlayernamesWithVotesPerPosition= new Dictionary<string, List<int>>();
+    private Dictionary<string, int> PlayernamesWithVotesPerPosition= new Dictionary<string, int>();
 
     // Start is called before the first frame update
     void Awake()
@@ -17,15 +17,12 @@ public class VotingManager : MonoBehaviour
 
     public void CastVote(PlayerAttackInfosAndChosenAttackNumbers player, int actorNumber)
     {
-        player.playerpositionVotes[actorNumber-1]++;
+        player.playerpositionVotes=actorNumber;
         PlayernamesWithVotesPerPosition[player.PlayerName] = player.playerpositionVotes;
-        Debug.Log(PlayernamesWithVotesPerPosition[player.PlayerName]);
-
     }
     public void RemoveVote(PlayerAttackInfosAndChosenAttackNumbers player, int actorNumber)
     {
-        player.playerpositionVotes[actorNumber-1]--;
+        player.playerpositionVotes = actorNumber;
         PlayernamesWithVotesPerPosition[player.PlayerName] = player.playerpositionVotes;
-        Debug.Log(PlayernamesWithVotesPerPosition[player.PlayerName]);
     }
 }

@@ -6,6 +6,7 @@ public class checkUIactive : MonoBehaviour
 {
     public GameObject LobbyUIgameobject;
     public GameObject ChatWindow;
+    public GameObject Cover;
     // Update is called once per frame
     public static checkUIactive Instance;
     private void Start()
@@ -22,7 +23,6 @@ public class checkUIactive : MonoBehaviour
     public void OnSubmit()
     {
         ChatWindow.SetActive(true);
-        LobbyUI.Instance.ShowPLayerButtonVisibleForVoting = true;
-        LobbyUI.Instance.UpdateLobby(LobbyUI.Instance.LobbyJoined);
+        Cover.SetActive(false);
     }
 }
