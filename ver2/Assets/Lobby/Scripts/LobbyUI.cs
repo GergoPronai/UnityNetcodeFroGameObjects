@@ -51,7 +51,7 @@ public class LobbyUI : MonoBehaviour {
     }
 
     private void UpdateLobby() {
-        LobbyJoined = LobbyManager.Instance.GetJoinedLobby();
+        LobbyJoined = LobbyManager.Instance.GetJoinedLobby();        
         UpdateLobby(LobbyManager.Instance.GetJoinedLobby());
     }
 
