@@ -14,6 +14,10 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
     private Player player;
 
+    public LobbySeeAttacks Attack1_info;
+    public LobbySeeAttacks Attack2_info;
+    public LobbySeeAttacks Attack3_info;
+
     private void Awake() {
         kickPlayerButton.onClick.AddListener(KickPlayer);
 
@@ -28,8 +32,14 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         CharacterChoices playerCharacter = 
             System.Enum.Parse<CharacterChoices>(player.Data[LobbyManager.KEY_PLAYER_CHARACTER].Value);
         characterImage.sprite = LobbyAssets.Instance.GetSprite(playerCharacter);
+        playerNameText.text = player.Data[LobbyManager.KEY_PLAYER_NAME].Value;
+
+        Attack1_info.attackNumber = player.Data[LobbyManager.KEY_PLAYER_Attack_Number1].Value;
+        Attack2_info.attackNumber = player.Data[LobbyManager.KEY_PLAYER_Attack_Number2].Value;
+        Attack3_info.attackNumber = player.Data[LobbyManager.KEY_PLAYER_Attack_Number3].Value;
+
     }
-   
+
     private void KickPlayer() {
         if (player != null) {
             LobbyManager.Instance.KickPlayer(player.Id);

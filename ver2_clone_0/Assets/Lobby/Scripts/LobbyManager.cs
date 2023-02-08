@@ -52,6 +52,9 @@ public class LobbyManager : MonoBehaviour {
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_CHARACTER = "Character";
     public const string KEY_PLAYER_Position_Number = "0";
+    public const string KEY_PLAYER_Attack_Number1 = "0";
+    public const string KEY_PLAYER_Attack_Number2 = "0";
+    public const string KEY_PLAYER_Attack_Number3 = "0";
 
     public TestRelay TestRelayScript;
 
@@ -87,6 +90,9 @@ public class LobbyManager : MonoBehaviour {
     public string playerName;
     public string playerCharacterName="0";
     public string playerPosition="1";
+    public string playerAttack1="0";
+    public string playerAttack2= "0";
+    public string playerAttack3= "0";
     public GameObject showStartButton;
     public UnityAction MatchFound;
     private int _maxPlayers;
@@ -199,6 +205,7 @@ public class LobbyManager : MonoBehaviour {
                     {
                         TestRelayScript.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
                     }
+                    VotingManager.Instance.joinedLobby = joinedLobby;
                     joinedLobby = null;
                     GameStarted = true;
                 }
@@ -230,7 +237,10 @@ public class LobbyManager : MonoBehaviour {
         return new Player(AuthenticationService.Instance.PlayerId, null, new Dictionary<string, PlayerDataObject> {
             { KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerName) },
             { KEY_PLAYER_CHARACTER, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerCharacterName) },
-            { KEY_PLAYER_Position_Number, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerPosition) }
+            { KEY_PLAYER_Position_Number, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerPosition) },
+            { KEY_PLAYER_Attack_Number1, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerAttack1) },
+            { KEY_PLAYER_Attack_Number2, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerAttack2) },
+            { KEY_PLAYER_Attack_Number3, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerAttack3) }
         });
     }
 
@@ -316,8 +326,6 @@ public async void RefreshLobbyList() {
                         KEY_PLAYER_NAME, new PlayerDataObject(
                             visibility: PlayerDataObject.VisibilityOptions.Public,
                             value: playerName)
-
-
                     }
 
                 };
@@ -329,6 +337,102 @@ public async void RefreshLobbyList() {
 
                 OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
             } catch (LobbyServiceException e) {
+                Debug.Log(e);
+            }
+        }
+    }
+    public async void UpdatePlayerAttack_1(string playerAttack1)
+    {
+        this.playerAttack1 = playerAttack1;
+
+        if (joinedLobby != null)
+        {
+            try
+            {
+                UpdatePlayerOptions options = new UpdatePlayerOptions();
+
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_Attack_Number1, new PlayerDataObject(
+                            visibility: PlayerDataObject.VisibilityOptions.Public,
+                            value: playerAttack1)
+                    }
+
+                };
+
+                string playerId = AuthenticationService.Instance.PlayerId;
+
+                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+                joinedLobby = lobby;
+
+                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
+        }
+    }
+    public async void UpdatePlayerAttack_2(string playerAttack2)
+    {
+        this.playerAttack2 = playerAttack2;
+
+        if (joinedLobby != null)
+        {
+            try
+            {
+                UpdatePlayerOptions options = new UpdatePlayerOptions();
+
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_Attack_Number2, new PlayerDataObject(
+                            visibility: PlayerDataObject.VisibilityOptions.Public,
+                            value: playerAttack2)
+                    }
+
+                };
+
+                string playerId = AuthenticationService.Instance.PlayerId;
+
+                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+                joinedLobby = lobby;
+
+                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
+        }
+    }
+    public async void UpdatePlayerAttack_3(string playerAttack3)
+    {
+        this.playerAttack3 = playerAttack3;
+
+        if (joinedLobby != null)
+        {
+            try
+            {
+                UpdatePlayerOptions options = new UpdatePlayerOptions();
+
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_Attack_Number3, new PlayerDataObject(
+                            visibility: PlayerDataObject.VisibilityOptions.Public,
+                            value: playerAttack3)
+                    }
+
+                };
+
+                string playerId = AuthenticationService.Instance.PlayerId;
+
+                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+                joinedLobby = lobby;
+
+                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+            }
+            catch (LobbyServiceException e)
+            {
                 Debug.Log(e);
             }
         }
@@ -348,8 +452,6 @@ public async void RefreshLobbyList() {
                         KEY_PLAYER_Position_Number, new PlayerDataObject(
                             visibility: PlayerDataObject.VisibilityOptions.Public,
                             value: playerpos)
-
-
                     }
 
                 };

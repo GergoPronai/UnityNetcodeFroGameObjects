@@ -7,6 +7,7 @@ using UnityEngine;
 public class VotingManager : NetworkBehaviour
 {
     public static VotingManager Instance;
+    public Lobby joinedLobby;
 
 
     // Start is called before the first frame update
