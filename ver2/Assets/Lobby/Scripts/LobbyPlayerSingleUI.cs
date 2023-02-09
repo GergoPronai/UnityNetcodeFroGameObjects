@@ -34,10 +34,22 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         characterImage.sprite = LobbyAssets.Instance.GetSprite(playerCharacter);
         playerNameText.text = player.Data[LobbyManager.KEY_PLAYER_NAME].Value;
 
-        Attack1_info.attackNumber = player.Data[LobbyManager.KEY_PLAYER_Attack_Number1].Value;
-        Attack2_info.attackNumber = player.Data[LobbyManager.KEY_PLAYER_Attack_Number2].Value;
-        Attack3_info.attackNumber = player.Data[LobbyManager.KEY_PLAYER_Attack_Number3].Value;
 
+        if (this.gameObject.activeInHierarchy)
+        {
+            StartCoroutine(StartGameWaitCycle(0.001f, player, playerCharacter));
+        }
+    }
+    IEnumerator StartGameWaitCycle(float sec,Player player, CharacterChoices playerchoice)
+    {
+        yield return new WaitForSeconds(sec);
+        UpdateCharAttacks(player, playerchoice);
+    }
+    public void UpdateCharAttacks(Player player,CharacterChoices playerCharacter)
+    {
+        Attack1_info.SetInfo(player.Data[LobbyManager.KEY_PLAYER_Attack_Number1].Value, playerCharacter);
+        Attack2_info.SetInfo(player.Data[LobbyManager.KEY_PLAYER_Attack_Number2].Value, playerCharacter);
+        Attack3_info.SetInfo(player.Data[LobbyManager.KEY_PLAYER_Attack_Number3].Value, playerCharacter);
     }
 
     private void KickPlayer() {

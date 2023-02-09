@@ -52,9 +52,9 @@ public class LobbyManager : MonoBehaviour {
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_CHARACTER = "Character";
     public const string KEY_PLAYER_Position_Number = "0";
-    public const string KEY_PLAYER_Attack_Number1 = "0";
-    public const string KEY_PLAYER_Attack_Number2 = "0";
-    public const string KEY_PLAYER_Attack_Number3 = "0";
+    public const string KEY_PLAYER_Attack_Number1 = "2";
+    public const string KEY_PLAYER_Attack_Number2 = "3";
+    public const string KEY_PLAYER_Attack_Number3 = "4";
 
     public TestRelay TestRelayScript;
 
@@ -161,7 +161,7 @@ public class LobbyManager : MonoBehaviour {
         if (IsLobbyHost()) {
             heartbeatTimer -= Time.deltaTime;
             if (heartbeatTimer < 0f) {
-                float heartbeatTimerMax = 15f;
+                float heartbeatTimerMax = 300f;
                 heartbeatTimer = heartbeatTimerMax;
 
                 Debug.Log("Heartbeat");

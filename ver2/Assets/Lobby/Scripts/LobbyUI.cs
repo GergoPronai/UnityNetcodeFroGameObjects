@@ -40,6 +40,9 @@ public class LobbyUI : MonoBehaviour {
     public void SetCharacterChoice()
     {
         LobbyManager.Instance.UpdatePlayerCharacter(GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().character);
+        LobbyManager.Instance.UpdatePlayerAttack_1(GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_1.ToString());
+        LobbyManager.Instance.UpdatePlayerAttack_2(GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_2.ToString());
+        LobbyManager.Instance.UpdatePlayerAttack_3(GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_3.ToString());
     }
     private void LobbyManager_OnLeftLobby(object sender, System.EventArgs e) {
         ClearLobby();
