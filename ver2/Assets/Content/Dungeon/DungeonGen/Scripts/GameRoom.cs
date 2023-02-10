@@ -9,16 +9,19 @@ public class GameRoom : MonoBehaviour {
 	public RoomType roomType;
 	public bool StartBool=false;
 	public GameObject battleRoom;
+	public GameObject StartRoom;
 
     void Start ()
 	{   GameObject battleRoom = transform.GetChild(7).gameObject;
 
 		battleRoom.SetActive(false);
+		StartRoom.SetActive(false);
 		// Remove walls if connected
 		if (room.parent==null)
         {
 			Fog.SetActive(false);
 			StartBool = true;
+			roomType = RoomType.None;
         }
 		if (room.IsConnectedTo(room.GetLeft()))
 		{
@@ -83,7 +86,8 @@ public class GameRoom : MonoBehaviour {
         switch (roomType)
         {
             case RoomType.None:
-                break;
+				StartRoom.SetActive(true);
+				break;
             case RoomType.BattleRoom:
 				battleRoom.SetActive(true);
 				break;

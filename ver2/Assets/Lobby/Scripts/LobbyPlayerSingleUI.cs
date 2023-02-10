@@ -13,7 +13,7 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
     [SerializeField] private Button kickPlayerButton;
 
     private Player player;
-
+    private bool firstSent = false;
     public LobbySeeAttacks Attack1_info;
     public LobbySeeAttacks Attack2_info;
     public LobbySeeAttacks Attack3_info;
@@ -35,9 +35,10 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         playerNameText.text = player.Data[LobbyManager.KEY_PLAYER_NAME].Value;
 
 
-        if (this.gameObject.activeInHierarchy)
+        if (this.gameObject.activeInHierarchy && this.firstSent==false)
         {
             StartCoroutine(StartGameWaitCycle(0.001f, player, playerCharacter));
+            firstSent = true;
         }
     }
     IEnumerator StartGameWaitCycle(float sec,Player player, CharacterChoices playerchoice)

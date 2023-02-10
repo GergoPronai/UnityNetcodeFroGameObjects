@@ -26,7 +26,7 @@ public class PlayergameObjScript : NetworkBehaviour
     public ulong clientID;
     public int playerPositionInBattle = 0;
     public GameObject battleCamCanvas;
-    public bool ready=false;
+    public bool HasPosition=false;
     private PlayerAttackInfosAndChosenAttackNumbers PlayerAttackInfosAndChosenAttackNumbers_script;
     private GameObject LobbyUIPage;
     private GameObject DungeonGeneratorObj;
@@ -69,7 +69,7 @@ public class PlayergameObjScript : NetworkBehaviour
         playerHealth = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerHealth;
         LobbyUIPage = GameObject.FindGameObjectWithTag("LobbyPage");
 
-        transform.GetComponent<PlayerMovement>().allowedMove = false;
+        //transform.GetComponent<PlayerMovement>().allowedMove = false;
         StartCoroutine(StartGameWaitCycle(2));
     }
     IEnumerator StartGameWaitCycle(int sec)
