@@ -6689,6 +6689,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Position4Altar
       objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.54509807
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.19215687
+      objectReference: {fileID: 0}
     - target: {fileID: 5269692389579399278, guid: f385826420deecb4d9bf6cf8e932928f,
         type: 3}
       propertyPath: attack_Position
@@ -6956,6 +6976,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Position2Altar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.36078432
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.19215687
       objectReference: {fileID: 0}
     - target: {fileID: 5269692389579399278, guid: f385826420deecb4d9bf6cf8e932928f,
         type: 3}
@@ -8378,6 +8418,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Position1Altar
       objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.80784315
+      objectReference: {fileID: 0}
     - target: {fileID: 5269692389579399278, guid: f385826420deecb4d9bf6cf8e932928f,
         type: 3}
       propertyPath: attack_Position
@@ -8813,6 +8868,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Position3Altar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.19215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.19215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043701837515395098, guid: f385826420deecb4d9bf6cf8e932928f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.62352943
       objectReference: {fileID: 0}
     - target: {fileID: 5269692389579399278, guid: f385826420deecb4d9bf6cf8e932928f,
         type: 3}

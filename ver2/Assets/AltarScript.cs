@@ -13,7 +13,8 @@ public class AltarScript : NetworkBehaviour
     public StartingRoom StartingRoomScript;
     public Transform obj;
     public bool stopSpinning=false;
-    public string playername;
+    public string playername=null;
+
     // Update is called once per frame
     void Update()
     {
@@ -33,7 +34,7 @@ public class AltarScript : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag=="Player" && playername==null)
+        if (other.tag=="Player")
         {
             if (other.GetComponent<PlayergameObjScript>().HasPosition==false)
             {
@@ -42,11 +43,12 @@ public class AltarScript : NetworkBehaviour
                 this.playername = other.GetComponent<PlayergameObjScript>().PlayerName;
                 this.stopSpinning = true;
             }
-            else if(other.GetComponent<PlayergameObjScript>().HasPosition == true && this.stopSpinning==true && other.GetComponent<PlayergameObjScript>().PlayerName== this.playername)
+            else if (this.playername== other.GetComponent<PlayergameObjScript>().PlayerName)
             {
                 other.GetComponent<PlayergameObjScript>().playerPositionInBattle = 0;
                 other.GetComponent<PlayergameObjScript>().HasPosition = false;
                 this.stopSpinning = false;
+                this.playername = null;
             }
         }
     }
