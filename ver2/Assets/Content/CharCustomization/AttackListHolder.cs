@@ -20,7 +20,7 @@ public class AttackListHolder : MonoBehaviour
     [Header("AttackInfo Prefab Stuff")]
     public GameObject PlayerListItemPrefab;
     public GameObject prefabButton;
-    public Transform AvailableholderOfButton;
+    public Transform[] AvailableholderOfButtons;
     public Transform ChosenholderOfButton;
     [Header("Set AttackInfos For Available Characters")]
     public List<AttackInfo> BarabarianAttackInfos;
@@ -82,9 +82,12 @@ public class AttackListHolder : MonoBehaviour
         {
             case CharacterChoices.Barbarian:
                 idnum = 0;
-                foreach (Transform child in AvailableholderOfButton)
+                foreach (Transform child in AvailableholderOfButtons)
                 {
-                    Destroy(child.gameObject);
+                    foreach (Transform child2 in child)
+                    {
+                        Destroy(child2.gameObject);
+                    }
                 }
                 foreach (Transform child in ChosenholderOfButton)
                 {
@@ -92,7 +95,27 @@ public class AttackListHolder : MonoBehaviour
                 }
                 foreach (AttackInfo item in BarabarianAttackInfos)
                 {
-                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
+                    switch (item.Position)
+                    {
+                        
+                        case PositionItCanBeUsedIn.First:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[0]);
+                            break;
+                        case PositionItCanBeUsedIn.Second:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[1]);
+                            break;
+                        case PositionItCanBeUsedIn.Third:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[2]);
+                            break;
+                        case PositionItCanBeUsedIn.Fourth:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[3]);
+                            break;
+                        case PositionItCanBeUsedIn.All:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[4]);
+                            break;
+                        default:
+                            break;
+                    }
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
 
@@ -104,9 +127,12 @@ public class AttackListHolder : MonoBehaviour
                 break;
             case CharacterChoices.Knight:
                 idnum = 0;
-                foreach (Transform child in AvailableholderOfButton)
+                foreach (Transform child in AvailableholderOfButtons)
                 {
-                    Destroy(child.gameObject);
+                    foreach (Transform child2 in child)
+                    {
+                        Destroy(child2.gameObject);
+                    }
                 }
                 foreach (Transform child in ChosenholderOfButton)
                 {
@@ -114,7 +140,27 @@ public class AttackListHolder : MonoBehaviour
                 }
                 foreach (AttackInfo item in KnightAttackInfos)
                 {
-                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
+                    switch (item.Position)
+                    {
+
+                        case PositionItCanBeUsedIn.First:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[0]);
+                            break;
+                        case PositionItCanBeUsedIn.Second:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[1]);
+                            break;
+                        case PositionItCanBeUsedIn.Third:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[2]);
+                            break;
+                        case PositionItCanBeUsedIn.Fourth:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[3]);
+                            break;
+                        case PositionItCanBeUsedIn.All:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[4]);
+                            break;
+                        default:
+                            break;
+                    }
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
  
@@ -124,10 +170,12 @@ public class AttackListHolder : MonoBehaviour
                 }
                 break;
             case CharacterChoices.Mage:
-                idnum = 0;
-                foreach (Transform child in AvailableholderOfButton)
+                foreach (Transform child in AvailableholderOfButtons)
                 {
-                    Destroy(child.gameObject);
+                    foreach (Transform child2 in child)
+                    {
+                        Destroy(child2.gameObject);
+                    }
                 }
                 foreach (Transform child in ChosenholderOfButton)
                 {
@@ -135,7 +183,26 @@ public class AttackListHolder : MonoBehaviour
                 }
                 foreach (AttackInfo item in MageAttackInfos)
                 {
-                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
+                    switch (item.Position)
+                    {
+                        case PositionItCanBeUsedIn.First:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[0]);
+                            break;
+                        case PositionItCanBeUsedIn.Second:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[1]);
+                            break;
+                        case PositionItCanBeUsedIn.Third:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[2]);
+                            break;
+                        case PositionItCanBeUsedIn.Fourth:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[3]);
+                            break;
+                        case PositionItCanBeUsedIn.All:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[4]);
+                            break;
+                        default:
+                            break;
+                    }
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
 
@@ -146,17 +213,39 @@ public class AttackListHolder : MonoBehaviour
                 break;
             case CharacterChoices.Rogue:
                 idnum = 0;
-                foreach (Transform child in AvailableholderOfButton)
+                foreach (Transform child in AvailableholderOfButtons)
                 {
-                    Destroy(child.gameObject);
+                    foreach (Transform child2 in child)
+                    {
+                        Destroy(child2.gameObject);
+                    }
                 }
                 foreach (Transform child in ChosenholderOfButton)
                 {
                     Destroy(child.gameObject);
                 }
                 foreach (AttackInfo item in RogueAttackInfos)
-                {                    
-                    prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButton);
+                {
+                    switch (item.Position)
+                    {
+                        case PositionItCanBeUsedIn.First:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[0]);
+                            break;
+                        case PositionItCanBeUsedIn.Second:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[1]);
+                            break;
+                        case PositionItCanBeUsedIn.Third:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[2]);
+                            break;
+                        case PositionItCanBeUsedIn.Fourth:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[3]);
+                            break;
+                        case PositionItCanBeUsedIn.All:
+                            prefabInstantiated = Instantiate(prefabButton, AvailableholderOfButtons[4]);
+                            break;
+                        default:
+                            break;
+                    }
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttacksInfo = item;
                     prefabInstantiated.GetComponent<MicroAttackManager>().AttackName.text = item.Name;
 

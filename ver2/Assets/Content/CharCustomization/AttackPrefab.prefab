@@ -164,8 +164,8 @@ RectTransform:
   m_GameObject: {fileID: 5879521146012023815}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5879521145589721730}
   m_Father: {fileID: 0}
@@ -283,7 +283,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackName: {fileID: 5879521145589721729}
-  PrefabbedExtraInfo: {fileID: 5003315977983348174, guid: d5836dfbce8b83c419e47cbb6b25a924, type: 3}
+  PrefabbedExtraInfo: {fileID: 5003315977983348174, guid: a465c39c95c785545a8f1bf6b2304e8b,
+    type: 3}
   AttacksInfo:
     Name: 
     Description: 
@@ -297,5 +298,7 @@ MonoBehaviour:
     AffectStatAmountIfApplicable: 0
     StatRemovedIfApplicable: 
   ReadyUpButton: {fileID: 0}
-  characterCustomizer: {fileID: 0}
-  LocalPlayer: {fileID: 0}
+  characterCustomizer_AttackListHolder: {fileID: 0}
+  characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers: {fileID: 0}
+  NetManager: {fileID: 0}
+  AttackIDNumber: 0

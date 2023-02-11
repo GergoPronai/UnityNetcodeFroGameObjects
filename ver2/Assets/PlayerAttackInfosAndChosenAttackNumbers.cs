@@ -15,8 +15,4 @@ public class PlayerAttackInfosAndChosenAttackNumbers : MonoBehaviour
     public int PlayerHealth=0;
     public int playerpositionVotes = 1;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
 }

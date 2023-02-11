@@ -27,6 +27,7 @@ public class UI_InputWindow : MonoBehaviour {
     private TextMeshProUGUI titleText;
     private TMP_InputField inputField;
     public Button AuthenticateButton;
+    private string Starting_Name = "Edit Name Here";
 
     private void Awake() {
         instance = this;
@@ -67,12 +68,15 @@ public class UI_InputWindow : MonoBehaviour {
         inputField.Select();
 
         okBtn.ClickFunc = () => {
-            Hide();
-            onOk(inputField.text);
-            if (AuthenticateButton != null)
+            if (inputField.text!=Starting_Name)
             {
-                AuthenticateButton.interactable = true;
-            }
+                Hide();
+                onOk(inputField.text);
+                if (AuthenticateButton != null)
+                {
+                    AuthenticateButton.interactable = true;
+                }
+            }            
         };
 
         cancelBtn.ClickFunc = () => {
