@@ -42,6 +42,7 @@ public class AltarScript : NetworkBehaviour
                 other.GetComponent<PlayergameObjScript>().HasPosition = true;
                 this.playername = other.GetComponent<PlayergameObjScript>().PlayerName;
                 this.stopSpinning = true;
+                setPositionScript.Instance.enable(other.GetComponent<PlayergameObjScript>());
             }
             else if (this.playername== other.GetComponent<PlayergameObjScript>().PlayerName)
             {

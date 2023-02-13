@@ -36,6 +36,10 @@ public class MicroAttackManager : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
     public void enable()
     {
+        if (ReadyUpButton!=null)
+        {
+            ReadyUpButton.interactable = false;
+        }
         NetManager = GameObject.FindGameObjectWithTag("NetManager").GetComponent<NetworkManager>();
         characterCustomizer_AttackListHolder = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>();
         characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>();
@@ -72,6 +76,7 @@ public class MicroAttackManager : MonoBehaviour, IPointerEnterHandler, IPointerE
 
         }
         Destroy(this.gameObject.transform.GetChild(1).gameObject);
+        checkChosenAttacks();
 
     }
     private void ShowToolTip(AttackInfo tip, Vector2 mousePos)
@@ -154,12 +159,15 @@ public class MicroAttackManager : MonoBehaviour, IPointerEnterHandler, IPointerE
                     break;
             }
 
-            checkChosenAttacks();
         }
     }
     public void checkChosenAttacks()
     {
-        if (ChosenHolder.childCount == 3)
+        if (ChosenHolder.childCount != 3)
+        {
+            ReadyUpButton.interactable = false;
+        }
+        else
         {
             characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.attackInfos.Add(ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttacksInfo);
             characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.CharChosen_ChosenAttacks_1 = ChosenHolder.transform.GetChild(0).GetComponent<MicroAttackManager>().AttackIDNumber;
@@ -170,10 +178,6 @@ public class MicroAttackManager : MonoBehaviour, IPointerEnterHandler, IPointerE
             characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.character = characterCustomizer_AttackListHolder.character;
             characterCustomizer_PlayerAttackInfosAndChosenAttackNumbers.PlayerHealth = characterCustomizer_AttackListHolder.playerHealth;
             ReadyUpButton.interactable = true;
-        }
-        else
-        {
-            ReadyUpButton.interactable = false;
         }
     }
 

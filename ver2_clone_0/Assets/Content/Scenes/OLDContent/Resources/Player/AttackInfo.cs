@@ -51,9 +51,9 @@ public class AttackInfo
     public PositionItCanBeUsedIn Position;
     public WeaponType weaponType;
     public int numberOfTargetsIfApplicable;
-    public int Damage;
-    public int Accuracy;
-    public int CritChance;
+    public float Damage;
+    public float Accuracy;
+    public float CritChance;
     public StatInflicted[] AffectedStats;
     public int AffectStatAmountIfApplicable;
     public StatInflicted[] StatRemovedIfApplicable;
