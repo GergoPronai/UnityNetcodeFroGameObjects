@@ -64,9 +64,12 @@ public class setPositionScript : MonoBehaviour
     }
     public void Decline()
     {
-        blessedPlayer.gameObject.GetComponent<PlayerMovement>().allowedMove = true;
-        blessedPlayer = null;
-        bleesedUI.SetActive(false);
+        if (blessedPlayer != null)
+        {
+            blessedPlayer.gameObject.GetComponent<PlayerMovement>().allowedMove = true;
+            blessedPlayer = null;
+            bleesedUI.SetActive(false);
+        }
     }
     public void Accept()
     {
