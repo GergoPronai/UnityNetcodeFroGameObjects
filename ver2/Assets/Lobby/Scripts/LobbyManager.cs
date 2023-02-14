@@ -93,7 +93,6 @@ public class LobbyManager : MonoBehaviour {
     public string playerAttack1="0";
     public string playerAttack2= "0";
     public string playerAttack3= "0";
-    public GameObject showStartButton;
     public UnityAction MatchFound;
     private int _maxPlayers;
     private GameObject DungeonGeneratorObj;

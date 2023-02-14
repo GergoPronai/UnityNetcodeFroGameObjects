@@ -78,7 +78,14 @@ public class LobbyUI : MonoBehaviour {
         }
 
         changeGameModeButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost());
-
+        if (changeGameModeButton.gameObject.activeInHierarchy && lobby.Players.Count != lobby.MaxPlayers)
+        {
+            changeGameModeButton.interactable = false;
+        }
+        else if(changeGameModeButton.gameObject.activeInHierarchy && lobby.Players.Count == lobby.MaxPlayers)
+        {
+            changeGameModeButton.interactable = true;
+        }
         lobbyNameText.text = lobby.Name;
         playerCountText.text = lobby.Players.Count + "/" + lobby.MaxPlayers;
         lobbyCodeText.text = lobby.LobbyCode;

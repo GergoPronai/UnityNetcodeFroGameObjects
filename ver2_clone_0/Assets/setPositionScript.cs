@@ -23,8 +23,13 @@ public class setPositionScript : MonoBehaviour
     float MagicIncrease2 = 1.05f;
     float HealthIncrease = 1.25f;
     [Header("player & UI")]
+    public Sprite[] characters;
     public PlayergameObjScript blessedPlayer;
     public GameObject bleesedUI;
+    public TMPro.TextMeshProUGUI blessingName;
+    public Image blessingImage;
+    public TMPro.TextMeshProUGUI description;
+    public int SetPosition = 0;
     private void Start()
     {
         Instance = this;
@@ -33,11 +38,35 @@ public class setPositionScript : MonoBehaviour
     {
         blessedPlayer = player;
         bleesedUI.SetActive(true);
+        switch (blessing)
+        {
+            case blessingType.position1_Blesssing:
+                blessingImage.sprite = characters[0];
+                blessingName.text = "first";
+                description.text = "first";
+                break;
+            case blessingType.position2_Blesssing:
+                blessingImage.sprite = characters[1];
+                blessingName.text = "second";
+                description.text = "second";
+                break;
+            case blessingType.position3_Blesssing:
+                blessingImage.sprite = characters[2];
+                blessingName.text = "third";
+                description.text = "third";
+                break;
+            case blessingType.position4_Blesssing:
+                blessingImage.sprite = characters[3];
+                blessingName.text = "fourth";
+                description.text = "fourth";
+                break;
+        }
     }
     public void Decline()
     {
+        blessedPlayer.gameObject.GetComponent<PlayerMovement>().allowedMove = true;
         blessedPlayer = null;
-        bleesedUI.SetActive(true);
+        bleesedUI.SetActive(false);
     }
     public void Accept()
     {
@@ -96,7 +125,7 @@ public class setPositionScript : MonoBehaviour
                 }
                 break;
         }
-        blessedPlayer.gameObject.GetComponent<PlayerMovement>().allowedMove = false;
+        blessedPlayer.playerPositionInBattle = SetPosition;
     }
 
     // Update is called once per frame
