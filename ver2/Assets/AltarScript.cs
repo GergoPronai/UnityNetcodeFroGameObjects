@@ -14,7 +14,7 @@ public class AltarScript : NetworkBehaviour
     public Transform obj;
     public bool stopSpinning=false;
     public string playername=null;
-
+    public blessingType blessing;
     // Update is called once per frame
     void Update()
     {
@@ -42,7 +42,7 @@ public class AltarScript : NetworkBehaviour
                 other.GetComponent<PlayergameObjScript>().HasPosition = true;
                 this.playername = other.GetComponent<PlayergameObjScript>().PlayerName;
                 this.stopSpinning = true;
-                setPositionScript.Instance.enable(other.GetComponent<PlayergameObjScript>());
+                setPositionScript.Instance.enable(other.GetComponent<PlayergameObjScript>(), blessing);
                 other.gameObject.GetComponent<PlayerMovement>().allowedMove = false;
 
             }

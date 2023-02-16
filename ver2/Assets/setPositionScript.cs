@@ -34,8 +34,9 @@ public class setPositionScript : MonoBehaviour
     {
         Instance = this;
     }
-    public void enable(PlayergameObjScript player)
+    public void enable(PlayergameObjScript player,blessingType blessing_)
     {
+        blessing = blessing_;
         blessedPlayer = player;
         bleesedUI.SetActive(true);
         switch (blessing)
@@ -68,6 +69,7 @@ public class setPositionScript : MonoBehaviour
         {
             blessedPlayer.gameObject.GetComponent<PlayerMovement>().allowedMove = true;
             blessedPlayer = null;
+            blessing = blessingType.position1_Blesssing;
             bleesedUI.SetActive(false);
         }
     }
