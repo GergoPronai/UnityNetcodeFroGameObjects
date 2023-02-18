@@ -16,7 +16,7 @@ public class Dialogue : MonoBehaviour
         StartDialogue();
     }
 
-    void StartDialogue()
+    public void StartDialogue()
     {
         index = 0;
         StartCoroutine(TypeLine());
@@ -40,7 +40,7 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false);
+            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
     public void OnMouseClickedButton()

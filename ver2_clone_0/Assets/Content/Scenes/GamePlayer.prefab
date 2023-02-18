@@ -8694,7 +8694,6 @@ GameObject:
   - component: {fileID: 3136992098025367456}
   - component: {fileID: 627198902272228425}
   - component: {fileID: 4280666169799609420}
-  - component: {fileID: 561444399298939072}
   - component: {fileID: 4692326156251461771}
   m_Layer: 3
   m_Name: GamePlayer
@@ -8893,6 +8892,7 @@ MonoBehaviour:
   playerPositionInBattle: 0
   battleCamCanvas: {fileID: 1341662758780922243}
   HasPosition: 0
+  playerCamera: {fileID: 6200266074758506349}
 --- !u!114 &3136992098025367456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9125,18 +9125,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &561444399298939072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375893901098962156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8fbf54fe88d524d9e163ed08cfe21f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &4692326156251461771
 CapsuleCollider:
   m_ObjectHideFlags: 0

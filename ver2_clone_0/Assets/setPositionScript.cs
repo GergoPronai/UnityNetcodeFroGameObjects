@@ -43,22 +43,22 @@ public class setPositionScript : MonoBehaviour
         {
             case blessingType.position1_Blesssing:
                 blessingImage.sprite = characters[0];
-                blessingName.text = "first";
+                blessingName.text = "Accepting My Blessing Will Put You In First Position";
                 description.text = "first";
                 break;
             case blessingType.position2_Blesssing:
                 blessingImage.sprite = characters[1];
-                blessingName.text = "second";
+                blessingName.text = "Accepting My Blessing Will Put You In second Position";
                 description.text = "second";
                 break;
             case blessingType.position3_Blesssing:
                 blessingImage.sprite = characters[2];
-                blessingName.text = "third";
+                blessingName.text = "Accepting My Blessing Will Put You In third Position";
                 description.text = "third";
                 break;
             case blessingType.position4_Blesssing:
                 blessingImage.sprite = characters[3];
-                blessingName.text = "fourth";
+                blessingName.text = "Accepting My Blessing Will Put You In fourth Position";
                 description.text = "fourth";
                 break;
         }
@@ -131,11 +131,7 @@ public class setPositionScript : MonoBehaviour
                 break;
         }
         blessedPlayer.playerPositionInBattle = SetPosition;
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

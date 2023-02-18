@@ -24,12 +24,15 @@ public class LobbyCreateUI : MonoBehaviour {
         Instance = this;
 
         createButton.onClick.AddListener(() => {
-            LobbyManager.Instance.CreateLobby(
-                lobbyName,
-                maxPlayers,
-                true
-            );
-            Hide();
+            if (maxPlayers <= 4)
+            {
+                LobbyManager.Instance.CreateLobby(
+                    lobbyName,
+                    maxPlayers,
+                    true
+                );
+                Hide();
+            }
         });
 
         lobbyNameButton.onClick.AddListener(() => {

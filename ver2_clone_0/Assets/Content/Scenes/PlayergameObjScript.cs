@@ -29,8 +29,8 @@ public class PlayergameObjScript : NetworkBehaviour
     public bool HasPosition=false;
     private PlayerAttackInfosAndChosenAttackNumbers PlayerAttackInfosAndChosenAttackNumbers_script;
     private GameObject LobbyUIPage;
-    private GameObject DungeonGeneratorObj;
-
+    [Header("Camera Stuff")]
+    public GameObject playerCamera;
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();

@@ -43,13 +43,14 @@ public class AltarScript : NetworkBehaviour
                 this.playername = other.GetComponent<PlayergameObjScript>().PlayerName;
                 this.stopSpinning = true;
                 setPositionScript.Instance.enable(other.GetComponent<PlayergameObjScript>(), blessing);
-                other.gameObject.GetComponent<PlayerMovement>().allowedMove = false;
+                setPositionScript.Instance.Accept();
 
             }
             else if (this.playername == other.GetComponent<PlayergameObjScript>().PlayerName)
             {
                 other.GetComponent<PlayergameObjScript>().playerPositionInBattle = 0;
                 other.GetComponent<PlayergameObjScript>().HasPosition = false;
+                setPositionScript.Instance.Decline();
                 this.stopSpinning = false;
                 this.playername = null;
             }
@@ -58,9 +59,11 @@ public class AltarScript : NetworkBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
-        {            
-            other.gameObject.GetComponent<PlayerMovement>().allowedMove = true;
-            setPositionScript.Instance.Decline();
+        {
+            if (other.GetComponent<PlayergameObjScript>().PlayerName==playername)
+            {
+                setPositionScript.Instance.bleesedUI.SetActive(false);
+            }
         }
     }
 }

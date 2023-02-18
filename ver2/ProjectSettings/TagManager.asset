@@ -18,6 +18,8 @@ TagManager:
   - NetworkManagerUI
   - LobbyPage
   - Generator_Dungeon
+  - Item
+  - DialogueBox
   layers:
   - Default
   - TransparentFX
