@@ -6,7 +6,7 @@ public class StartingRoom : MonoBehaviour
 {
     public GameObject Borders;
     public GameObject[] Doors;
-    private GameObject locked;
+    private List<GameObject> locked = new List<GameObject>();
     public GameObject startCam;
 
     void Start()
@@ -16,7 +16,7 @@ public class StartingRoom : MonoBehaviour
             if (item.activeInHierarchy)
             {
                 item.transform.GetChild(3).gameObject.SetActive(true);
-                locked = item.transform.GetChild(3).gameObject;
+                locked.Add(item.transform.GetChild(3).gameObject);                
             }
         }
     }

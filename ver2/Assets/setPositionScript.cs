@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
 public enum blessingType
 {
@@ -10,13 +11,14 @@ public enum blessingType
     position3_Blesssing,
     position4_Blesssing
 }
-public class setPositionScript : MonoBehaviour
+public class setPositionScript : NetworkBehaviour
 {
     public blessingType blessing;
     public static setPositionScript Instance;
     [Header("multipliers")]
     float MeleeIncrease = 1.25f;
     float MeleeIncrease2 = 1.05f;
+    float CritIncrease = 1.05f;
     float RangeIncrease = 1.25f;
     float RangeIncrease2 = 1.05f;
     float MagicIncrease = 1.25f;
@@ -30,6 +32,8 @@ public class setPositionScript : MonoBehaviour
     public Image blessingImage;
     public TMPro.TextMeshProUGUI description;
     public int SetPosition = 0;
+    public int hasPlayersSetPosition = 0;
+    public int PlayersInScene = 0;
     private void Start()
     {
         Instance = this;
@@ -44,22 +48,22 @@ public class setPositionScript : MonoBehaviour
             case blessingType.position1_Blesssing:
                 blessingImage.sprite = characters[0];
                 blessingName.text = "Accepting My Blessing Will Put You In First Position";
-                description.text = "first";
+                description.text = "My Blessing Greatly Increases Melee Damage And Boosts Crit Chance";
                 break;
             case blessingType.position2_Blesssing:
                 blessingImage.sprite = characters[1];
                 blessingName.text = "Accepting My Blessing Will Put You In second Position";
-                description.text = "second";
+                description.text = "My Blessing Greatly Increases Your Range Damage And Boosts Melee damage";
                 break;
             case blessingType.position3_Blesssing:
                 blessingImage.sprite = characters[2];
                 blessingName.text = "Accepting My Blessing Will Put You In third Position";
-                description.text = "third";
+                description.text = "My Blessing Greatly Increases Your Magic Damage And Boosts Range damage";
                 break;
             case blessingType.position4_Blesssing:
                 blessingImage.sprite = characters[3];
                 blessingName.text = "Accepting My Blessing Will Put You In fourth Position";
-                description.text = "fourth";
+                description.text = "My Blessing Greatly Increases Your Healing Ability And Boosts Magic damage";
                 break;
         }
     }
@@ -67,10 +71,10 @@ public class setPositionScript : MonoBehaviour
     {
         if (blessedPlayer != null)
         {
-            blessedPlayer.gameObject.GetComponent<PlayerMovement>().allowedMove = true;
             blessedPlayer = null;
             blessing = blessingType.position1_Blesssing;
             bleesedUI.SetActive(false);
+            hasPlayersSetPosition--;
         }
     }
     public void Accept()
@@ -84,6 +88,7 @@ public class setPositionScript : MonoBehaviour
                     if (item.weaponType ==WeaponType.Melee_MultiTarget || item.weaponType == WeaponType.Melee_SingleTarget)
                     {
                         item.Damage *= MeleeIncrease;
+                        item.CritChance *= CritIncrease;
                     }
                 }
                 break;
@@ -131,7 +136,7 @@ public class setPositionScript : MonoBehaviour
                 break;
         }
         blessedPlayer.playerPositionInBattle = SetPosition;
-
+        hasPlayersSetPosition++;
     }
 
 }

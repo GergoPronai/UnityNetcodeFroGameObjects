@@ -204,7 +204,7 @@ public class LobbyManager : MonoBehaviour {
                     {
                         TestRelayScript.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
                     }
-                    VotingManager.Instance.joinedLobby = joinedLobby;
+                    setPositionScript.Instance.PlayersInScene = joinedLobby.Players.Count;
                     joinedLobby = null;
                     GameStarted = true;
                 }
