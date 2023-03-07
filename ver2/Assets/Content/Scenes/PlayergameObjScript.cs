@@ -50,8 +50,7 @@ public class PlayergameObjScript : NetworkBehaviour
         battleCamCanvas.SetActive(false);
     }
     public void Start()
-    {
-        
+    {        
         enable();
         checkUIactive.Instance.OnSubmit();
         playerHealth = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().playerHealth;
@@ -71,6 +70,7 @@ public class PlayergameObjScript : NetworkBehaviour
 
         //transform.GetComponent<PlayerMovement>().allowedMove = false;
         StartCoroutine(StartGameWaitCycle(2));
+
     }
     IEnumerator StartGameWaitCycle(int sec)
     {

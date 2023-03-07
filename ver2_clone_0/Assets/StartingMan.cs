@@ -7,27 +7,37 @@ public class StartingMan : NetworkBehaviour
 {
     public static StartingMan Instance;
     private GameObject dialogueBox;
-    public Transform shopkeeper;
+    private Transform shopkeeper;
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
         dialogueBox=GameObject.FindGameObjectWithTag("DialogueBox");
+        shopkeeper = transform.GetChild(0).transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        shopkeeper.LookAt(NetworkManager.Singleton.LocalClient.PlayerObject.transform);
+        if (this.shopkeeper != null && NetworkManager.Singleton.LocalClient != null && NetworkManager.Singleton.LocalClient.PlayerObject != null)
+        {
+            shopkeeper.LookAt(NetworkManager.Singleton.LocalClient.PlayerObject.transform);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
-        dialogueBox.transform.GetChild(0).gameObject.SetActive(true);
+        if (this.shopkeeper != null && other.gameObject == NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
+        {
+            this.dialogueBox.transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        dialogueBox.transform.GetChild(0).gameObject.SetActive(false);
-        dialogueBox.GetComponent<Dialogue>().textMeshComponent.text = string.Empty;        
-        dialogueBox.GetComponent<Dialogue>().StartDialogue();
+        if (this.shopkeeper != null)
+        {
+            this.dialogueBox.transform.GetChild(0).gameObject.SetActive(false);
+            this.dialogueBox.GetComponent<Dialogue>().textMeshComponent.text = string.Empty;
+            this.dialogueBox.GetComponent<Dialogue>().StartDialogue();
+        }
     }
 }

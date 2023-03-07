@@ -75,6 +75,7 @@ public class setPositionScript : NetworkBehaviour
             blessing = blessingType.position1_Blesssing;
             bleesedUI.SetActive(false);
             hasPlayersSetPosition--;
+            checkPlayersSetPositionAgainstLobbyAmount();
         }
     }
     public void Accept()
@@ -137,6 +138,17 @@ public class setPositionScript : NetworkBehaviour
         }
         blessedPlayer.playerPositionInBattle = SetPosition;
         hasPlayersSetPosition++;
+        checkPlayersSetPositionAgainstLobbyAmount();
     }
-
+    void checkPlayersSetPositionAgainstLobbyAmount()
+    {
+        if (PlayersInScene== hasPlayersSetPosition)
+        {
+            //make the players able to embark on their journey
+        }
+        else
+        {
+            //remove ui options
+        }
+    }
 }

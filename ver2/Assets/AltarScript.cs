@@ -34,7 +34,7 @@ public class AltarScript : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag=="Player")
+        if (other.tag=="Player" && other.gameObject == NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
         {
             if (other.GetComponent<PlayergameObjScript>().HasPosition==false)
             {
@@ -58,7 +58,7 @@ public class AltarScript : NetworkBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player"&&other.gameObject == NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
         {
             if (other.GetComponent<PlayergameObjScript>().PlayerName==playername)
             {

@@ -8756,7 +8756,7 @@ GameObject:
   - component: {fileID: 810945576082023628}
   m_Layer: 0
   m_Name: guide
-  m_TagString: Untagged
+  m_TagString: StaringManScriptObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8816,7 +8816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674cd78bbaac18643a6d2ab439d9d313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopkeeper: {fileID: 1584400874355055272}
+  IhaveArrived: 0
 --- !u!1 &8006552221004181499
 GameObject:
   m_ObjectHideFlags: 0
