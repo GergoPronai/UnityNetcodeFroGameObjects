@@ -105,6 +105,9 @@ public class LobbyManager : MonoBehaviour {
     private const float MinIntervalBetweenChatMessages = 1f;
     private float _clientSendTimer;
 
+    public GameObject message;
+
+
     IEnumerator HeartbeatLobbyCoroutine(string lobbyId, float waitTimeSeconds)
     {
         var delay = new WaitForSecondsRealtime(waitTimeSeconds);
@@ -204,7 +207,6 @@ public class LobbyManager : MonoBehaviour {
                     {
                         TestRelayScript.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
                     }
-                    setPositionScript.Instance.PlayersInScene = joinedLobby.Players.Count;
                     joinedLobby = null;
                     GameStarted = true;
                 }
@@ -266,9 +268,10 @@ public class LobbyManager : MonoBehaviour {
 
 
     //joinCodeWorks
-    public async void JoinLobbyByCode(string lobbyCode) {
+    public async void JoinLobbyByCode(string lobbyCode)
+    {
 
-        if (lobbyCode!=null)
+        try
         {
             Player player = GetPlayer();
 
@@ -280,13 +283,23 @@ public class LobbyManager : MonoBehaviour {
 
             OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
         }
-        else
-        {
-            Debug.Log("Lobby Code does not exist");
+        catch (LobbyServiceException e)
+        {            
+            if (e.Reason == LobbyExceptionReason.ValidationError)
+            {
+                this.message.SetActive(true);
+                Debug.LogError($"Failed to join lobby with code {lobbyCode}: {e.Message}");
+                StartCoroutine(setMSGBackToFalse());
+            }
         }
     }
+    IEnumerator setMSGBackToFalse()
+    {
+        yield return new WaitForSeconds(1.5f);
+        this.message.SetActive(false);
+    }
 
-public async void RefreshLobbyList() {
+    public async void RefreshLobbyList() {
         try {
             QueryLobbiesOptions options = new QueryLobbiesOptions();
             options.Count = 25;

@@ -24,7 +24,7 @@ public class setPositionScript : NetworkBehaviour
     float MagicIncrease = 1.25f;
     float MagicIncrease2 = 1.05f;
     float HealthIncrease = 1.25f;
-    [Header("player & UI")]
+    [Header("player & player UI")]
     public Sprite[] characters;
     public PlayergameObjScript blessedPlayer;
     public GameObject bleesedUI;
@@ -34,9 +34,12 @@ public class setPositionScript : NetworkBehaviour
     public int SetPosition = 0;
     public int hasPlayersSetPosition = 0;
     public int PlayersInScene = 0;
+    [Header("StartingRoomUI")]
+    public TMPro.TextMeshProUGUI playersReadyinRoom;
     private void Start()
     {
         Instance = this;
+        playersReadyinRoom.text=hasPlayersSetPosition+"/"+PlayersInScene+" are Ready";
     }
     public void enable(PlayergameObjScript player,blessingType blessing_)
     {
@@ -142,6 +145,7 @@ public class setPositionScript : NetworkBehaviour
     }
     void checkPlayersSetPositionAgainstLobbyAmount()
     {
+        playersReadyinRoom.text = hasPlayersSetPosition + "/" + PlayersInScene + " are Ready";
         if (PlayersInScene== hasPlayersSetPosition)
         {
             //make the players able to embark on their journey

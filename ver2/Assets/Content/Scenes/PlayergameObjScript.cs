@@ -34,6 +34,9 @@ public class PlayergameObjScript : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        //unoptimized but will do
+        setPositionScript.Instance.PlayersInScene++;
+        setPositionScript.Instance.playersReadyinRoom.text = setPositionScript.Instance.hasPlayersSetPosition + "/" + setPositionScript.Instance.PlayersInScene + " are Ready";
     }
     public override void OnNetworkDespawn()
     {

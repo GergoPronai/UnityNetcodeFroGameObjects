@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 103
+  controlID: 28
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -272,8 +272,8 @@ MonoBehaviour:
     y: 0
     width: 390
     height: 939
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -407,7 +407,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 18fbffff
+      m_ExpandedIDs: e0f1ffff18fbfffffa73000010740000da74000056750000de760000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -710,9 +710,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.0002743817, y: 0.0045958, z: 0.000084355575, w: 0.9999894}
   m_Size:
-    m_Target: 10
+    m_Target: 170.26067
     speed: 2
-    m_Value: 10
+    m_Value: 170.26067
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -844,7 +844,7 @@ MonoBehaviour:
     m_SceneHandles: 
     m_ShowAllHits: 0
     m_SkipHidden: 0
-    m_SearchArea: 1
+    m_SearchArea: 0
     m_Folders:
     - Assets/Content/Dungeon/DungeonGen/Prefabs
     m_Globs: []
@@ -859,9 +859,9 @@ MonoBehaviour:
     m_IsLocked: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: b8950000
-    m_LastClickedID: 38328
-    m_ExpandedIDs: 000000009495000096950000989500009a9500009c95000000ca9a3b
+    m_SelectedIDs: 7c950000
+    m_LastClickedID: 38268
+    m_ExpandedIDs: 0000000056950000589500005a9500005c9500005e95000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -889,7 +889,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000009495000096950000989500009a9500009c950000
+    m_ExpandedIDs: 0000000056950000589500005a9500005c9500005e950000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1005,7 +1005,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 29710
+  m_LastSelectedObjectID: -164774
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1063,7 +1063,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 79}
     m_SelectedIDs: d8950000
     m_LastClickedID: 38360
-    m_ExpandedIDs: 000000009495000096950000989500009a9500009c950000
+    m_ExpandedIDs: 0000000056950000589500005a9500005c9500005e950000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1091,7 +1091,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000009495000096950000989500009a9500009c950000
+    m_ExpandedIDs: 0000000056950000589500005a9500005c9500005e950000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
