@@ -79,4 +79,12 @@ public class LobbyChatBehaviour : NetworkBehaviour
     {
         ReceiveChatMessageClientRpc(message, _PlayerName);
     }
+    public void stopPlayerWhenSelected()
+    {
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerMovement>().allowedMove = false;
+    }
+    public void startPlayerWhenDeSelected()
+    {
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerMovement>().allowedMove = true;
+    }
 }

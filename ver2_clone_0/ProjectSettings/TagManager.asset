@@ -21,6 +21,7 @@ TagManager:
   - Item
   - DialogueBox
   - StaringManScriptObject
+  - StartingRoom
   layers:
   - Default
   - TransparentFX

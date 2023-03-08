@@ -6,7 +6,7 @@ public class StartingRoom : MonoBehaviour
 {
     public GameObject Borders;
     public GameObject[] Doors;
-    private List<GameObject> locked = new List<GameObject>();
+    public List<GameObject> locked = new List<GameObject>();
     public GameObject startCam;
 
     void Start()

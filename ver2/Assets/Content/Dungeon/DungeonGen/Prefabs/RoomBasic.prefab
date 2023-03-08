@@ -5673,7 +5673,7 @@ GameObject:
   - component: {fileID: 252983784511647069}
   m_Layer: 0
   m_Name: StartObj
-  m_TagString: Untagged
+  m_TagString: StartingRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5718,6 +5718,7 @@ MonoBehaviour:
   - {fileID: 1669037369740081818}
   - {fileID: 6267084505563036453}
   - {fileID: 451768755173329950}
+  locked: []
   startCam: {fileID: 0}
 --- !u!1 &4735684004412982753
 GameObject:
@@ -8816,7 +8817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674cd78bbaac18643a6d2ab439d9d313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IhaveArrived: 0
 --- !u!1 &8006552221004181499
 GameObject:
   m_ObjectHideFlags: 0

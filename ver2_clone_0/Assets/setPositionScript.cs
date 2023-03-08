@@ -36,6 +36,7 @@ public class setPositionScript : NetworkBehaviour
     public int PlayersInScene = 0;
     [Header("StartingRoomUI")]
     public TMPro.TextMeshProUGUI playersReadyinRoom;
+    public GameObject isEmbarking;
     private void Start()
     {
         Instance = this;
@@ -146,13 +147,27 @@ public class setPositionScript : NetworkBehaviour
     void checkPlayersSetPositionAgainstLobbyAmount()
     {
         playersReadyinRoom.text = hasPlayersSetPosition + "/" + PlayersInScene + " are Ready";
-        if (PlayersInScene== hasPlayersSetPosition)
+        if (PlayersInScene == hasPlayersSetPosition)
         {
-            //make the players able to embark on their journey
+            isEmbarking.SetActive(true);
         }
         else
         {
-            //remove ui options
+            isEmbarking.SetActive(false);
         }
+    }
+    public void OpenLockedDoorsAndBorders()
+    {
+        StartingRoom SatringRoomScript = GameObject.FindGameObjectWithTag("StartingRoom").GetComponent<StartingRoom>();
+        foreach (GameObject item in SatringRoomScript.locked)
+        {
+            item.SetActive(false);
+        }
+        StartCoroutine(StartGameWaitCycle(2));
+        SatringRoomScript.Borders.SetActive(false);
+    }
+    IEnumerator StartGameWaitCycle(int sec)
+    {
+        yield return new WaitForSeconds(sec);
     }
 }
