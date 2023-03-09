@@ -11,6 +11,7 @@ public class EnemyScript : MonoBehaviour
     public float maxHealth = 100;
     public float currentHealth;
 
+    private Canvas canvas;
     public Slider healthBar;
     public TMPro.TextMeshProUGUI healthText;
 
@@ -23,7 +24,9 @@ public class EnemyScript : MonoBehaviour
         }
         currentHealth = maxHealth;
         healthBar.value = currentHealth / maxHealth;
-        healthText.text = currentHealth.ToString()+"/"+ maxHealth.ToString();
+        healthText.text = currentHealth.ToString()+" / "+ maxHealth.ToString();
+        canvas = healthBar.transform.parent.GetComponent<Canvas>();
+        canvas.worldCamera = Camera.main;
     }
     public void TakeDamage(float damage)
     {
