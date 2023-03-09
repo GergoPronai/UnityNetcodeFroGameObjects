@@ -31,21 +31,29 @@ public class setPositionScript : NetworkBehaviour
     public TMPro.TextMeshProUGUI blessingName;
     public Image blessingImage;
     public TMPro.TextMeshProUGUI description;
-    public int SetPosition = 0;
     public int hasPlayersSetPosition = 0;
     public int PlayersInScene = 0;
     [Header("StartingRoomUI")]
     public TMPro.TextMeshProUGUI playersReadyinRoom;
     public GameObject isEmbarking;
+    private AltarScript altarScript_;
+    private int AttackPosition;
+    private GameObject Player;
+    private bool AlreadyChosen=false;
+
     private void Start()
     {
         Instance = this;
         playersReadyinRoom.text=hasPlayersSetPosition+"/"+PlayersInScene+" are Ready";
     }
-    public void enable(PlayergameObjScript player,blessingType blessing_)
-    {
+    public void enable(GameObject player,blessingType blessing_,int position, AltarScript altarScript)
+    {        
+        altarScript_ = altarScript;
+        AttackPosition = position;
+        Player = player;
+        PlayergameObjScript _player = Player.GetComponent<PlayergameObjScript>();
         blessing = blessing_;
-        blessedPlayer = player;
+        blessedPlayer = _player;
         bleesedUI.SetActive(true);
         switch (blessing)
         {
@@ -75,14 +83,53 @@ public class setPositionScript : NetworkBehaviour
     {
         if (blessedPlayer != null)
         {
+            Player.GetComponent<PlayergameObjScript>().playerPositionInBattle = 0;
+            Player.GetComponent<PlayergameObjScript>().HasPosition = false;
             blessedPlayer = null;
             blessing = blessingType.position1_Blesssing;
             bleesedUI.SetActive(false);
-            hasPlayersSetPosition--;
+            if (hasPlayersSetPosition>0) {
+                hasPlayersSetPosition--;
+            }
             checkPlayersSetPositionAgainstLobbyAmount();
+            Player.GetComponent<PlayerMovement>().allowedMove = true;
+            if (altarScript_ != null)
+            {
+                AlreadyChosen = false;
+            }
         }
     }
     public void Accept()
+    {
+        if (AlreadyChosen)
+        {
+            hasPlayersSetPosition--;
+            AcceptAltar();
+        }
+        else
+        {
+            AcceptAltar();
+            if (altarScript_ != null)
+            {
+                AlreadyChosen = true;
+            }
+        }
+    }
+    public void AcceptAltar()
+    {
+        Player.GetComponent<PlayergameObjScript>().playerPositionInBattle = AttackPosition;
+        Player.GetComponent<PlayergameObjScript>().HasPosition = true;
+        if (hasPlayersSetPosition < PlayersInScene)
+        {
+            hasPlayersSetPosition++;
+        }
+        altarScript_.stopSpinning = true;
+        altarScript_.playername = Player.GetComponent<PlayergameObjScript>().PlayerName;
+        Player.GetComponent<PlayerMovement>().allowedMove = true;
+        bleesedUI.SetActive(false);
+        checkPlayersSetPositionAgainstLobbyAmount();
+    }
+    public void SetBonusess()
     {
         switch (blessing)
         {
@@ -90,7 +137,7 @@ public class setPositionScript : NetworkBehaviour
                 //Melee boost
                 foreach (AttackInfo item in blessedPlayer.attackInfos)
                 {
-                    if (item.weaponType ==WeaponType.Melee_MultiTarget || item.weaponType == WeaponType.Melee_SingleTarget)
+                    if (item.weaponType == WeaponType.Melee_MultiTarget || item.weaponType == WeaponType.Melee_SingleTarget)
                     {
                         item.Damage *= MeleeIncrease;
                         item.CritChance *= CritIncrease;
@@ -140,9 +187,7 @@ public class setPositionScript : NetworkBehaviour
                 }
                 break;
         }
-        blessedPlayer.playerPositionInBattle = SetPosition;
-        hasPlayersSetPosition++;
-        checkPlayersSetPositionAgainstLobbyAmount();
+        Player.GetComponent<PlayergameObjScript>().attackInfos = blessedPlayer.attackInfos;
     }
     void checkPlayersSetPositionAgainstLobbyAmount()
     {
@@ -162,8 +207,10 @@ public class setPositionScript : NetworkBehaviour
         foreach (GameObject item in SatringRoomScript.locked)
         {
             item.SetActive(false);
+            item.transform.GetChild(2).gameObject.SetActive(true);
         }
         StartCoroutine(StartGameWaitCycle(2));
+        
         SatringRoomScript.Borders.SetActive(false);
     }
     IEnumerator StartGameWaitCycle(int sec)

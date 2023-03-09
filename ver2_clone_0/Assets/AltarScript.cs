@@ -36,24 +36,8 @@ public class AltarScript : NetworkBehaviour
     {
         if (other.tag=="Player" && other.gameObject == NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
         {
-            if (other.GetComponent<PlayergameObjScript>().HasPosition==false)
-            {
-                other.GetComponent<PlayergameObjScript>().playerPositionInBattle = attack_Position;
-                other.GetComponent<PlayergameObjScript>().HasPosition = true;
-                this.playername = other.GetComponent<PlayergameObjScript>().PlayerName;
-                this.stopSpinning = true;
-                setPositionScript.Instance.enable(other.GetComponent<PlayergameObjScript>(), blessing);
-                setPositionScript.Instance.Accept();
-
-            }
-            else if (this.playername == other.GetComponent<PlayergameObjScript>().PlayerName)
-            {
-                other.GetComponent<PlayergameObjScript>().playerPositionInBattle = 0;
-                other.GetComponent<PlayergameObjScript>().HasPosition = false;
-                setPositionScript.Instance.Decline();
-                this.stopSpinning = false;
-                this.playername = null;
-            }
+            setPositionScript.Instance.enable(other.gameObject, blessing, attack_Position, this);
+            other.GetComponent<PlayerMovement>().allowedMove = false;
         }
     }
     private void OnTriggerExit(Collider other)

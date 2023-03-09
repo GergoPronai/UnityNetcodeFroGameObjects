@@ -106,7 +106,7 @@ public class LobbyManager : MonoBehaviour {
     private float _clientSendTimer;
 
     public GameObject message;
-
+    private bool ClickedAlready = false;
 
     IEnumerator HeartbeatLobbyCoroutine(string lobbyId, float waitTimeSeconds)
     {
@@ -551,7 +551,7 @@ public class LobbyManager : MonoBehaviour {
     {
         GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().enabled=false;
 
-        if (IsLobbyHost())
+        if (IsLobbyHost()&&!ClickedAlready)
         {
             try
             {
@@ -563,6 +563,7 @@ public class LobbyManager : MonoBehaviour {
                         {KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member,relayCode) }
                     }
                 });
+                ClickedAlready = true;
             }
             catch (LobbyServiceException e)
             {
