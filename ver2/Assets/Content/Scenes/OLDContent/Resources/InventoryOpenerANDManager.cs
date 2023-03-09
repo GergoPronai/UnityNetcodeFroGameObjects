@@ -52,4 +52,12 @@ public class InventoryOpenerANDManager : NetworkBehaviour
             Inventorybar.transform.position = pos2.position;
         }
     }
+    public void setInvisibleInventory()
+    {
+        Inventorybar.transform.position = pos2.position;
+        if (IsVis)
+        {
+            IsVis = false;
+        }
+    }
 }
