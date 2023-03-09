@@ -79,6 +79,7 @@ public class PlayergameObjScript : NetworkBehaviour
     {
         yield return new WaitForSeconds(sec);
         StartUp();
+        disable();
     }
     public void StartUp()
     {
