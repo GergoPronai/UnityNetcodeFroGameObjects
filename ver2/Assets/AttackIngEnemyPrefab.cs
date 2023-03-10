@@ -14,7 +14,12 @@ public class AttackIngEnemyPrefab : MonoBehaviour, IPointerEnterHandler, IPointe
     public AttackInfo AttacksInfo;
     public static Action<AttackInfo, Vector2> OnMouseHover;
     public static Action OnMouseLoseFocus;
+    private battleSystem battleSystem;
 
+    void Awake()
+    {
+        battleSystem = GameObject.FindGameObjectWithTag("BattleManager").transform.GetChild(0).GetComponent<battleSystem>();
+    }
     private void OnEnable()
     {
         OnMouseHover += ShowToolTip;
@@ -24,17 +29,6 @@ public class AttackIngEnemyPrefab : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         OnMouseHover -= ShowToolTip;
         OnMouseLoseFocus -= HideToolTip;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     private void HideToolTip()
     {
@@ -127,11 +121,22 @@ public class AttackIngEnemyPrefab : MonoBehaviour, IPointerEnterHandler, IPointe
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        StartCoroutine(WaitForSeconds());
+    }
+    IEnumerator WaitForSeconds()
+    {
+        yield return new WaitForSeconds(2);
         ShowToolTip(AttacksInfo, Input.mousePosition);
     }
-
     public void OnPointerExit(PointerEventData eventData)
     {
         HideToolTip();
+        StopAllCoroutines();
+    }
+    public void Attacking()
+    {
+        battleSystem.Attack(AttacksInfo);
+        battleSystem.selectorObj.SetActive(true);
+
     }
 }

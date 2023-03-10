@@ -27,6 +27,7 @@ public class BattleScript : MonoBehaviour
         Players = GameObject.FindGameObjectsWithTag("Player");
         randomizeEnemies();
         goPlayerPoints();
+        GameObject.FindGameObjectWithTag("BattleManager").transform.GetChild(0).gameObject.SetActive(true);//get the child of for 'find' reasons
     }
 
     // Update is called once per frame

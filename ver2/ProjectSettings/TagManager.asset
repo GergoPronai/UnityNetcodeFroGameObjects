@@ -22,6 +22,8 @@ TagManager:
   - DialogueBox
   - StaringManScriptObject
   - StartingRoom
+  - Enemy
+  - BattleManager
   layers:
   - Default
   - TransparentFX

@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -6463,7 +6463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -7892,7 +7892,7 @@ GameObject:
   - component: {fileID: 3078033054243517838}
   m_Layer: 3
   m_Name: PlayerCam
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9417,7 +9417,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3796969756097738277}
         m_TargetAssemblyTypeName: AttackIngEnemy, Assembly-CSharp
-        m_MethodName: playerAttackEnemy
+        m_MethodName: toggleAttacking
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
