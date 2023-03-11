@@ -36,6 +36,7 @@ public class AttackIngEnemy : MonoBehaviour
         {
             attackHolder.SetActive(true);
         }
+        battleSystem.canSelect = true;
     }
     public void toggleAttacking()
     {
@@ -46,11 +47,12 @@ public class AttackIngEnemy : MonoBehaviour
         }
         else
         {
-            battleSystem.StopAttack();
             battleSystem.selectorObj.SetActive(false);
             battleSystem.selectorObj.transform.position= new Vector3(0f, 0f, 0f);
             attackHolder.SetActive(false);
+            battleSystem.canSelect = false;
 
         }
     }
+
 }

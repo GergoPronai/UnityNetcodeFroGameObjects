@@ -22,7 +22,7 @@ public class battleSystem : MonoBehaviour
     public GameObject selectorObj;
     private GameObject Selected;
     private AttackInfo _attackInfo;
-    private bool canSelect= false;
+    public bool canSelect= false;
 
     void Start()
     {
@@ -61,20 +61,14 @@ public class battleSystem : MonoBehaviour
 
         }
     }
-    public void Attack(AttackInfo attackInfo)
+    public void Select()
     {
         canSelect = true;
+    }
+    public void Attack(AttackInfo attackInfo)
+    {
         _attackInfo = attackInfo;
-        StartCoroutine(WaitForSeconds());
-    }
-    public void StopAttack()
-    {
-        canSelect = false;
-        _attackInfo = null;
-    }
-    private void isAttacking()
-    {
-        float actualDamage = 0f;
+        float actualDamage = 0;
 
         // Check if the attack is a critical hit
         if (Random.Range(0f, 1f) < _attackInfo.CritChance)
@@ -86,19 +80,28 @@ public class battleSystem : MonoBehaviour
             actualDamage = _attackInfo.Damage;
         }
 
-        // Check if the attack hits based on accuracy
-        if (Random.Range(0f, 1f) < _attackInfo.Accuracy)
+        if (Selected.tag == "Enemy" && _attackInfo.weaponType != WeaponType.Attack_Self)
         {
-            Selected.GetComponent<EnemyScript>().TakeDamage(actualDamage);
+            if (Random.Range(0f, 1f) < _attackInfo.Accuracy)
+            {
+                
+                Selected.GetComponent<EnemyScript>().TakeDamage(actualDamage);
+            }
+            else
+            {
+                Selected.GetComponent<EnemyScript>().miss();
+            }
         }
-        else
+        if (Selected.tag == "Player" && _attackInfo.weaponType == WeaponType.Attack_Self)
         {
-            Selected.GetComponent<EnemyScript>().miss();
+            if (Random.Range(0f, 1f) < _attackInfo.Accuracy)
+            {
+                Selected.GetComponent<PlayergameObjScript>().TakeDamage(actualDamage);
+            }
+            else
+            {
+                Selected.GetComponent<PlayergameObjScript>().miss();
+            }
         }
-    }
-    IEnumerator WaitForSeconds()
-    {
-        yield return new WaitForSeconds(2);
-        isAttacking();
     }
 }

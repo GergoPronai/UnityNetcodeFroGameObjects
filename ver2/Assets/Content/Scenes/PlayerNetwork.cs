@@ -23,7 +23,7 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<int> _Charchosen;
 
     public NetworkVariable<FixedString128Bytes> _CharName;
-    public NetworkVariable<int> _CharHealth;
+    public NetworkVariable<float> _CharHealth;
     public NetworkVariable<ulong> _clientID;
     public NetworkVariable<int> playerPositionInBattle;
     public NetworkVariable<CharacterChoices> charChosen;
@@ -50,7 +50,7 @@ public class PlayerNetwork : NetworkBehaviour
         animSpeed = new NetworkVariable<float>(writePerm: permission);
         _Charchosen = new NetworkVariable<int>(writePerm: permission);
         _CharName = new NetworkVariable<FixedString128Bytes>(writePerm: permission);
-        _CharHealth = new NetworkVariable<int>(writePerm: permission);
+        _CharHealth = new NetworkVariable<float>(writePerm: permission);
         _clientID = new NetworkVariable<ulong>(writePerm: permission);
         playerPositionInBattle = new NetworkVariable<int>(writePerm: permission);
 

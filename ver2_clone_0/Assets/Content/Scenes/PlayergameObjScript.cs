@@ -17,7 +17,8 @@ public class PlayergameObjScript : NetworkBehaviour
     public int votes_Cast = 0;
     [Header("Local Player Stuff")]
     public string PlayerName;
-    public int playerHealth;
+    public float currentHealth;
+    public float playerHealth;
     public int _Charchosen;
     public CharacterChoices CharChosen = CharacterChoices.None;
     public int CharChosen_ChosenAttacks_1=0;
@@ -31,6 +32,8 @@ public class PlayergameObjScript : NetworkBehaviour
     private GameObject LobbyUIPage;
     [Header("Camera Stuff")]
     public GameObject playerCamera;
+    public GameObject Missed;
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -56,7 +59,6 @@ public class PlayergameObjScript : NetworkBehaviour
     {        
         enable();
         checkUIactive.Instance.OnSubmit();
-        playerHealth = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<AttackListHolder>().playerHealth;
         attackInfos = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().attackInfos;
         CharChosen_ChosenAttacks_1 = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_1;
         CharChosen_ChosenAttacks_2 = GameObject.FindGameObjectWithTag("CharacterCustomizer").GetComponent<PlayerAttackInfosAndChosenAttackNumbers>().CharChosen_ChosenAttacks_2;
@@ -68,7 +70,7 @@ public class PlayergameObjScript : NetworkBehaviour
         CharChosen_ChosenAttacks_2 = PlayerAttackInfosAndChosenAttackNumbers_script.CharChosen_ChosenAttacks_2;
         CharChosen_ChosenAttacks_3 = PlayerAttackInfosAndChosenAttackNumbers_script.CharChosen_ChosenAttacks_3;
         PlayerName = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerName;
-        playerHealth = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerHealth;
+        currentHealth = playerHealth = PlayerAttackInfosAndChosenAttackNumbers_script.PlayerHealth;
         LobbyUIPage = GameObject.FindGameObjectWithTag("LobbyPage");
 
         //transform.GetComponent<PlayerMovement>().allowedMove = false;
@@ -88,7 +90,12 @@ public class PlayergameObjScript : NetworkBehaviour
             LobbyUIPage.SetActive(false);
         }
     }
-
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, playerHealth);
+        HealthBar.value = currentHealth / playerHealth;
+    }
     public void SetPlayerName(TMPro.TMP_InputField textField)
     {
         PlayerName = textField.text;
@@ -175,5 +182,15 @@ public class PlayergameObjScript : NetworkBehaviour
                 _Charchosen = 3;
                 break;
         }
+    }
+    public void miss()
+    {
+        Missed.gameObject.SetActive(true);
+        StartCoroutine(WaitForSeconds());
+    }
+    IEnumerator WaitForSeconds()
+    {
+        yield return new WaitForSeconds(2);
+        Missed.gameObject.SetActive(false);
     }
 }

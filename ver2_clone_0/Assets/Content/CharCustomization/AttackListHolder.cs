@@ -29,7 +29,7 @@ public class AttackListHolder : MonoBehaviour
     public List<AttackInfo> RogueAttackInfos;
     private GameObject prefabInstantiated=null;
     public TMPro.TextMeshProUGUI healthTxt=null;
-    public int playerHealth = 100;
+    public float playerHealth = 100f;
 
     private void Start()
     {

@@ -5,7 +5,7 @@ using Unity.Netcode;
 using UnityEngine.EventSystems;
 using System;
 
-public class AttackIngEnemyPrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class AttackIngEnemyPrefab : NetworkBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private GameObject InstantiatedObj;
     public GameObject PrefabbedExtraInfo;
@@ -137,6 +137,9 @@ public class AttackIngEnemyPrefab : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         battleSystem.Attack(AttacksInfo);
         battleSystem.selectorObj.SetActive(true);
-
+        if (NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().playerPositionInBattle == (int)AttacksInfo.Position || AttacksInfo.Position==PositionItCanBeUsedIn.All)
+        {
+            
+        }
     }
 }

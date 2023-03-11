@@ -12,7 +12,7 @@ public class PlayerAttackInfosAndChosenAttackNumbers : MonoBehaviour
     public int CharChosen_ChosenAttacks_3 = 0;
     public CharacterChoices character;
     public string PlayerName="";
-    public int PlayerHealth=0;
+    public float PlayerHealth=0;
     public int playerpositionVotes = 1;
 
 }
