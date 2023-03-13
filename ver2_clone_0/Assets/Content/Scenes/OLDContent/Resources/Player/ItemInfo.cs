@@ -10,7 +10,7 @@ public enum ItemType
     Plot
 }
 [Serializable]
-public class ItemInfo:MonoBehaviour
+public class ItemInfo
 {
     public Sprite ItemIcon;
     public int StackSize=1;

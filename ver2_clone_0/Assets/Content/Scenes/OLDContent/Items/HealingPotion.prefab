@@ -27,7 +27,8 @@ Transform:
   m_GameObject: {fileID: 5443313574063077993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6208191049404017894}
   m_Father: {fileID: 0}
@@ -53,8 +54,6 @@ MonoBehaviour:
   Cost: 0
   StatThatMightBeBoosted: 
   ItemType: 1
-  WeaponParticleSystem: {fileID: 5851950495488134858, guid: 363c3d9bda6dde6459b4bc66568f6b39,
-    type: 3}
 --- !u!135 &1966388365035041492
 SphereCollider:
   m_ObjectHideFlags: 0
