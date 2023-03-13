@@ -304,9 +304,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b7501310abe584b9febf7bb031cc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6961271249558752930}
+  Door_animator: {fileID: 6961271249558752930}
+  Camera_animator: {fileID: 0}
   FogParticleSystem: {fileID: 0}
   roomOrientation: 0
+  lockobjs:
+  - {fileID: 2933319829151791422}
+  - {fileID: 3098624077807836490}
 --- !u!65 &7209585494994584892
 BoxCollider:
   m_ObjectHideFlags: 0

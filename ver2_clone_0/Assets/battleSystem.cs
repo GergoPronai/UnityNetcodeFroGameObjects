@@ -15,14 +15,16 @@ public enum BattleState
 public class battleSystem : MonoBehaviour
 {
     public BattleState state;
-    public GameObject[] Enemies;
-    public GameObject[] Players;
+    public GameObject[] enemies;
+    public GameObject[] players;
     public Sprite imageSelection;
     public GameObject selector;
     public GameObject selectorObj;
-    private GameObject Selected;
-    private AttackInfo _attackInfo;
-    public bool canSelect= false;
+    private GameObject selected;
+    private AttackInfo attackInfo;
+    public bool canSelect = false;
+    private string selectedTag = "";
+    private bool playerGoesFirst;
 
     void Start()
     {
@@ -30,78 +32,154 @@ public class battleSystem : MonoBehaviour
         selectorObj = Instantiate(selector, transform);
         selectorObj.GetComponent<Canvas>().worldCamera = Camera.main;
         // Set the sprite of the selector to imageSelection
+        selectorObj.transform.GetChild(0).GetComponent<Image>().sprite = imageSelection;
 
-        Enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        Players = GameObject.FindGameObjectsWithTag("Player");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        players = GameObject.FindGameObjectsWithTag("Player");
+
+        // randomly choose who goes first
+        playerGoesFirst = Random.value < 0.5f;
+
+        if (playerGoesFirst)
+        {
+            state = BattleState.PlayerTurn;
+        }
+        else
+        {
+            state = BattleState.EnemyTurn;
+        }
     }
 
     void Update()
     {
-        // Check if the left mouse button was clicked
-        if (Input.GetMouseButtonDown(0) && canSelect)
+        Debug.LogWarning(state);
+        switch (state)
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.tag == "Enemy")
+            case BattleState.PlayerTurn:
+                // Check if the left mouse button was clicked
+                if (Input.GetMouseButtonDown(0) && canSelect)
                 {
-                    Debug.Log("Hit object: " + hit.collider.gameObject.name);
-                    selectorObj.transform.position = hit.transform.position;
-                    selectorObj.transform.GetChild(0).GetComponent<Image>().color = Color.red;
+                    RaycastHit hit;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        if (hit.collider.tag == "Enemy")
+                        {
+                            selectorObj.transform.position = hit.transform.position;
+                            selectorObj.transform.GetChild(0).GetComponent<Image>().color = Color.red;
+                            selectedTag = "Enemy";
+                            selected = hit.collider.gameObject;
+                        }
+                        if (hit.collider.tag == "Player")
+                        {
+                            selectorObj.transform.position = hit.transform.position;
+                            selectorObj.transform.GetChild(0).GetComponent<Image>().color = Color.green;
+                            selectedTag = "Player";
+                            selected = hit.collider.gameObject;
+                        }
+                        Debug.LogWarning(selected.name);
+                    }
                 }
-                if (hit.collider.tag == "Player")
-                {
-                    Debug.Log("Hit object: " + hit.collider.gameObject.name);
-                    selectorObj.transform.position = hit.transform.position;
-                    selectorObj.transform.GetChild(0).GetComponent<Image>().color = Color.green;
-                }
-                Selected = hit.collider.gameObject;
-            }
+                break;
 
+            case BattleState.EnemyTurn:
+                // choose an enemy to attack
+                GameObject enemyToAttack = enemies[Random.Range(0, enemies.Length)];
+                GameObject playerToAttack = GameObject.FindWithTag("Player");
+                // perform attack
+                float actualDamage = enemyToAttack.GetComponent<EnemyScript>().enemyDamage;
+                if (Random.Range(0f, 1f) < attackInfo.Accuracy)
+                {
+                    playerToAttack.GetComponent<PlayergameObjScript>().TakeDamage(actualDamage);
+                }
+                else
+                {
+                    playerToAttack.GetComponent<PlayergameObjScript>().miss();
+                }
+
+                // switch back to player's turn
+                state = BattleState.PlayerTurn;
+                break;
+
+
+            case BattleState.Won:
+                Debug.Log("You won the battle!");
+                break;
+
+            case BattleState.Lost:
+                Debug.Log("You lost the battle!");
+                break;
+        }
+
+        if (CheckWin())
+        {
+            state = BattleState.Won;
+        }
+        else if (CheckLoss())
+        {
+            state = BattleState.Lost;
         }
     }
+
     public void Select()
     {
         canSelect = true;
     }
+
     public void Attack(AttackInfo attackInfo)
     {
-        _attackInfo = attackInfo;
-        float actualDamage = 0;
+        this.attackInfo = attackInfo;
+        if (selected != null)
+        {
+            if (selectedTag == "Enemy")
+            {
+                if (Random.Range(0f, 1f) < attackInfo.Accuracy)
+                {
+                    selected.GetComponent<EnemyScript>().TakeDamage(attackInfo.Damage);
+                }
 
-        // Check if the attack is a critical hit
-        if (Random.Range(0f, 1f) < _attackInfo.CritChance)
-        {
-            actualDamage = _attackInfo.Damage * 1.5f;
+                else if (selectedTag == "Player")
+                {
+                    if (Random.Range(0f, 1f) < attackInfo.Accuracy)
+                    {
+                        selected.GetComponent<PlayergameObjScript>().TakeDamage(attackInfo.Damage/1000);
+                    }
+                }
+                selected = null;
+                selectedTag = "";
+                state = BattleState.EnemyTurn;
+                if (CheckWin())
+                {
+                    state = BattleState.Won;
+                }
+                else if (CheckLoss())
+                {
+                    state = BattleState.Lost;
+                }
+            }
         }
-        else
+    }
+    private bool CheckWin()
+    {
+        foreach (GameObject enemy in enemies)
         {
-            actualDamage = _attackInfo.Damage;
+            if (enemy.activeSelf)
+            {
+                return false;
+            }
         }
+        return true;
+    }
 
-        if (Selected.tag == "Enemy" && _attackInfo.weaponType != WeaponType.Attack_Self)
+    private bool CheckLoss()
+    {
+        foreach (GameObject player in players)
         {
-            if (Random.Range(0f, 1f) < _attackInfo.Accuracy)
+            if (player.activeSelf)
             {
-                
-                Selected.GetComponent<EnemyScript>().TakeDamage(actualDamage);
-            }
-            else
-            {
-                Selected.GetComponent<EnemyScript>().miss();
+                return false;
             }
         }
-        if (Selected.tag == "Player" && _attackInfo.weaponType == WeaponType.Attack_Self)
-        {
-            if (Random.Range(0f, 1f) < _attackInfo.Accuracy)
-            {
-                Selected.GetComponent<PlayergameObjScript>().TakeDamage(actualDamage);
-            }
-            else
-            {
-                Selected.GetComponent<PlayergameObjScript>().miss();
-            }
-        }
+        return true;
     }
 }

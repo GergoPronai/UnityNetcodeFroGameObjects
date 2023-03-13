@@ -30,6 +30,7 @@ public class PlayerNetwork : NetworkBehaviour
     public NetworkVariable<int> attackIDs_1;
     public NetworkVariable<int> attackIDs_2;
     public NetworkVariable<int> attackIDs_3;
+    public NetworkVariable<bool> hasBattlePosition;
 
 
     private Rigidbody _rb;
@@ -53,6 +54,7 @@ public class PlayerNetwork : NetworkBehaviour
         _CharHealth = new NetworkVariable<float>(writePerm: permission);
         _clientID = new NetworkVariable<ulong>(writePerm: permission);
         playerPositionInBattle = new NetworkVariable<int>(writePerm: permission);
+        hasBattlePosition = new NetworkVariable<bool>(writePerm: permission);
 
         charChosen = new NetworkVariable<CharacterChoices>(writePerm: permission);
         attackIDs_1 = new NetworkVariable<int>(writePerm: permission);
@@ -182,6 +184,7 @@ public class PlayerNetwork : NetworkBehaviour
             attackIDs_1.Value = transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1;
             attackIDs_2.Value = transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2;
             attackIDs_3.Value = transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_3;
+            hasBattlePosition.Value = transform.GetComponent<PlayergameObjScript>().HasPosition;
             SetUpChar();
         }
         else
@@ -198,6 +201,7 @@ public class PlayerNetwork : NetworkBehaviour
         _CharHealth.Value = transform.GetComponent<PlayergameObjScript>().playerHealth;
         playerPositionInBattle.Value = transform.GetComponent<PlayergameObjScript>().playerPositionInBattle;
         charChosen.Value = transform.GetComponent<PlayergameObjScript>().CharChosen;
+        hasBattlePosition.Value = transform.GetComponent<PlayergameObjScript>().HasPosition;
 
         attackIDs_1.Value = transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1;
         attackIDs_2.Value = transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2;
@@ -226,6 +230,7 @@ public class PlayerNetwork : NetworkBehaviour
         transform.GetComponent<PlayergameObjScript>().PlayerName = _CharName.Value.ToString();
         transform.GetComponent<PlayergameObjScript>().playerHealth = _CharHealth.Value;
         transform.GetComponent<PlayergameObjScript>().playerPositionInBattle = playerPositionInBattle.Value;
+        transform.GetComponent<PlayergameObjScript>().HasPosition = hasBattlePosition.Value;
 
         transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_1 = attackIDs_1.Value;
         transform.GetComponent<PlayergameObjScript>().CharChosen_ChosenAttacks_2 = attackIDs_2.Value;

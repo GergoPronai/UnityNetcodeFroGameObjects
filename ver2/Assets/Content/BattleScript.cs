@@ -13,16 +13,19 @@ public class BattleScript : MonoBehaviour
     private int prevSpawnPoint_Enemies=-1;
     [Header("Players")]
     public GameObject PlayerActivatedBattle;
-    public GameObject battleCamParent;
     public GameObject[] Players;
     public GameObject SpawnPointHolder_Players;
-    private GameObject playerCam;
+    private Camera SecondaryCamera;
+    private Camera MainCam;
 
-    [ServerRpc]
-    public void enableServerRpc(GameObject PlayerCam)
+    private void Awake()
     {
-        playerCam = PlayerCam;
-        PlayerActivatedBattle = playerCam.transform.parent.gameObject;
+        MainCam = Camera.main;
+    }
+    [ServerRpc]
+    public void enableServerRpc(GameObject _PlayerActivatedBattle)
+    {
+        PlayerActivatedBattle = _PlayerActivatedBattle;
         amountOfEnemies = Random.Range(1, Enemies.Length);
         Players = GameObject.FindGameObjectsWithTag("Player");
         randomizeEnemies();
@@ -48,24 +51,14 @@ public class BattleScript : MonoBehaviour
         for (int i = 0; i < Players.Length; i++)
         {
             Players[i].GetComponent<PlayerMovement>().SpawnPointHolder_Players = SpawnPointHolder_Players;
-            Players[i].transform.position = Players[i].GetComponent<PlayerMovement>().SpawnPointHolder_Players.transform.GetChild(Players[i].GetComponent<PlayerNetwork>().playerPositionInBattle.Value).position;
+            Vector3 targetPosition = Players[i].GetComponent<PlayerMovement>().SpawnPointHolder_Players.transform.GetChild(Players[i].GetComponent<PlayerNetwork>().playerPositionInBattle.Value).position;
+            Players[i].transform.position = targetPosition;
+            Players[i].transform.GetChild(0).rotation = Quaternion.LookRotation(PlayerActivatedBattle.transform.forward);
             Players[i].GetComponent<PlayerMovement>().allowedMove = false;
             Players[i].GetComponent<PlayerMovement>().animator.SetFloat("Speed", 0f);
             Players[i].GetComponent<PlayergameObjScript>().battleCamCanvas.SetActive(true);
-
-            
-            if (battleCamParent != null)
-            {
-                battleCamParent.SetActive(true);
-                playerCam.transform.SetParent(battleCamParent.transform);
-                playerCam.transform.position = battleCamParent.transform.position;
-                playerCam.transform.rotation = battleCamParent.transform.rotation;
-                battleCamParent.transform.rotation.SetAxisAngle(Vector3.up, SpawnPointHolder_Enemies.transform.rotation.eulerAngles.y + 180f);
-            }
-            else
-            {
-                Debug.Log("BattleCam is null value");
-            }
         }
     }
+    
+
 }

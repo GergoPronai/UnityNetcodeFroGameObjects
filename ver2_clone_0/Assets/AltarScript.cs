@@ -15,7 +15,14 @@ public class AltarScript : NetworkBehaviour
     public bool stopSpinning=false;
     public string playername=null;
     public blessingType blessing;
+    private setPositionScript sePositions;
+
     // Update is called once per frame
+    private void Start()
+    {
+        sePositions = GameObject.FindGameObjectWithTag("PositionsManager").GetComponent<setPositionScript>();
+
+    }
     void Update()
     {
         if (stopSpinning==false)
@@ -34,20 +41,10 @@ public class AltarScript : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag=="Player" && other.gameObject == NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
+        if (other.tag=="Player")
         {
-            setPositionScript.Instance.enable(other.gameObject, blessing, attack_Position, this);
+            sePositions.enable(other.gameObject, blessing, attack_Position, this);
             other.GetComponent<PlayerMovement>().allowedMove = false;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player"&&other.gameObject == NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
-        {
-            if (other.GetComponent<PlayergameObjScript>().PlayerName==playername)
-            {
-                setPositionScript.Instance.bleesedUI.SetActive(false);
-            }
         }
     }
 }

@@ -17,7 +17,6 @@ public class EnemyScript : MonoBehaviour
     public TMPro.TextMeshProUGUI healthText;
     public TMPro.TextMeshProUGUI Missed;
     public static EnemyScript instance;
-
     void Start()
     {
         instance=this;
@@ -29,7 +28,7 @@ public class EnemyScript : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.value = currentHealth / maxHealth;
         healthText.text = currentHealth.ToString()+" / "+ maxHealth.ToString();
-        canvas = healthBar.transform.parent.GetComponent<Canvas>();
+        canvas = healthBar.transform.parent.parent.GetComponent<Canvas>();
         canvas.worldCamera = Camera.main;
         Missed.gameObject.SetActive(false);
 

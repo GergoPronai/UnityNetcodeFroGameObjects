@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
-
+using System.Linq;
 public enum blessingType
 {
     position1_Blesssing,
@@ -14,7 +14,6 @@ public enum blessingType
 public class setPositionScript : NetworkBehaviour
 {
     public blessingType blessing;
-    public static setPositionScript Instance;
     [Header("multipliers")]
     float MeleeIncrease = 1.25f;
     float MeleeIncrease2 = 1.05f;
@@ -40,78 +39,81 @@ public class setPositionScript : NetworkBehaviour
     private int AttackPosition;
     private GameObject Player;
     private bool AlreadyChosen=false;
+    public GameObject[] ui_elementsFromEmbarking;
 
-    private void Start()
-    {
-        Instance = this;
-        playersReadyinRoom.text=hasPlayersSetPosition+"/"+PlayersInScene+" are Ready";
-    }
     public void enable(GameObject player,blessingType blessing_,int position, AltarScript altarScript)
-    {        
-        altarScript_ = altarScript;
-        AttackPosition = position;
-        Player = player;
-        PlayergameObjScript _player = Player.GetComponent<PlayergameObjScript>();
-        blessing = blessing_;
-        blessedPlayer = _player;
-        bleesedUI.SetActive(true);
-        switch (blessing)
+    {
+        if (NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().PlayerName == player.GetComponent<PlayergameObjScript>().PlayerName)
         {
-            case blessingType.position1_Blesssing:
-                blessingImage.sprite = characters[0];
-                blessingName.text = "Accepting My Blessing Will Put You In First Position";
-                description.text = "My Blessing Greatly Increases Melee Damage And Boosts Crit Chance";
-                break;
-            case blessingType.position2_Blesssing:
-                blessingImage.sprite = characters[1];
-                blessingName.text = "Accepting My Blessing Will Put You In second Position";
-                description.text = "My Blessing Greatly Increases Your Range Damage And Boosts Melee damage";
-                break;
-            case blessingType.position3_Blesssing:
-                blessingImage.sprite = characters[2];
-                blessingName.text = "Accepting My Blessing Will Put You In third Position";
-                description.text = "My Blessing Greatly Increases Your Magic Damage And Boosts Range damage";
-                break;
-            case blessingType.position4_Blesssing:
-                blessingImage.sprite = characters[3];
-                blessingName.text = "Accepting My Blessing Will Put You In fourth Position";
-                description.text = "My Blessing Greatly Increases Your Healing Ability And Boosts Magic damage";
-                break;
+            this.altarScript_ = altarScript;
+            this.AttackPosition = position;
+            this.Player = player;
+            PlayergameObjScript _player = this.Player.GetComponent<PlayergameObjScript>();
+            this.blessing = blessing_;
+            this.blessedPlayer = _player;
+            this.bleesedUI.SetActive(true);
+            switch (blessing)
+            {
+                case blessingType.position1_Blesssing:
+                    blessingImage.sprite = characters[0];
+                    blessingName.text = "Accepting My Blessing Will Put You In First Position";
+                    description.text = "My Blessing Greatly Increases Melee Damage And Boosts Crit Chance";
+                    break;
+                case blessingType.position2_Blesssing:
+                    blessingImage.sprite = characters[1];
+                    blessingName.text = "Accepting My Blessing Will Put You In second Position";
+                    description.text = "My Blessing Greatly Increases Your Range Damage And Boosts Melee damage";
+                    break;
+                case blessingType.position3_Blesssing:
+                    blessingImage.sprite = characters[2];
+                    blessingName.text = "Accepting My Blessing Will Put You In third Position";
+                    description.text = "My Blessing Greatly Increases Your Magic Damage And Boosts Range damage";
+                    break;
+                case blessingType.position4_Blesssing:
+                    blessingImage.sprite = characters[3];
+                    blessingName.text = "Accepting My Blessing Will Put You In fourth Position";
+                    description.text = "My Blessing Greatly Increases Your Healing Ability And Boosts Magic damage";
+                    break;
+            }
         }
     }
     public void Decline()
     {
-        if (blessedPlayer != null)
+        if (this.blessedPlayer != null)
         {
-            Player.GetComponent<PlayergameObjScript>().playerPositionInBattle = 0;
-            Player.GetComponent<PlayergameObjScript>().HasPosition = false;
-            blessedPlayer = null;
-            blessing = blessingType.position1_Blesssing;
-            bleesedUI.SetActive(false);
-            if (hasPlayersSetPosition>0) {
-                hasPlayersSetPosition--;
+            this.Player.GetComponent<PlayergameObjScript>().playerPositionInBattle = 0;
+            this.Player.GetComponent<PlayergameObjScript>().HasPosition = false;
+            this.blessedPlayer = null;
+            this.blessing = blessingType.position1_Blesssing;
+            this.bleesedUI.SetActive(false);
+            if (this.hasPlayersSetPosition >0) {
+                this.hasPlayersSetPosition--;
             }
-            checkPlayersSetPositionAgainstLobbyAmount();
-            Player.GetComponent<PlayerMovement>().allowedMove = true;
+            this.Player.GetComponent<PlayerMovement>().allowedMove = true;
             if (altarScript_ != null)
             {
-                AlreadyChosen = false;
+                this.AlreadyChosen = false;
             }
         }
     }
+    private void Update()
+    {
+        checkPlayersSetPositionAgainstLobbyAmount();
+        playersReadyinRoom.text = hasPlayersSetPosition + "/" + PlayersInScene + " are Ready";
+    }
     public void Accept()
     {
-        if (AlreadyChosen)
+        if (this.AlreadyChosen)
         {
-            hasPlayersSetPosition--;
-            AcceptAltar();
+            this.hasPlayersSetPosition--;
+            this.AcceptAltar();
         }
         else
         {
-            AcceptAltar();
+            this.AcceptAltar();
             if (altarScript_ != null)
             {
-                AlreadyChosen = true;
+                this.AlreadyChosen = true;
             }
         }
     }
@@ -127,10 +129,9 @@ public class setPositionScript : NetworkBehaviour
         altarScript_.playername = Player.GetComponent<PlayergameObjScript>().PlayerName;
         Player.GetComponent<PlayerMovement>().allowedMove = true;
         bleesedUI.SetActive(false);
-        checkPlayersSetPositionAgainstLobbyAmount();
     }
     public void SetBonusess()
-    {
+    {        
         switch (blessing)
         {
             case blessingType.position1_Blesssing:
@@ -189,32 +190,72 @@ public class setPositionScript : NetworkBehaviour
         }
         Player.GetComponent<PlayergameObjScript>().attackInfos = blessedPlayer.attackInfos;
     }
+
     void checkPlayersSetPositionAgainstLobbyAmount()
     {
-        playersReadyinRoom.text = hasPlayersSetPosition + "/" + PlayersInScene + " are Ready";
-        if (PlayersInScene == hasPlayersSetPosition)
+        bool allPlayersHavePosition = true;
+
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            isEmbarking.SetActive(true);
+            PlayergameObjScript playerScript = player.GetComponent<PlayergameObjScript>();
+
+            if (!playerScript.HasPosition)
+            {
+                allPlayersHavePosition = false;
+                break;
+            }
+        }
+
+        if (NetworkManager.Singleton.IsHost && allPlayersHavePosition)
+        {
+            this.isEmbarking.SetActive(true);
         }
         else
         {
             isEmbarking.SetActive(false);
         }
     }
-    public void OpenLockedDoorsAndBorders()
+
+    [ServerRpc(RequireOwnership = false)]
+    void SetLockedDoorsAndBordersServerRpc(bool isActive)
     {
-        StartingRoom SatringRoomScript = GameObject.FindGameObjectWithTag("StartingRoom").GetComponent<StartingRoom>();
-        foreach (GameObject item in SatringRoomScript.locked)
+        StartingRoom startingRoomScript = GameObject.FindGameObjectWithTag("StartingRoom").GetComponent<StartingRoom>();
+
+        startingRoomScript.Borders.SetActive(!isActive);
+
+        foreach (GameObject door in startingRoomScript.locked)
+        {
+            door.SetActive(isActive);
+        }
+
+        SetLockedDoorsAndBordersClientRpc(isActive);
+    }
+
+    [ClientRpc]
+    void SetLockedDoorsAndBordersClientRpc(bool isActive)
+    {
+        StartingRoom startingRoomScript = GameObject.FindGameObjectWithTag("StartingRoom").GetComponent<StartingRoom>();
+
+        startingRoomScript.Borders.SetActive(!isActive);
+
+        foreach (GameObject door in startingRoomScript.locked)
+        {
+            door.SetActive(isActive);
+        }
+        var altars = FindObjectsOfType<AltarScript>();
+        foreach (var altar in altars)
+        {
+            altar.gameObject.SetActive(false);
+        }
+        foreach (GameObject item in ui_elementsFromEmbarking)
         {
             item.SetActive(false);
-            item.transform.GetChild(2).gameObject.SetActive(true);
         }
-        StartCoroutine(StartGameWaitCycle(2));
-        
-        SatringRoomScript.Borders.SetActive(false);
     }
-    IEnumerator StartGameWaitCycle(int sec)
+
+    public void OpenLockedDoorsAndBorders()
     {
-        yield return new WaitForSeconds(sec);
+        SetLockedDoorsAndBordersServerRpc(true);
     }
+
 }

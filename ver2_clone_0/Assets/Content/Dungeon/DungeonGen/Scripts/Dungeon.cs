@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AI;
+
 public class Dungeon : Singleton<Dungeon> 
 {
 	// Dungeon Rooms
@@ -26,8 +28,8 @@ public class Dungeon : Singleton<Dungeon>
 		GenerateDungeon();
 		GenerateGameRooms();
 	}
-	
-	
+
+
 	public void GenerateDungeon()
 	{
 		// Create room structure

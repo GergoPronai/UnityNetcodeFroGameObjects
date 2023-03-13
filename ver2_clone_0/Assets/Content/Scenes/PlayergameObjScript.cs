@@ -33,13 +33,15 @@ public class PlayergameObjScript : NetworkBehaviour
     [Header("Camera Stuff")]
     public GameObject playerCamera;
     public GameObject Missed;
+    private setPositionScript sePositions;
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
         //unoptimized but will do
-        setPositionScript.Instance.PlayersInScene++;
-        setPositionScript.Instance.playersReadyinRoom.text = setPositionScript.Instance.hasPlayersSetPosition + "/" + setPositionScript.Instance.PlayersInScene + " are Ready";
+        this.sePositions = GameObject.FindGameObjectWithTag("PositionsManager").GetComponent<setPositionScript>();
+        this.sePositions.PlayersInScene=GameObject.FindGameObjectsWithTag("Player").Length;
+        this.sePositions.playersReadyinRoom.text = this.sePositions.hasPlayersSetPosition + "/" + this.sePositions.PlayersInScene + " are Ready";
     }
     public override void OnNetworkDespawn()
     {
@@ -94,7 +96,9 @@ public class PlayergameObjScript : NetworkBehaviour
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, playerHealth);
-        HealthBar.value = currentHealth / playerHealth;
+        HealthBar.maxValue = playerHealth;
+        HealthBar.value = currentHealth;
+
     }
     public void SetPlayerName(TMPro.TMP_InputField textField)
     {

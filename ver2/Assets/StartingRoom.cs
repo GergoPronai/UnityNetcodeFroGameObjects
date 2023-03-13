@@ -15,15 +15,13 @@ public class StartingRoom : MonoBehaviour
         {
             if (item.activeInHierarchy)
             {
-                item.transform.GetChild(3).gameObject.SetActive(true);
-                locked.Add(item.transform.GetChild(3).gameObject);                
+                foreach (GameObject Obj in item.GetComponent<DoorsScript>().lockobjs)
+                {
+                    Obj.SetActive(true);
+                    locked.Add(Obj);
+                }                              
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

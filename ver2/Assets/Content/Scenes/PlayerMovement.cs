@@ -57,7 +57,23 @@ public class PlayerMovement : NetworkBehaviour
     {
         animator.SetFloat("Speed", animSpeed);
     }
-    
+    public void MoveTo(Vector3 targetPosition)
+    {
+        StartCoroutine(MoveCoroutine(targetPosition));
+    }
+
+    private IEnumerator MoveCoroutine(Vector3 targetPosition)
+    {
+        allowedMove = true;
+
+        while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        allowedMove = false;
+    }
 }
 public static class Helpers
 {

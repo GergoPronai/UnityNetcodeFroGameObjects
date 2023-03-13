@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4511608788785886285}
   m_Layer: 0
   m_Name: character_skeleton_archer_jaw_broken
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 7377746614116559258}
   m_Layer: 0
   m_Name: character_skeleton_archer_eyes
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 853089496282194567}
   m_Layer: 0
   m_Name: character_skeleton_archer_broken
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 3861733371180245874}
   m_Layer: 0
   m_Name: character_skeleton_archer_mask_broken
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -518,18 +518,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2944115964569754486}
-  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 0, z: -8.57}
-  m_LocalScale: {x: 0.120000005, y: 0.12000001, z: 0.12000001}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -3.7698407}
+  m_LocalScale: {x: 0.120000035, y: 0.11999999, z: 0.11999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4705886295979084756}
+  m_Father: {fileID: 6127704637546933070}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4.909973, y: 0.29000854}
-  m_SizeDelta: {x: -894, y: -558}
+  m_AnchoredPosition: {x: 4.0200224, y: -0.28996617}
+  m_SizeDelta: {x: 140.80005, y: 17.599976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &190906339430527044
 CanvasRenderer:
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 6972318554278647482}
   m_Layer: 0
   m_Name: character_skeleton_archer_armLeft_broken
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 8031192169974407742}
   m_Layer: 0
   m_Name: character_skeleton_archer_jaw
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -810,7 +810,7 @@ GameObject:
   - component: {fileID: 5000881283497420871}
   m_Layer: 0
   m_Name: character_skeleton_archer_eyes_broken
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -893,7 +893,7 @@ GameObject:
   - component: {fileID: 5893387815763899903}
   m_Layer: 0
   m_Name: character_skeleton_archer_mask
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -987,21 +987,21 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4237400988741846264}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -4.8}
-  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.120000035, y: 0.11999999, z: 0.11999997}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4846699958478755894}
   - {fileID: 7711300735513488461}
   - {fileID: 7349067222834695974}
   - {fileID: 8053204339015184948}
-  m_Father: {fileID: 4705886295979084756}
+  m_Father: {fileID: 6127704637546933070}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.89, y: 0.58}
+  m_AnchoredPosition: {x: 0.0000141859055, y: 0.000010609627}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2036504521221006950
@@ -1055,6 +1055,44 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &4489757039018220467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6127704637546933070}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6127704637546933070
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489757039018220467}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -4.800015}
+  m_LocalScale: {x: 2.23, y: 2.23, z: 2.23}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1506429045710539405}
+  - {fileID: 3196598913201554987}
+  m_Father: {fileID: 4705886295979084756}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.889843, y: 0.57998466}
+  m_SizeDelta: {x: 19.200003, y: 2.4000003}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4609499484367409067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,7 +1106,7 @@ GameObject:
   - component: {fileID: 6538868122459260543}
   m_Layer: 0
   m_Name: character_skeleton_archer_armRight
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1153,7 +1191,7 @@ GameObject:
   - component: {fileID: 8239575682376136387}
   m_Layer: 0
   m_Name: Canvas
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1170,8 +1208,7 @@ RectTransform:
   m_LocalScale: {x: 0.18999995, y: 0.19000007, z: 0.19000007}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1506429045710539405}
-  - {fileID: 3196598913201554987}
+  - {fileID: 6127704637546933070}
   m_Father: {fileID: 7740927939515948252}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -94.27, y: 0, z: 180}
@@ -1253,7 +1290,7 @@ GameObject:
   - component: {fileID: 6280247502594208194}
   m_Layer: 0
   m_Name: character_skeleton_archer_head
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1345,7 +1382,7 @@ GameObject:
   - component: {fileID: 2485809151777058966}
   m_Layer: 0
   m_Name: character_skeleton_archer_armRight_broken
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1507,7 +1544,7 @@ GameObject:
   - component: {fileID: 8665733818828620252}
   m_Layer: 0
   m_Name: character_skeleton_archer_hood
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1723,7 +1760,7 @@ GameObject:
   - component: {fileID: 7740927938985640716}
   m_Layer: 3
   m_Name: armLeft
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1757,7 +1794,7 @@ GameObject:
   - component: {fileID: 7740927939257186644}
   m_Layer: 3
   m_Name: armRight
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1889,7 +1926,7 @@ GameObject:
   - component: {fileID: 7740927939565275030}
   m_Layer: 3
   m_Name: handSlotLeft
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1920,7 +1957,7 @@ GameObject:
   - component: {fileID: 7740927939609168683}
   m_Layer: 3
   m_Name: KayKit Animated Character
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1953,7 +1990,7 @@ GameObject:
   - component: {fileID: 7740927939727157783}
   m_Layer: 3
   m_Name: Body
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1989,7 +2026,7 @@ GameObject:
   - component: {fileID: 7740927939900035583}
   m_Layer: 3
   m_Name: Head
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2022,7 +2059,7 @@ GameObject:
   - component: {fileID: 7740927940854247222}
   m_Layer: 3
   m_Name: BaseChar
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2054,7 +2091,7 @@ GameObject:
   - component: {fileID: 7740927940876783862}
   m_Layer: 3
   m_Name: handSlotRight
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2086,7 +2123,7 @@ GameObject:
   - component: {fileID: 5518654967844001860}
   m_Layer: 0
   m_Name: character_skeleton_archer_head_broken
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2178,7 +2215,7 @@ GameObject:
   - component: {fileID: 539813080406827708}
   m_Layer: 0
   m_Name: character_skeleton_archer_armLeft
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2301,7 +2338,7 @@ GameObject:
   - component: {fileID: 7503306481752331785}
   m_Layer: 0
   m_Name: character_skeleton_archer
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2391,7 +2428,7 @@ GameObject:
   - component: {fileID: 5997484598092359076}
   m_Layer: 0
   m_Name: character_skeleton_archer_hood_broken
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

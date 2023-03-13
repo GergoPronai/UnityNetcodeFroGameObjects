@@ -12,11 +12,12 @@ public enum RoomOrientation
 }
 public class DoorsScript : MonoBehaviour
 {
-    public Animator animator;
+    public Animator Door_animator;
     public GameObject FogParticleSystem;
     public RoomOrientation roomOrientation;
     private GameObject currentPlayerCam;
     private BattleScript battleScript;
+    public GameObject[] lockobjs;
     private void Start()
     {
         battleScript = transform.parent.transform.parent.gameObject.GetComponent<GameRoom>().battleRoom.GetComponent<BattleScript>();
@@ -25,9 +26,9 @@ public class DoorsScript : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            if (animator.GetBool("Open")!=true)
+            if (Door_animator.GetBool("Open")!=true)
             {
-                animator.SetBool("Open", true);            
+                Door_animator.SetBool("Open", true);            
                 var main = FogParticleSystem.GetComponent<ParticleSystem>().main;
                 main.loop = false;
                 GameObject ParentsParent = transform.parent.transform.parent.gameObject;
@@ -88,8 +89,8 @@ public class DoorsScript : MonoBehaviour
                             battleScript.SpawnPointHolder_Enemies = ParentsParent.GetComponent<GameRoom>()?.battleRoom.transform.GetChild(1).transform.GetChild(2).gameObject;
                             battleScript.SpawnPointHolder_Players = ParentsParent.GetComponent<GameRoom>()?.battleRoom.transform.GetChild(0).transform.GetChild(3).gameObject;
                             break;
-                    }                    
-                    battleScript.enableServerRpc(currentPlayerCam);
+                    }
+                    battleScript.enableServerRpc(col.transform.GetChild(0).gameObject);
                 }
             }
         }

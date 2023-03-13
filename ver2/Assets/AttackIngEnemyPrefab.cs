@@ -16,9 +16,13 @@ public class AttackIngEnemyPrefab : NetworkBehaviour, IPointerEnterHandler, IPoi
     public static Action OnMouseLoseFocus;
     private battleSystem battleSystem;
 
-    void Awake()
+    void Start()
     {
         battleSystem = GameObject.FindGameObjectWithTag("BattleManager").transform.GetChild(0).GetComponent<battleSystem>();
+        if (NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().playerPositionInBattle != (int)AttacksInfo.Position || NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().playerPositionInBattle != (int)AttacksInfo.Position && AttacksInfo.Position != PositionItCanBeUsedIn.All)
+        {
+            this.transform.GetComponent<UnityEngine.UI.Button>().interactable = false;
+        }
     }
     private void OnEnable()
     {
@@ -137,9 +141,5 @@ public class AttackIngEnemyPrefab : NetworkBehaviour, IPointerEnterHandler, IPoi
     {
         battleSystem.Attack(AttacksInfo);
         battleSystem.selectorObj.SetActive(true);
-        if (NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayergameObjScript>().playerPositionInBattle == (int)AttacksInfo.Position || AttacksInfo.Position==PositionItCanBeUsedIn.All)
-        {
-            
-        }
     }
 }
