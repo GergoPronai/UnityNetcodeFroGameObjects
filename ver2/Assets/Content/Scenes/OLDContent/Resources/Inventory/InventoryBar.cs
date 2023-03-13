@@ -46,7 +46,7 @@ public class InventoryBar : MonoBehaviour
         {
             itemSlot[i].transform.GetChild(1).GetComponent<Image>().enabled = true;
             itemSlot[i].transform.GetChild(1).GetComponent<Image>().sprite = inventoryList[i].ItemIcon;
-            itemSlot[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = inventoryList[i].StackSize.ToString();
+            itemSlot[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = inventoryList[i].StackSize.ToString();//weird here textmeshpro or textmeshprugui can cause an error for no reason
         }
     }
 

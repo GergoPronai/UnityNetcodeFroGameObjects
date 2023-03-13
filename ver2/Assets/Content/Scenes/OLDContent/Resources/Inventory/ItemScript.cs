@@ -12,7 +12,6 @@ public class ItemScript : MonoBehaviour
     public float Cost;
     public string StatThatMightBeBoosted = null;
     public ItemType ItemType;
-    public GameObject WeaponParticleSystem = null;
     private ItemInfo item;
 
     // Start is called before the first frame update
@@ -28,7 +27,6 @@ public class ItemScript : MonoBehaviour
         item.Cost = Cost;
         item.StatThatMightBeBoosted = StatThatMightBeBoosted;
         item.ItemType = ItemType;
-        item.WeaponParticleSystem = WeaponParticleSystem;
     }
 
     public ItemInfo GetItem()

@@ -25,7 +25,7 @@ public class battleSystem : MonoBehaviour
     public bool canSelect = false;
     private string selectedTag = "";
     private bool playerGoesFirst;
-
+    public GameObject BattleBox;
     void Start()
     {
         state = BattleState.Start;
@@ -52,7 +52,6 @@ public class battleSystem : MonoBehaviour
 
     void Update()
     {
-        Debug.LogWarning(state);
         switch (state)
         {
             case BattleState.PlayerTurn:
@@ -77,33 +76,24 @@ public class battleSystem : MonoBehaviour
                             selectedTag = "Player";
                             selected = hit.collider.gameObject;
                         }
-                        Debug.LogWarning(selected.name);
+                        
                     }
                 }
                 break;
 
             case BattleState.EnemyTurn:
                 // choose an enemy to attack
-                GameObject enemyToAttack = enemies[Random.Range(0, enemies.Length)];
-                GameObject playerToAttack = GameObject.FindWithTag("Player");
-                // perform attack
-                float actualDamage = enemyToAttack.GetComponent<EnemyScript>().enemyDamage;
-                if (Random.Range(0f, 1f) < attackInfo.Accuracy)
-                {
-                    playerToAttack.GetComponent<PlayergameObjScript>().TakeDamage(actualDamage);
-                }
-                else
-                {
-                    playerToAttack.GetComponent<PlayergameObjScript>().miss();
-                }
-
-                // switch back to player's turn
-                state = BattleState.PlayerTurn;
+                EnemyAttacks();
+                //StartCoroutine(WaitForAttacks());
+                
                 break;
 
 
             case BattleState.Won:
                 Debug.Log("You won the battle!");
+                GameObject chest = Instantiate(BattleBox.GetComponent<BattleScript>().ChestPrefab, BattleBox.transform);
+                chest.GetComponent<chestScript>().ObjectsToSpawn = BattleBox.GetComponent<BattleScript>().possibleItems;
+                chest.GetComponent<chestScript>().enable();
                 break;
 
             case BattleState.Lost:
@@ -125,7 +115,24 @@ public class battleSystem : MonoBehaviour
     {
         canSelect = true;
     }
+    private void EnemyAttacks()
+    {
+        GameObject enemyToAttack = enemies[Random.Range(0, enemies.Length)];
+        GameObject playerToAttack = GameObject.FindWithTag("Player");
+        // perform attack
+        float actualDamage = enemyToAttack.GetComponent<EnemyScript>().enemyDamage;
+        if (Random.Range(0f, 100f) < attackInfo.Accuracy)
+        {
+            playerToAttack.GetComponent<PlayergameObjScript>().TakeDamage(actualDamage);
+        }
+        else
+        {
+            playerToAttack.GetComponent<PlayergameObjScript>().miss();
+        }
 
+        // switch back to player's turn
+        state = BattleState.PlayerTurn;
+    }
     public void Attack(AttackInfo attackInfo)
     {
         this.attackInfo = attackInfo;
@@ -133,7 +140,7 @@ public class battleSystem : MonoBehaviour
         {
             if (selectedTag == "Enemy")
             {
-                if (Random.Range(0f, 1f) < attackInfo.Accuracy)
+                if (Random.Range(0f, 100f) < attackInfo.Accuracy)
                 {
                     selected.GetComponent<EnemyScript>().TakeDamage(attackInfo.Damage);
                 }
@@ -142,11 +149,12 @@ public class battleSystem : MonoBehaviour
                 {
                     if (Random.Range(0f, 1f) < attackInfo.Accuracy)
                     {
-                        selected.GetComponent<PlayergameObjScript>().TakeDamage(attackInfo.Damage/1000);
+                        selected.GetComponent<PlayergameObjScript>().TakeDamage(attackInfo.Damage);
                     }
                 }
                 selected = null;
                 selectedTag = "";
+                selectorObj.transform.position = new Vector3(100, 1000, 100);
                 state = BattleState.EnemyTurn;
                 if (CheckWin())
                 {
@@ -163,9 +171,17 @@ public class battleSystem : MonoBehaviour
     {
         foreach (GameObject enemy in enemies)
         {
-            if (enemy.activeSelf)
+            if (enemy.GetComponent<EnemyScript>().currentHealth >0)
             {
                 return false;
+            }
+        }
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<PlayergameObjScript>().currentHealth > 0)
+            {
+                player.GetComponent<PlayerMovement>().allowedMove = true;
+                return true;
             }
         }
         return true;
@@ -175,11 +191,18 @@ public class battleSystem : MonoBehaviour
     {
         foreach (GameObject player in players)
         {
-            if (player.activeSelf)
+            if (player.GetComponent<PlayergameObjScript>().currentHealth>0)
             {
                 return false;
             }
+            else if (player.GetComponent<PlayergameObjScript>().currentHealth <= 0)
+            {
+                player.GetComponent<PlayergameObjScript>().YouDied.SetActive(true);
+                return true;
+            }
         }
+
         return true;
     }
+
 }

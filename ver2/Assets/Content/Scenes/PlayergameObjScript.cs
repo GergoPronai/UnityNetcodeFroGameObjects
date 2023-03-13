@@ -13,6 +13,7 @@ public class PlayergameObjScript : NetworkBehaviour
     public GameObject[] knight;
     public GameObject[] mage;
     public GameObject[] rogue;
+    public GameObject YouDied;
     public List<AttackInfo> attackInfos = new List<AttackInfo>();
     public int votes_Cast = 0;
     [Header("Local Player Stuff")]
@@ -95,6 +96,14 @@ public class PlayergameObjScript : NetworkBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, playerHealth);
+        HealthBar.maxValue = playerHealth;
+        HealthBar.value = currentHealth;
+
+    }
+    public void AddHealth(float heal)
+    {
+        currentHealth += heal;
         currentHealth = Mathf.Clamp(currentHealth, 0, playerHealth);
         HealthBar.maxValue = playerHealth;
         HealthBar.value = currentHealth;

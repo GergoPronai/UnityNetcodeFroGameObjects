@@ -1583,7 +1583,7 @@ MonoBehaviour:
   - {fileID: 5593025029020171051}
   maxHealth: 100
   currentHealth: 0
-  enemyDamage: 12
+  enemyDamage: 6
   healthBar: {fileID: 4189795094757315516}
   healthText: {fileID: 7259921097532322056}
   Missed: {fileID: 9135435397479908480}

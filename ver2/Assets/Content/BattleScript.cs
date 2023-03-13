@@ -17,7 +17,9 @@ public class BattleScript : MonoBehaviour
     public GameObject SpawnPointHolder_Players;
     private Camera SecondaryCamera;
     private Camera MainCam;
-
+    private GameObject battlemanger;
+    public GameObject ChestPrefab;
+    public GameObject[] possibleItems;
     private void Awake()
     {
         MainCam = Camera.main;
@@ -30,7 +32,10 @@ public class BattleScript : MonoBehaviour
         Players = GameObject.FindGameObjectsWithTag("Player");
         randomizeEnemies();
         goPlayerPoints();
-        GameObject.FindGameObjectWithTag("BattleManager").transform.GetChild(0).gameObject.SetActive(true);//get the child of for 'find' reasons
+        battlemanger = GameObject.FindGameObjectWithTag("BattleManager").transform.GetChild(0).gameObject;
+        battlemanger.SetActive(true);//get the child of for 'find' reasons
+        battlemanger.GetComponent<battleSystem>().BattleBox = this.gameObject;
+
     }
 
     // Update is called once per frame

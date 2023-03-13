@@ -469,6 +469,11 @@ MonoBehaviour:
   PlayerActivatedBattle: {fileID: 0}
   Players: []
   SpawnPointHolder_Players: {fileID: 0}
+  ChestPrefab: {fileID: 6750404795441006875, guid: fc4daefed3c51814b9ea64a1e94af887,
+    type: 3}
+  possibleItems:
+  - {fileID: 5443313574063077993, guid: 56f6e7984e9377b459a869b18ef6b987, type: 3}
+  - {fileID: 5443313574063077993, guid: e230f4a9f7938274e8c1d85adceba78e, type: 3}
 --- !u!1 &781541687924799196
 GameObject:
   m_ObjectHideFlags: 0

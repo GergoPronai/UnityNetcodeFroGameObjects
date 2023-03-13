@@ -11,7 +11,7 @@ public class EnemyScript : MonoBehaviour
     public float maxHealth = 100;
     public float currentHealth;
 
-    public float enemyDamage=12;
+    public float enemyDamage=6;
     private Canvas canvas;
     public Slider healthBar;
     public TMPro.TextMeshProUGUI healthText;
@@ -39,6 +39,22 @@ public class EnemyScript : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         healthBar.value = currentHealth / maxHealth;
         healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+        int randomIndex = Random.Range(0, EnemyDamagedGameObjects.Length);
+
+        for (int i = 0; i < EnemyDamagedGameObjects.Length; i++)
+        {
+            if (currentHealth <= maxHealth * (i + 1) / EnemyDamagedGameObjects.Length)
+            {
+                EnemyDamagedGameObjects[i].SetActive(true);
+                EnemyNormalGameObjects[i].SetActive(false);
+            }
+            else
+            {
+                EnemyDamagedGameObjects[i].SetActive(false);
+                EnemyNormalGameObjects[i].SetActive(true);
+            }
+        }
+
     }
     public void miss()
     {
