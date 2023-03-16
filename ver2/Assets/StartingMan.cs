@@ -36,7 +36,7 @@ public class StartingMan : NetworkBehaviour
         if (this.shopkeeper != null)
         {
             this.dialogueBox.transform.GetChild(0).gameObject.SetActive(false);
-            this.dialogueBox.GetComponent<Dialogue>().textMeshComponent.text = string.Empty;
+            this.dialogueBox.GetComponent<Dialogue>().textMeshComponent.text ="Interact with Tutorial man?";
             this.dialogueBox.GetComponent<Dialogue>().StartDialogue();
         }
     }

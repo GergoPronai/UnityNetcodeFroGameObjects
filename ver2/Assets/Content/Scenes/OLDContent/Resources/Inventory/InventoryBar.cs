@@ -25,7 +25,6 @@ public class InventoryBar : MonoBehaviour
         //inventoryScript = NetworkClient.localPlayer.gameObject.GetComponent<Inventory>();
         // hold reference to use later in UpdateBar
     }
-    //subscribe UpdateBar to OnInventoryChange event
 
     void OnEnable()
     {
@@ -41,14 +40,24 @@ public class InventoryBar : MonoBehaviour
     void UpdateBar()
     {
         inventoryList = inventoryScript.GetInventoryList();
-        
+
+        // reset all item slots to default state
+        foreach (GameObject slot in itemSlot)
+        {
+            slot.transform.GetChild(1).GetComponent<Image>().enabled = false;
+            slot.transform.GetChild(1).GetComponent<Image>().sprite = null;
+            slot.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "";
+        }
+
+        // assign item image and stack size to item slots
         for (int i = 0; i < inventoryList.Count; i++)
         {
             itemSlot[i].transform.GetChild(1).GetComponent<Image>().enabled = true;
             itemSlot[i].transform.GetChild(1).GetComponent<Image>().sprite = inventoryList[i].ItemIcon;
-            itemSlot[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = inventoryList[i].StackSize.ToString();//weird here textmeshpro or textmeshprugui can cause an error for no reason
+            itemSlot[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = inventoryList[i].StackSize.ToString();
         }
     }
+
 
 
 }

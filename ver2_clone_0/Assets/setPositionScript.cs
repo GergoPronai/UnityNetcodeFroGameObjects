@@ -40,6 +40,7 @@ public class setPositionScript : NetworkBehaviour
     private GameObject Player;
     private bool AlreadyChosen=false;
     public GameObject[] ui_elementsFromEmbarking;
+    private int temp;
 
     public void enable(GameObject player,blessingType blessing_,int position, AltarScript altarScript)
     {
@@ -99,6 +100,7 @@ public class setPositionScript : NetworkBehaviour
     private void Update()
     {
         checkPlayersSetPositionAgainstLobbyAmount();
+
         playersReadyinRoom.text = hasPlayersSetPosition + "/" + PlayersInScene + " are Ready";
     }
     public void Accept()
@@ -194,7 +196,7 @@ public class setPositionScript : NetworkBehaviour
     void checkPlayersSetPositionAgainstLobbyAmount()
     {
         bool allPlayersHavePosition = true;
-
+        temp=0;
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
             PlayergameObjScript playerScript = player.GetComponent<PlayergameObjScript>();
@@ -204,7 +206,12 @@ public class setPositionScript : NetworkBehaviour
                 allPlayersHavePosition = false;
                 break;
             }
+            else if(playerScript.HasPosition)
+            {
+                temp ++;
+            }
         }
+        hasPlayersSetPosition = temp;
 
         if (NetworkManager.Singleton.IsHost && allPlayersHavePosition)
         {

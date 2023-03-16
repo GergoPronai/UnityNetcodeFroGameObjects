@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 using TMPro;
-public class Dialogue : MonoBehaviour
+public class Dialogue : NetworkBehaviour
 {
 
     public TextMeshProUGUI textMeshComponent;
@@ -10,49 +11,49 @@ public class Dialogue : MonoBehaviour
     public float text_Speed;
     private int index;
 
-    void Start()
-    {
-        textMeshComponent.text = string.Empty;
-        StartDialogue();
-    }
+    
 
     public void StartDialogue()
     {
-        index = 0;
-        StartCoroutine(TypeLine());
+        if (IsLocalPlayer)
+        {
+            this.textMeshComponent.text = "Interact with Tutorial man?";
+            this.index = 0;
+            this.NextLine();
+        }
     }
 
     IEnumerator TypeLine()
     {
         foreach (char c in lines[index].ToCharArray())
         {
-            textMeshComponent.text += c;
-            yield return new WaitForSeconds(text_Speed);
+            this.textMeshComponent.text += c;
+            yield return new WaitForSeconds(this.text_Speed);
         }
     }
     void NextLine()
     {
-        if (index< lines.Length-1)
+        if (this.index < this.lines.Length-1)
         {
-            index++;
-            textMeshComponent.text = string.Empty;
-            StartCoroutine(TypeLine());
+            this.index++;
+            this.textMeshComponent.text = string.Empty;
+            this.StartCoroutine(TypeLine());
         }
         else
         {
-            transform.GetChild(0).gameObject.SetActive(false);
+            this.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
     public void OnMouseClickedButton()
     {
-        if (textMeshComponent.text == lines[index])
+        if (this.textMeshComponent.text == this.lines[index])
         {
-            NextLine();
+            this.NextLine();
         }
         else
         {
-            StopAllCoroutines();
-            textMeshComponent.text = lines[index];
+            this.StopAllCoroutines();
+            this.textMeshComponent.text = this.lines[index];
         }
     }
 }

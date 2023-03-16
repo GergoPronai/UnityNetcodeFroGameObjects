@@ -26,6 +26,7 @@ public class battleSystem : MonoBehaviour
     private string selectedTag = "";
     private bool playerGoesFirst;
     public GameObject BattleBox;
+    private bool isfinished = false;
     void Start()
     {
         state = BattleState.Start;
@@ -52,62 +53,66 @@ public class battleSystem : MonoBehaviour
 
     void Update()
     {
-        switch (state)
+        if (!isfinished)
         {
-            case BattleState.PlayerTurn:
-                // Check if the left mouse button was clicked
-                if (Input.GetMouseButtonDown(0) && canSelect)
-                {
-                    RaycastHit hit;
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit))
+            switch (state)
+            {
+                case BattleState.PlayerTurn:
+                    // Check if the left mouse button was clicked
+                    if (Input.GetMouseButtonDown(0) && canSelect)
                     {
-                        if (hit.collider.tag == "Enemy")
+                        RaycastHit hit;
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        if (Physics.Raycast(ray, out hit))
                         {
-                            selectorObj.transform.position = hit.transform.position;
-                            selectorObj.transform.GetChild(0).GetComponent<Image>().color = Color.red;
-                            selectedTag = "Enemy";
-                            selected = hit.collider.gameObject;
+                            if (hit.collider.tag == "Enemy")
+                            {
+                                selectorObj.transform.position = hit.transform.position;
+                                selectorObj.transform.GetChild(0).GetComponent<Image>().color = Color.red;
+                                selectedTag = "Enemy";
+                                selected = hit.collider.gameObject;
+                            }
+                            if (hit.collider.tag == "Player")
+                            {
+                                selectorObj.transform.position = hit.transform.position;
+                                selectorObj.transform.GetChild(0).GetComponent<Image>().color = Color.green;
+                                selectedTag = "Player";
+                                selected = hit.collider.gameObject;
+                            }
+
                         }
-                        if (hit.collider.tag == "Player")
-                        {
-                            selectorObj.transform.position = hit.transform.position;
-                            selectorObj.transform.GetChild(0).GetComponent<Image>().color = Color.green;
-                            selectedTag = "Player";
-                            selected = hit.collider.gameObject;
-                        }
-                        
                     }
-                }
-                break;
+                    break;
 
-            case BattleState.EnemyTurn:
-                // choose an enemy to attack
-                EnemyAttacks();
-                //StartCoroutine(WaitForAttacks());
-                
-                break;
+                case BattleState.EnemyTurn:
+                    // choose an enemy to attack
+                    EnemyAttacks();
+                    //StartCoroutine(WaitForAttacks());
+
+                    break;
 
 
-            case BattleState.Won:
-                Debug.Log("You won the battle!");
-                GameObject chest = Instantiate(BattleBox.GetComponent<BattleScript>().ChestPrefab, BattleBox.transform);
-                chest.GetComponent<chestScript>().ObjectsToSpawn = BattleBox.GetComponent<BattleScript>().possibleItems;
-                chest.GetComponent<chestScript>().enable();
-                break;
+                case BattleState.Won:
+                    Debug.Log("You won the battle!");
+                    GameObject chest = Instantiate(BattleBox.GetComponent<BattleScript>().ChestPrefab, BattleBox.transform);
+                    chest.GetComponent<chestScript>().ObjectsToSpawn = BattleBox.GetComponent<BattleScript>().possibleItems;
+                    chest.GetComponent<chestScript>().enable();
+                    isfinished = true;
+                    break;
 
-            case BattleState.Lost:
-                Debug.Log("You lost the battle!");
-                break;
-        }
+                case BattleState.Lost:
+                    Debug.Log("You lost the battle!");
+                    break;
+            }
 
-        if (CheckWin())
-        {
-            state = BattleState.Won;
-        }
-        else if (CheckLoss())
-        {
-            state = BattleState.Lost;
+            if (CheckWin())
+            {
+                state = BattleState.Won;
+            }
+            else if (CheckLoss())
+            {
+                state = BattleState.Lost;
+            }
         }
     }
 
@@ -171,17 +176,13 @@ public class battleSystem : MonoBehaviour
     {
         foreach (GameObject enemy in enemies)
         {
-            if (enemy.GetComponent<EnemyScript>().currentHealth >0)
+            if (enemy.GetComponent<EnemyScript>().currentHealth.Value <= 0)
+            {
+                //enemy.SetActive(false);
+            }
+            if (enemy.activeInHierarchy)
             {
                 return false;
-            }
-        }
-        foreach (GameObject player in players)
-        {
-            if (player.GetComponent<PlayergameObjScript>().currentHealth > 0)
-            {
-                player.GetComponent<PlayerMovement>().allowedMove = true;
-                return true;
             }
         }
         return true;
@@ -191,18 +192,28 @@ public class battleSystem : MonoBehaviour
     {
         foreach (GameObject player in players)
         {
-            if (player.GetComponent<PlayergameObjScript>().currentHealth>0)
-            {
-                return false;
-            }
-            else if (player.GetComponent<PlayergameObjScript>().currentHealth <= 0)
+            if (player.GetComponent<PlayergameObjScript>().currentHealth <= 0)
             {
                 player.GetComponent<PlayergameObjScript>().YouDied.SetActive(true);
-                return true;
+                StartCoroutine(youDied(player));
+                return true; // exit the loop when a player dies
             }
         }
+        return false;
+    }
 
-        return true;
+    IEnumerator youDied(GameObject player)
+    {
+        yield return new WaitForSeconds(2f); // wait for 2 seconds before moving to the next state
+        player.SetActive(false);
+        if (CheckWin())
+        {
+            state = BattleState.Won;
+        }
+        else
+        {
+            state = BattleState.EnemyTurn;
+        }
     }
 
 }

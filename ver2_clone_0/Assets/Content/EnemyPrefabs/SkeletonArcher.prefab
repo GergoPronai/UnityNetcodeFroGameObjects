@@ -975,7 +975,7 @@ GameObject:
   - component: {fileID: 2036504521221006950}
   m_Layer: 5
   m_Name: Health
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1829,6 +1829,8 @@ GameObject:
   - component: {fileID: 7740927939515948259}
   - component: {fileID: 3183796858142764662}
   - component: {fileID: 604075264224810048}
+  - component: {fileID: 4996266119381234033}
+  - component: {fileID: 1744371784333141761}
   m_Layer: 0
   m_Name: SkeletonArcher
   m_TagString: Enemy
@@ -1896,7 +1898,8 @@ MonoBehaviour:
   - {fileID: 5837709134094761170}
   - {fileID: 8163661523349538235}
   maxHealth: 100
-  currentHealth: 0
+  currentHealth:
+    m_InternalValue: 0
   enemyDamage: 6
   healthBar: {fileID: 2036504521221006950}
   healthText: {fileID: 4748977688486423505}
@@ -1915,6 +1918,36 @@ CapsuleCollider:
   m_Height: 2.05
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &4996266119381234033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7740927939515948258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &1744371784333141761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7740927939515948258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9409625f1e7bc2941aebc7e66694df2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _CharHealth:
+    m_InternalValue: 0
 --- !u!1 &7740927939565275029
 GameObject:
   m_ObjectHideFlags: 0

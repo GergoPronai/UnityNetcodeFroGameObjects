@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemIcon: {fileID: 21300000, guid: 6bdcf8d007a08044780f38c8c16e5259, type: 3}
-  StackSize: 10
+  StackSize: 1
   Name: Stat Booster
   Description: Boosts A Random Stat
   Value: 10

@@ -76,6 +76,7 @@ public class Inventory : MonoBehaviour
     //remove items from inventory (after they are used)
     public void RemoveItem(int i)
     {
+
         ItemInfo itemToRemove = inventoryList[i];
         float durationInSeconds = 60f;
 
