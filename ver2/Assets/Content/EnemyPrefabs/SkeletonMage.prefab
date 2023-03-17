@@ -277,7 +277,6 @@ GameObject:
   - component: {fileID: 3920064554009000231}
   - component: {fileID: 5907708798844820124}
   - component: {fileID: 26011688374637519}
-  - component: {fileID: 3063403687357204965}
   m_Layer: 0
   m_Name: SkeletonMage
   m_TagString: Enemy
@@ -345,11 +344,13 @@ MonoBehaviour:
   - {fileID: 8698320417394178257}
   - {fileID: 8847152083456752058}
   maxHealth: 100
-  currentHealth: 0
+  currentHealth:
+    m_InternalValue: 100
   enemyDamage: 6
   healthBar: {fileID: 54220257371328723}
   healthText: {fileID: 5416450350251395482}
   Missed: {fileID: 4014088587687370918}
+  healthManager: {fileID: 0}
 --- !u!136 &5907708798844820124
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -380,20 +381,6 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &3063403687357204965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291117377338556460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9409625f1e7bc2941aebc7e66694df2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _CharHealth:
-    m_InternalValue: 0
 --- !u!1 &1432291781095620680
 GameObject:
   m_ObjectHideFlags: 0

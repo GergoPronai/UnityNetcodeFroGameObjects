@@ -31,10 +31,10 @@ public class BattleScript : MonoBehaviour
         amountOfEnemies = Random.Range(1, Enemies.Length);
         Players = GameObject.FindGameObjectsWithTag("Player");
         randomizeEnemies();
-        goPlayerPoints();
+        goPlayerPoints();        
         battlemanger = GameObject.FindGameObjectWithTag("BattleManager").transform.GetChild(0).gameObject;
         battlemanger.SetActive(true);//get the child of for 'find' reasons
-        battlemanger.GetComponent<battleSystem>().BattleBox = this.gameObject;
+        battlemanger.GetComponent<battleSystem>().battleBox = this.gameObject;
 
     }
 
@@ -47,9 +47,12 @@ public class BattleScript : MonoBehaviour
             while(spawnPoint==prevSpawnPoint_Enemies)
             {
                 spawnPoint = Random.Range(0, SpawnPointHolder_Enemies.transform.childCount);
-            }        
+            }
+            
             GameObject enemy = Instantiate(Enemies[Random.Range(0, Enemies.Length)], SpawnPointHolder_Enemies.transform.GetChild(spawnPoint).transform);
+           
         }
+        GameObject.FindGameObjectWithTag("EnemyHealthManager").transform.GetChild(0).gameObject.SetActive(true);
     }
     public void goPlayerPoints()
     {

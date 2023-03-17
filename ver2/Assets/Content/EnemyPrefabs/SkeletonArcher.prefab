@@ -1830,7 +1830,6 @@ GameObject:
   - component: {fileID: 3183796858142764662}
   - component: {fileID: 604075264224810048}
   - component: {fileID: 4996266119381234033}
-  - component: {fileID: 1744371784333141761}
   m_Layer: 0
   m_Name: SkeletonArcher
   m_TagString: Enemy
@@ -1904,6 +1903,7 @@ MonoBehaviour:
   healthBar: {fileID: 2036504521221006950}
   healthText: {fileID: 4748977688486423505}
   Missed: {fileID: 3132912489344317973}
+  healthManager: {fileID: 0}
 --- !u!136 &604075264224810048
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1934,20 +1934,6 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &1744371784333141761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7740927939515948258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9409625f1e7bc2941aebc7e66694df2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _CharHealth:
-    m_InternalValue: 0
 --- !u!1 &7740927939565275029
 GameObject:
   m_ObjectHideFlags: 0

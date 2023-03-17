@@ -25,6 +25,7 @@ TagManager:
   - Enemy
   - BattleManager
   - PositionsManager
+  - EnemyHealthManager
   layers:
   - Default
   - TransparentFX

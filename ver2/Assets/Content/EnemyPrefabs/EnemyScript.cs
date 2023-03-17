@@ -10,7 +10,7 @@ public class EnemyScript : NetworkBehaviour
     public GameObject[] EnemyDamagedGameObjects;
 
     public float maxHealth = 100;
-    public NetworkVariable<float> currentHealth = new NetworkVariable<float>(100f);
+    public float currentHealth;
 
     public float enemyDamage = 6;
     private Canvas canvas;
@@ -22,19 +22,90 @@ public class EnemyScript : NetworkBehaviour
 
     private bool HasTakenDamage
     {
-        get { return currentHealth.Value < maxHealth; }
+        get { return currentHealth < maxHealth; }
     }
 
+    private int enemyIndex;
+    public int EnemyIndex
+    {
+        get { return enemyIndex; }
+        set
+        {
+            enemyIndex = value;
+            // Update the enemy's index in the EnemyHealthManager
+            if (healthManager != null)
+            {
+                switch (enemyIndex)
+                {
+                    case 0:
+                        healthManager.enemy1Health.Value = currentHealth;
+                        break;
+                    case 1:
+                        healthManager.enemy2Health.Value = currentHealth;
+                        break;
+                    case 2:
+                        healthManager.enemy3Health.Value = currentHealth;
+                        break;
+                    case 3:
+                        healthManager.enemy4Health.Value = currentHealth;
+                        break;
+                    default:
+                        Debug.LogError("Invalid enemy index!");
+                        break;
+                }
+            }
+        }
+    }
+
+    public float CurrentHealth
+    {
+        get { return currentHealth; }
+        set
+        {
+            currentHealth = value;
+            // Update the enemy's health in the EnemyHealthManager
+            if (healthManager != null)
+            {
+                switch (enemyIndex)
+                {
+                    case 0:
+                        healthManager.enemy1Health.Value = currentHealth;
+                        break;
+                    case 1:
+                        healthManager.enemy2Health.Value = currentHealth;
+                        break;
+                    case 2:
+                        healthManager.enemy3Health.Value = currentHealth;
+                        break;
+                    case 3:
+                        healthManager.enemy4Health.Value = currentHealth;
+                        break;
+                    default:
+                        Debug.LogError("Invalid enemy index!");
+                        break;
+                }
+            }
+            // Update the health bar and text for the enemy
+            if (healthBar != null && healthText != null)
+            {
+                healthBar.value = currentHealth / maxHealth;
+                healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+            }
+        }
+    }
 
     public EnemyHealthManager healthManager;
 
     private void Start()
     {
-        healthManager = EnemyHealthManager.Instance;
+        currentHealth = maxHealth;
+        healthManager = GameObject.FindGameObjectWithTag("EnemyHealthManager").transform.GetChild(0).GetComponent<EnemyHealthManager>();
+
+        currentHealth = maxHealth;
 
         // Set the health bar and text for the enemy
-        healthBar.value = healthManager.EnemyHealth.Value / maxHealth;
-        healthText.text = healthManager.EnemyHealth.Value.ToString() + " / " + maxHealth.ToString();
+        healthBar.value = currentHealth / maxHealth;
+        healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
 
         // Disable damaged game objects initially
         foreach (GameObject item in EnemyDamagedGameObjects)
@@ -48,32 +119,6 @@ public class EnemyScript : NetworkBehaviour
 
         // Hide the missed text
         Missed.gameObject.SetActive(false);
-    }
-
-    public void TakeDamage(float damage)
-    {
-        // Subtract damage from the enemy's health
-        healthManager.EnemyHealth.Value -= damage;
-
-        // Update the health bar and text
-        healthBar.value = healthManager.EnemyHealth.Value / maxHealth;
-        healthText.text = healthManager.EnemyHealth.Value.ToString() + " / " + maxHealth.ToString();
-
-        // Show damaged game object if health is below a certain threshold
-        for (int i = 0; i < EnemyDamagedGameObjects.Length; i++)
-        {
-            if (currentHealth.Value <= maxHealth * (i + 1) / EnemyDamagedGameObjects.Length)
-            {
-                EnemyDamagedGameObjects[i].SetActive(true);
-                EnemyNormalGameObjects[i].SetActive(false);
-            }
-        }
-
-        // Check if the enemy is dead and trigger the Dead event if it is
-        if (currentHealth.Value == 0 && Dead != null)
-        {
-            Dead();
-        }
     }
 
     public void Miss()
@@ -90,6 +135,84 @@ public class EnemyScript : NetworkBehaviour
 
     public float Health
     {
-        get { return currentHealth.Value; }
+        get
+        {
+            return currentHealth;
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        // Only allow the server to take damage
+        if (!IsServer)
+            return;
+        // Reduce the current health of the enemy
+        currentHealth -= damage;
+
+        // Update the enemy's health in the EnemyHealthManager
+        if (healthManager != null)
+        {
+            switch (enemyIndex)
+            {
+                case 0:
+                    healthManager.enemy1Health.Value = currentHealth;
+                    break;
+                case 1:
+                    healthManager.enemy2Health.Value = currentHealth;
+                    break;
+                case 2:
+                    healthManager.enemy3Health.Value = currentHealth;
+                    break;
+                case 3:
+                    healthManager.enemy4Health.Value = currentHealth;
+                    break;
+                default:
+                    Debug.LogError("Invalid enemy index!");
+                    break;
+            }
+        }
+
+        // If the enemy's health is less than or equal to 0, they are dead
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            // Disable the normal game object and enable the damaged game object
+            foreach (GameObject item in EnemyNormalGameObjects)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in EnemyDamagedGameObjects)
+            {
+                item.SetActive(true);
+            }
+            // Invoke the Dead event
+            Dead?.Invoke();
+            // Destroy the enemy after a short delay
+            StartCoroutine(DestroyAfterDelay());
+        }
+        else
+        {
+            // Play the hit animation
+            foreach (GameObject item in EnemyNormalGameObjects)
+            {
+                item.GetComponent<Animator>().SetTrigger("Hit");
+            }
+            foreach (GameObject item in EnemyDamagedGameObjects)
+            {
+                item.GetComponent<Animator>().SetTrigger("Hit");
+            }
+        }
+        // Update the health bar and text for the enemy
+        if (healthBar != null && healthText != null)
+        {
+            healthBar.value = currentHealth / maxHealth;
+            healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+        }
+    }
+
+    IEnumerator DestroyAfterDelay()
+    {
+        yield return new WaitForSeconds(2);
+        Destroy(this.gameObject);
     }
 }

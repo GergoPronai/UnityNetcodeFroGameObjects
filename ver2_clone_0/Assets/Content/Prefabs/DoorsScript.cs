@@ -91,6 +91,7 @@ public class DoorsScript : MonoBehaviour
                             break;
                     }
                     battleScript.enableServerRpc(col.transform.GetChild(0).gameObject);
+
                 }
             }
         }

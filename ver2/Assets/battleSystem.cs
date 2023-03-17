@@ -25,8 +25,8 @@ public class battleSystem : MonoBehaviour
     public bool canSelect = false;
     private string selectedTag = "";
     private bool playerGoesFirst;
-    public GameObject BattleBox;
-    private bool isfinished = false;
+    public GameObject battleBox;
+    private bool isFinished = false;
     void Start()
     {
         state = BattleState.Start;
@@ -51,14 +51,13 @@ public class battleSystem : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if (!isfinished)
+        if (!isFinished)
         {
             switch (state)
             {
                 case BattleState.PlayerTurn:
-                    // Check if the left mouse button was clicked
                     if (Input.GetMouseButtonDown(0) && canSelect)
                     {
                         RaycastHit hit;
@@ -79,25 +78,21 @@ public class battleSystem : MonoBehaviour
                                 selectedTag = "Player";
                                 selected = hit.collider.gameObject;
                             }
-
                         }
                     }
                     break;
 
                 case BattleState.EnemyTurn:
-                    // choose an enemy to attack
                     EnemyAttacks();
-                    //StartCoroutine(WaitForAttacks());
-
                     break;
-
 
                 case BattleState.Won:
                     Debug.Log("You won the battle!");
-                    GameObject chest = Instantiate(BattleBox.GetComponent<BattleScript>().ChestPrefab, BattleBox.transform);
-                    chest.GetComponent<chestScript>().ObjectsToSpawn = BattleBox.GetComponent<BattleScript>().possibleItems;
+                    GameObject chest = Instantiate(battleBox.GetComponent<BattleScript>().ChestPrefab, battleBox.transform);
+                    chest.transform.eulerAngles = new Vector3(90, 0, 0);
+                    chest.GetComponent<chestScript>().ObjectsToSpawn = battleBox.GetComponent<BattleScript>().possibleItems;
                     chest.GetComponent<chestScript>().enable();
-                    isfinished = true;
+                    isFinished = true;
                     break;
 
                 case BattleState.Lost:
@@ -120,6 +115,14 @@ public class battleSystem : MonoBehaviour
     {
         canSelect = true;
     }
+
+    private IEnumerator WaitForAttacks()
+    {
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.PlayerTurn;
+    }
+
     private void EnemyAttacks()
     {
         GameObject enemyToAttack = enemies[Random.Range(0, enemies.Length)];
@@ -138,6 +141,7 @@ public class battleSystem : MonoBehaviour
         // switch back to player's turn
         state = BattleState.PlayerTurn;
     }
+
     public void Attack(AttackInfo attackInfo)
     {
         this.attackInfo = attackInfo;
@@ -172,13 +176,14 @@ public class battleSystem : MonoBehaviour
             }
         }
     }
+
     private bool CheckWin()
     {
         foreach (GameObject enemy in enemies)
         {
-            if (enemy.GetComponent<EnemyScript>().currentHealth.Value <= 0)
+            if (enemy.GetComponent<EnemyScript>().currentHealth <= 0)
             {
-                //enemy.SetActive(false);
+                enemy.SetActive(false);
             }
             if (enemy.activeInHierarchy)
             {
@@ -201,18 +206,15 @@ public class battleSystem : MonoBehaviour
         }
         return false;
     }
-
-    IEnumerator youDied(GameObject player)
+    private IEnumerator youDied(GameObject player)
     {
-        yield return new WaitForSeconds(2f); // wait for 2 seconds before moving to the next state
-        player.SetActive(false);
-        if (CheckWin())
+        yield return new WaitForSeconds(3f);
+        player.GetComponent<PlayergameObjScript>().YouDied.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        Destroy(player);
+        if (players.Length == 1)
         {
-            state = BattleState.Won;
-        }
-        else
-        {
-            state = BattleState.EnemyTurn;
+            state = BattleState.Lost;
         }
     }
 
