@@ -153,26 +153,29 @@ public class battleSystem : MonoBehaviour
                 {
                     selected.GetComponent<EnemyScript>().TakeDamage(attackInfo.Damage);
                 }
-
-                else if (selectedTag == "Player")
+                else
                 {
-                    if (Random.Range(0f, 1f) < attackInfo.Accuracy)
-                    {
-                        selected.GetComponent<PlayergameObjScript>().TakeDamage(attackInfo.Damage);
-                    }
-                }
-                selected = null;
-                selectedTag = "";
-                selectorObj.transform.position = new Vector3(100, 1000, 100);
-                state = BattleState.EnemyTurn;
-                if (CheckWin())
+                    selected.GetComponent<EnemyScript>().Miss();
+                }                
+            }
+            /*else if (selectedTag == "Player")
+            {
+                if (Random.Range(0f, 1f) < attackInfo.Accuracy)
                 {
-                    state = BattleState.Won;
+                    selected.GetComponent<PlayergameObjScript>().TakeDamage(attackInfo.Damage);
                 }
-                else if (CheckLoss())
-                {
-                    state = BattleState.Lost;
-                }
+            }*/
+            selected = null;
+            selectedTag = "";
+            selectorObj.transform.position = new Vector3(100, 1000, 100);
+            state = BattleState.EnemyTurn;
+            if (CheckWin())
+            {
+                state = BattleState.Won;
+            }
+            else if (CheckLoss())
+            {
+                state = BattleState.Lost;
             }
         }
     }
@@ -181,7 +184,7 @@ public class battleSystem : MonoBehaviour
     {
         foreach (GameObject enemy in enemies)
         {
-            if (enemy.GetComponent<EnemyScript>().currentHealth <= 0)
+            if (enemy.GetComponent<EnemyScript>().health.Value <= 0)
             {
                 enemy.SetActive(false);
             }

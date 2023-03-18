@@ -6728,6 +6728,10 @@ MonoBehaviour:
   enemy2: {fileID: 0}
   enemy3: {fileID: 0}
   enemy4: {fileID: 0}
+  _enemy1Health: 0
+  _enemy2Health: 0
+  _enemy3Health: 0
+  _enemy4Health: 0
   enemy1Health:
     m_InternalValue: 100
   enemy2Health:
