@@ -20,22 +20,22 @@ public class EnemyHealthManager : NetworkBehaviour
     public NetworkVariable<float> enemy3Health = new NetworkVariable<float>(0f);
     public NetworkVariable<float> enemy4Health = new NetworkVariable<float>(0f);
 
-    /*private void Start()
+    private void Start()
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         switch (enemies.Length)
         {
             case 1:
                 enemy1 = enemies[0];
-                enemy1Health.Value = enemy1.GetComponent<EnemyScript>().currentHealth;
+                enemy1Health.Value = enemy1.GetComponent<EnemyScript>().health.Value;
                 enemy1.GetComponent<EnemyScript>().enemyIndex = 1;
                 _enemy1Health = enemy1Health.Value;
                 break;
             case 2:
                 enemy1 = enemies[0];
                 enemy2 = enemies[1];
-                enemy1Health.Value = enemy1.GetComponent<EnemyScript>().currentHealth;
-                enemy2Health.Value = enemy2.GetComponent<EnemyScript>().currentHealth;
+                enemy1Health.Value = enemy1.GetComponent<EnemyScript>().health.Value;
+                enemy2Health.Value = enemy2.GetComponent<EnemyScript>().health.Value;
                 enemy1.GetComponent<EnemyScript>().enemyIndex = 1;
                 enemy2.GetComponent<EnemyScript>().enemyIndex = 2;
                 _enemy1Health = enemy1Health.Value;
@@ -45,9 +45,9 @@ public class EnemyHealthManager : NetworkBehaviour
                 enemy1 = enemies[0];
                 enemy2 = enemies[1];
                 enemy3 = enemies[2];
-                enemy1Health.Value = enemy1.GetComponent<EnemyScript>().currentHealth;
-                enemy2Health.Value = enemy2.GetComponent<EnemyScript>().currentHealth;
-                enemy3Health.Value = enemy3.GetComponent<EnemyScript>().currentHealth;
+                enemy1Health.Value = enemy1.GetComponent<EnemyScript>().health.Value;
+                enemy2Health.Value = enemy2.GetComponent<EnemyScript>().health.Value;
+                enemy3Health.Value = enemy3.GetComponent<EnemyScript>().health.Value;
                 enemy1.GetComponent<EnemyScript>().enemyIndex = 1;
                 enemy2.GetComponent<EnemyScript>().enemyIndex = 2;
                 enemy3.GetComponent<EnemyScript>().enemyIndex = 3;
@@ -60,10 +60,10 @@ public class EnemyHealthManager : NetworkBehaviour
                 enemy2 = enemies[1];
                 enemy3 = enemies[2];
                 enemy4 = enemies[3];
-                enemy1Health.Value = enemy1.GetComponent<EnemyScript>().currentHealth;
-                enemy2Health.Value = enemy2.GetComponent<EnemyScript>().currentHealth;
-                enemy3Health.Value = enemy3.GetComponent<EnemyScript>().currentHealth;
-                enemy4Health.Value = enemy4.GetComponent<EnemyScript>().currentHealth;
+                enemy1Health.Value = enemy1.GetComponent<EnemyScript>().health.Value;
+                enemy2Health.Value = enemy2.GetComponent<EnemyScript>().health.Value;
+                enemy3Health.Value = enemy3.GetComponent<EnemyScript>().health.Value;
+                enemy4Health.Value = enemy4.GetComponent<EnemyScript>().health.Value;
                 enemy1.GetComponent<EnemyScript>().enemyIndex = 1;
                 enemy2.GetComponent<EnemyScript>().enemyIndex = 2;
                 enemy3.GetComponent<EnemyScript>().enemyIndex = 3;
@@ -117,5 +117,5 @@ public class EnemyHealthManager : NetworkBehaviour
                 Debug.LogError("Invalid enemy index!");
                 break;
         }
-    }*/
+    }
 }

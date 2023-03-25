@@ -16,6 +16,7 @@ public class EnemyScript : NetworkBehaviour
     public TMPro.TextMeshProUGUI Missed;
     public GameObject[] EnemyNormalGameObjects;
     public GameObject[] EnemyDamagedGameObjects;
+    private EnemyHealthManager enemyHealthManager;
 
     private void Start()
     {
@@ -29,6 +30,11 @@ public class EnemyScript : NetworkBehaviour
         healthBar.value = health.Value / maxHealth;
         healthText.text = health.Value.ToString() + " / " + maxHealth.ToString();
         Missed.gameObject.SetActive(false);
+
+
+        //initialize enemyhealthManager
+
+        enemyHealthManager = GameObject.FindGameObjectWithTag("EnemyHealthManager").transform.GetChild(0).GetComponent<EnemyHealthManager>();
 
     }
 
@@ -54,20 +60,8 @@ public class EnemyScript : NetworkBehaviour
         }
     }
 
-    private void Awake()
-    {
-        health.OnValueChanged += OnHealthChanged;
-    }
 
-    private void OnDestroy()
+    public void Die()
     {
-        health.OnValueChanged -= OnHealthChanged;
-    }
-
-    private void OnHealthChanged(float oldValue, float newValue)
-    {
-        // Update health UI or other relevant UI elements here
-        healthBar.value = newValue / maxHealth;
-        healthText.text = newValue.ToString() + " / " + maxHealth.ToString();
     }
 }
